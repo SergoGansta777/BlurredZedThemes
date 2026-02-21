@@ -212,12 +212,6 @@ func buildStyle(template map[string]any, p Palette, alpha AlphaConfig, prune boo
 	applyTerminalDims(style)
 	applyAlphaRules(style, p, alpha)
 
-	if v, ok := style["element.active"].(string); ok && v != "" {
-		if isUnset(style, "tab.active_background") {
-			style["tab.active_background"] = v
-		}
-	}
-
 	applyDerivedVim(style, p)
 	applyDerivedPlayers(style, p, alpha)
 	applyDerivedSyntax(style, p)
@@ -226,6 +220,10 @@ func buildStyle(template map[string]any, p Palette, alpha AlphaConfig, prune boo
 	applyBlurMode(style, p.Meta)
 
 	editorBg, _ := style["editor.background"].(string)
+	islandBg := editorBg
+	if strings.EqualFold(p.Meta.BlurMode, blurModeFlat) && baseEditorBg != "" {
+		islandBg = baseEditorBg
+	}
 	opaqueSemanticBg := ""
 	if strings.EqualFold(p.Meta.BackgroundAppearance, "blurred") && baseEditorBg != "" {
 		opaqueSemanticBg = baseEditorBg
@@ -234,13 +232,7 @@ func buildStyle(template map[string]any, p Palette, alpha AlphaConfig, prune boo
 		if _, ok := style["editor.gutter.background"]; !ok {
 			style["editor.gutter.background"] = editorBg
 		}
-		if isUnset(style, "tab.active_background") {
-			if alphaHex, ok := alphaValue(p.Meta.Appearance, alpha, "tab_active"); ok {
-				style["tab.active_background"] = withAlpha(editorBg, alphaHex)
-			} else {
-				style["tab.active_background"] = editorBg
-			}
-		}
+		applyEditorIslandElements(style, p, alpha, islandBg)
 		setSemanticBackgrounds(style, p, alpha, editorBg, opaqueSemanticBg)
 	}
 
@@ -264,6 +256,37 @@ func buildStyle(template map[string]any, p Palette, alpha AlphaConfig, prune boo
 	}
 
 	return style
+}
+
+func applyEditorIslandElements(style map[string]any, p Palette, alpha AlphaConfig, editorBg string) {
+	if editorBg == "" {
+		return
+	}
+
+	setIsland := func(styleKey, alphaKey string) {
+		if hasPaletteOverride(p, styleKey) {
+			return
+		}
+		if alphaKey == "" {
+			style[styleKey] = editorBg
+			return
+		}
+		if alphaHex, ok := alphaValue(p.Meta.Appearance, alpha, alphaKey); ok {
+			style[styleKey] = withAlpha(editorBg, alphaHex)
+			return
+		}
+		style[styleKey] = editorBg
+	}
+
+	setIsland("tab.active_background", "tab_active")
+}
+
+func hasPaletteOverride(p Palette, key string) bool {
+	if p.Overrides == nil {
+		return false
+	}
+	_, ok := p.Overrides[key]
+	return ok
 }
 
 func withAlpha(hex string, alpha string) string {

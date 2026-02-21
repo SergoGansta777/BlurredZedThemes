@@ -559,7 +559,7 @@
 
         "surface.background": "#11162ACC",
 
-        "tab.active_background": "#11162AEE",
+        "tab.active_background": "#11162AFF",
         "tab.active_foreground": "#9097B6",
         "tab.inactive_background": "#00000000",
         "tab.inactive_foreground": "#6F7693",

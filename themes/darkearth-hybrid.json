@@ -418,7 +418,7 @@
 
         "surface.background": "#24211ECC",
 
-        "tab.active_background": "#24211EEE",
+        "tab.active_background": "#24211EFF",
         "tab.active_foreground": "#D7C484",
         "tab.inactive_background": "#00000000",
         "tab.inactive_foreground": "#D7C484B3",
