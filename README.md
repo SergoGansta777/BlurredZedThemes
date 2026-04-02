@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  A curated collection of blurred hybrid themes for the Zed editor, tuned for modern UI surfaces,
+  A curated collection of blurred, hybrid, and flat themes for the Zed editor, tuned for modern UI surfaces,
   clean contrast, and consistent syntax colors.
 </p>
 
@@ -15,12 +15,13 @@
 
 ## Overview
 
-These themes are built around Zed’s blurred UI. The editor stays sharp, the chrome stays soft, and the whole layout keeps good contrast without feeling noisy.
+These themes are built around Zed’s blurred UI, with optional flat variants for fully opaque window backgrounds. The editor stays sharp, the chrome stays soft where blur is enabled, and the whole layout keeps good contrast without feeling noisy.
 
 - Stable editor backgrounds with transparent UI layers around them.
 - Balanced alpha values for panels, overlays, tabs, and status bars.
+- Flat variants with one consistent opaque surface background across editor, panels, tabs, and toolbars.
 - Consistent syntax mapping across all themes and variants.
-- Two variants per theme: Blur and Hybrid.
+- Three variants per theme: Blur, Hybrid, and Flat.
 
 ## Install
 

@@ -23,8 +23,33 @@ const (
 )
 
 const (
-	blurModeFlat = "flat"
+	backgroundAppearanceBlurred = "blurred"
+	backgroundAppearanceOpaque  = "opaque"
+	blurModeFlat                = "flat"
 )
+
+var flatSurfaceBackgroundKeys = []string{
+	"background",
+	"editor.background",
+	"editor.gutter.background",
+	"editor.subheader.background",
+	"element.background",
+	"elevated_surface.background",
+	"ghost_element.background",
+	"panel.background",
+	"panel.overlay_background",
+	"scrollbar.track.background",
+	"status_bar.background",
+	"surface.background",
+	"tab.active_background",
+	"tab.inactive_background",
+	"tab_bar.background",
+	"terminal.ansi.background",
+	"terminal.background",
+	"title_bar.background",
+	"title_bar.inactive_background",
+	"toolbar.background",
+}
 
 type Palette struct {
 	Meta      Meta              `json:"meta"`
@@ -64,6 +89,12 @@ type Config struct {
 	KeepTODOs        bool
 }
 
+type outputVariant struct {
+	Label   string
+	Meta    Meta
+	OutPath string
+}
+
 func main() {
 	if err := run(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -82,12 +113,8 @@ func run() error {
 		return err
 	}
 
-	style := buildStyle(template, palette, alphaCfg, cfg.PruneStyle)
-	if !cfg.KeepTODOs {
-		removeTODOs(style)
-	}
-	theme := buildTheme(palette, style, cfg.WIP)
 	outPath := resolveOutputPath(cfg)
+	style, theme := buildThemeOutput(cfg, palette, template, alphaCfg)
 
 	if cfg.ComparePath != "" {
 		if err := compareAndMaybeUpdatePalette(cfg, palette, template, alphaCfg, style); err != nil {
@@ -99,23 +126,16 @@ func run() error {
 		return fmt.Errorf("create output dir: %w", err)
 	}
 
-	if err := writeJSON(outPath, theme); err != nil {
-		return fmt.Errorf("write theme: %w", err)
+	if err := writeThemeOutput(outPath, "theme", theme); err != nil {
+		return err
 	}
 
-	if shouldGenerateBlurVariant(palette.Meta) {
-		blurPalette := palette
-		blurPalette.Meta = blurVariantMeta(palette.Meta)
-		blurStyle := buildStyle(template, blurPalette, alphaCfg, cfg.PruneStyle)
-		if !cfg.KeepTODOs {
-			removeTODOs(blurStyle)
-		}
-		blurTheme := buildTheme(blurPalette, blurStyle, cfg.WIP)
-		blurOut := blurOutputPath(outPath)
-		if blurOut != "" {
-			if err := writeJSON(blurOut, blurTheme); err != nil {
-				return fmt.Errorf("write blur theme: %w", err)
-			}
+	for _, variant := range derivedOutputVariants(palette.Meta, outPath) {
+		variantPalette := palette
+		variantPalette.Meta = variant.Meta
+		_, variantTheme := buildThemeOutput(cfg, variantPalette, template, alphaCfg)
+		if err := writeThemeOutput(variant.OutPath, variant.Label, variantTheme); err != nil {
+			return err
 		}
 	}
 	return nil
@@ -191,6 +211,24 @@ func buildTheme(p Palette, style map[string]any, wip bool) map[string]any {
 	}
 }
 
+func buildThemeOutput(cfg Config, p Palette, template map[string]any, alpha AlphaConfig) (map[string]any, map[string]any) {
+	style := buildStyle(template, p, alpha, cfg.PruneStyle)
+	if !cfg.KeepTODOs {
+		removeTODOs(style)
+	}
+	return style, buildTheme(p, style, cfg.WIP)
+}
+
+func writeThemeOutput(outPath, label string, theme map[string]any) error {
+	if outPath == "" {
+		return nil
+	}
+	if err := writeJSON(outPath, theme); err != nil {
+		return fmt.Errorf("write %s: %w", label, err)
+	}
+	return nil
+}
+
 func buildStyle(template map[string]any, p Palette, alpha AlphaConfig, prune bool) map[string]any {
 	style := map[string]any{}
 	maps.Copy(style, template)
@@ -225,8 +263,8 @@ func buildStyle(template map[string]any, p Palette, alpha AlphaConfig, prune boo
 		islandBg = baseEditorBg
 	}
 	opaqueSemanticBg := ""
-	if strings.EqualFold(p.Meta.BackgroundAppearance, "blurred") && baseEditorBg != "" {
-		opaqueSemanticBg = baseEditorBg
+	if hasOpaqueSemanticBackgrounds(p.Meta) && baseEditorBg != "" {
+		opaqueSemanticBg = stripAlpha(baseEditorBg)
 	}
 	if editorBg != "" {
 		if _, ok := style["editor.gutter.background"]; !ok {
@@ -235,6 +273,7 @@ func buildStyle(template map[string]any, p Palette, alpha AlphaConfig, prune boo
 		applyEditorIslandElements(style, p, alpha, islandBg)
 		setSemanticBackgrounds(style, p, alpha, editorBg, opaqueSemanticBg)
 	}
+	applyFlatMode(style, p.Meta, baseEditorBg)
 
 	if text, ok := style["text"].(string); ok && text != "" {
 		if isUnset(style, "status_bar.foreground") {
@@ -351,6 +390,19 @@ func applyBlurMode(style map[string]any, meta Meta) {
 	style["editor.gutter.background"] = transparentColor
 }
 
+func applyFlatMode(style map[string]any, meta Meta, baseEditorBg string) {
+	if !strings.EqualFold(meta.BackgroundAppearance, backgroundAppearanceOpaque) {
+		return
+	}
+	surfaceBg := stripAlpha(baseEditorBg)
+	if surfaceBg == "" || strings.EqualFold(surfaceBg, transparentColor) {
+		return
+	}
+	for _, key := range flatSurfaceBackgroundKeys {
+		style[key] = surfaceBg
+	}
+}
+
 func removeTODOs(style map[string]any) {
 	for k, v := range style {
 		if isTodoValue(v) {
@@ -418,10 +470,29 @@ func withWIPSuffix(name string) string {
 }
 
 func shouldGenerateBlurVariant(meta Meta) bool {
-	if !strings.EqualFold(meta.BackgroundAppearance, "blurred") {
+	if !strings.EqualFold(meta.BackgroundAppearance, backgroundAppearanceBlurred) {
 		return false
 	}
 	return !strings.EqualFold(meta.BlurMode, blurModeFlat)
+}
+
+func derivedOutputVariants(meta Meta, outPath string) []outputVariant {
+	var variants []outputVariant
+	if shouldGenerateBlurVariant(meta) {
+		variants = append(variants, outputVariant{
+			Label:   "blur theme",
+			Meta:    blurVariantMeta(meta),
+			OutPath: blurOutputPath(outPath),
+		})
+	}
+	if shouldGenerateFlatVariant(meta) {
+		variants = append(variants, outputVariant{
+			Label:   "flat theme",
+			Meta:    flatVariantMeta(meta),
+			OutPath: flatOutputPath(outPath),
+		})
+	}
+	return variants
 }
 
 func blurVariantMeta(meta Meta) Meta {
@@ -433,38 +504,46 @@ func blurVariantMeta(meta Meta) Meta {
 }
 
 func blurName(name string) string {
-	if name == "" {
-		return name
-	}
-	if strings.Contains(name, "(Blur)") {
-		return name
-	}
-	if strings.Contains(name, "(Hybrid)") {
-		return strings.ReplaceAll(name, "(Hybrid)", "(Blur)")
-	}
-	if strings.Contains(name, "Hybrid") {
-		return strings.ReplaceAll(name, "Hybrid", "Blur")
-	}
-	return name + " Blur"
+	return variantName(name, "Blur")
 }
 
 func blurThemeName(name string) string {
-	if name == "" {
-		return name
-	}
-	if strings.Contains(name, "(Blur)") {
-		return name
-	}
-	if strings.Contains(name, "(Hybrid)") {
-		return strings.ReplaceAll(name, "(Hybrid)", "(Blur)")
-	}
-	if strings.Contains(name, "Hybrid") {
-		return strings.ReplaceAll(name, "Hybrid", "Blur")
-	}
-	return name + " (Blur)"
+	return variantThemeName(name, "Blur")
 }
 
 func blurOutputPath(outPath string) string {
+	return variantOutputPath(outPath, "-blur")
+}
+
+func shouldGenerateFlatVariant(meta Meta) bool {
+	if !strings.EqualFold(meta.BackgroundAppearance, backgroundAppearanceBlurred) {
+		return false
+	}
+	return !strings.EqualFold(meta.BlurMode, blurModeFlat)
+}
+
+func flatVariantMeta(meta Meta) Meta {
+	out := meta
+	out.BackgroundAppearance = backgroundAppearanceOpaque
+	out.BlurMode = ""
+	out.Name = flatName(meta.Name)
+	out.ThemeName = flatThemeName(meta.ThemeName)
+	return out
+}
+
+func flatName(name string) string {
+	return variantName(name, "Flat")
+}
+
+func flatThemeName(name string) string {
+	return variantThemeName(name, "Flat")
+}
+
+func flatOutputPath(outPath string) string {
+	return variantOutputPath(outPath, "-flat")
+}
+
+func variantOutputPath(outPath string, variantSuffix string) string {
 	if outPath == "" {
 		return ""
 	}
@@ -476,18 +555,63 @@ func blurOutputPath(outPath string) string {
 		base = strings.TrimSuffix(base, ".wip")
 	}
 	ext := filepath.Ext(outPath)
-	if strings.HasSuffix(base, "-blur") {
+	if strings.HasSuffix(base, variantSuffix) {
 		return ""
 	}
 	if before, ok := strings.CutSuffix(base, "-hybrid"); ok {
-		base = before + "-blur"
+		base = before + variantSuffix
 	} else {
-		base = base + "-blur"
+		base = base + variantSuffix
 	}
 	if wip {
 		base = base + ".wip"
 	}
 	return filepath.Join(dir, base+ext)
+}
+
+func variantName(name string, variant string) string {
+	if name == "" {
+		return name
+	}
+	target := "(" + variant + ")"
+	if strings.Contains(name, target) {
+		return name
+	}
+	for _, existing := range []string{"Hybrid", "Blur", "Flat"} {
+		token := "(" + existing + ")"
+		if strings.Contains(name, token) {
+			return strings.ReplaceAll(name, token, target)
+		}
+		if strings.Contains(name, existing) {
+			return strings.ReplaceAll(name, existing, variant)
+		}
+	}
+	return name + " " + variant
+}
+
+func variantThemeName(name string, variant string) string {
+	if name == "" {
+		return name
+	}
+	target := "(" + variant + ")"
+	if strings.Contains(name, target) {
+		return name
+	}
+	for _, existing := range []string{"Hybrid", "Blur", "Flat"} {
+		token := "(" + existing + ")"
+		if strings.Contains(name, token) {
+			return strings.ReplaceAll(name, token, target)
+		}
+		if strings.Contains(name, existing) {
+			return strings.ReplaceAll(name, existing, variant)
+		}
+	}
+	return name + " " + target
+}
+
+func hasOpaqueSemanticBackgrounds(meta Meta) bool {
+	return strings.EqualFold(meta.BackgroundAppearance, backgroundAppearanceBlurred) ||
+		strings.EqualFold(meta.BackgroundAppearance, backgroundAppearanceOpaque)
 }
 
 func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[string]any, alphaCfg AlphaConfig, generated map[string]any) error {
