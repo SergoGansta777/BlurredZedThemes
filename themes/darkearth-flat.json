@@ -336,7 +336,7 @@
         "editor.indent_guide_active": "#6E665EFF",
         "editor.invisible": "#D7C484B3",
         "editor.line_number": "#D7C484B3",
-        "editor.subheader.background": "#24211E",
+        "editor.subheader.background": "#24211ED0",
         "editor.wrap_guide": "#D7C48444",
 
         "element.active": "#3B333066",
@@ -345,7 +345,7 @@
         "element.hover": "#3B333066",
         "element.selected": "#3B333080",
 
-        "elevated_surface.background": "#24211E",
+        "elevated_surface.background": "#24211EFF",
 
         "error.background": "#24211E",
         "error.border": "#B36B42",
@@ -392,7 +392,7 @@
         "panel.indent_guide": "#D7C48466",
         "panel.indent_guide_active": "#6E665EFF",
         "panel.indent_guide_hover": "#5F865F",
-        "panel.overlay_background": "#24211E",
+        "panel.overlay_background": "#24211EF0",
 
         "predictive.background": "#24211E",
         "predictive.border": "#6E665E",
@@ -404,7 +404,7 @@
         "scrollbar.thumb.background": "#D7C48480",
         "scrollbar.thumb.border": null,
         "scrollbar.thumb.hover_background": "#D7C484FF",
-        "scrollbar.track.background": "#24211E",
+        "scrollbar.track.background": "#24211E1A",
         "scrollbar.track.border": "#D7C48412",
 
         "search.active_match_background": "#C9A65466",
@@ -416,16 +416,16 @@
         "success.background": "#24211E",
         "success.border": "#5F865F",
 
-        "surface.background": "#24211E",
+        "surface.background": "#24211ECC",
 
-        "tab.active_background": "#24211E",
+        "tab.active_background": "#302A27",
         "tab.active_foreground": "#D7C484",
         "tab.inactive_background": "#24211E",
         "tab.inactive_foreground": "#D7C484B3",
 
         "tab_bar.background": "#24211E",
 
-        "terminal.ansi.background": "#24211E",
+        "terminal.ansi.background": "#24211EFF",
         "terminal.ansi.black": "#1F1C19",
         "terminal.ansi.blue": "#669977",
         "terminal.ansi.bright_black": "#6E665E",
@@ -450,7 +450,7 @@
         "terminal.ansi.red": "#B36B42",
         "terminal.ansi.white": "#D7C484",
         "terminal.ansi.yellow": "#C9A654",
-        "terminal.background": "#24211E",
+        "terminal.background": "#24211EFF",
         "terminal.bright_foreground": "#D7C484",
         "terminal.dim_foreground": "#D7C484B3",
         "terminal.foreground": "#D7C484",

@@ -330,22 +330,22 @@
         "editor.indent_guide_active": "#6F737AFF",
         "editor.invisible": "#6f737a",
         "editor.line_number": "#4b5059",
-        "editor.subheader.background": "#191a1c",
+        "editor.subheader.background": "#26282BD0",
         "editor.wrap_guide": "#393b40",
 
         "element.active": "#494a4d",
-        "element.background": "#191a1c",
+        "element.background": "#393b41",
         "element.disabled": "#2b2d30",
         "element.hover": "#3c3e41",
         "element.selected": "#43454a",
 
-        "elevated_surface.background": "#191a1c",
+        "elevated_surface.background": "#26282BFF",
 
         "error.background": "#191a1c",
         "error.border": "#fa6675",
 
         "ghost_element.active": "#494A4D66",
-        "ghost_element.background": "#191a1c",
+        "ghost_element.background": "#26282b",
         "ghost_element.disabled": "#26282B40",
         "ghost_element.hover": "#3C3E4166",
         "ghost_element.selected": "#494A4D80",
@@ -386,7 +386,7 @@
         "panel.indent_guide": "#B0B1B366",
         "panel.indent_guide_active": "#6F737AFF",
         "panel.indent_guide_hover": "#3474f0",
-        "panel.overlay_background": "#191a1c",
+        "panel.overlay_background": "#26282BF0",
 
         "predictive.background": "#191a1c",
         "predictive.border": "#808080",
@@ -398,7 +398,7 @@
         "scrollbar.thumb.background": "#B0B1B380",
         "scrollbar.thumb.border": null,
         "scrollbar.thumb.hover_background": "#B0B1B3FF",
-        "scrollbar.track.background": "#191a1c",
+        "scrollbar.track.background": "#26282B1A",
         "scrollbar.track.border": "#DFE1E512",
 
         "search.active_match_background": "#2d543f",
@@ -410,16 +410,16 @@
         "success.background": "#191a1c",
         "success.border": "#57965d",
 
-        "surface.background": "#191a1c",
+        "surface.background": "#26282BCC",
 
-        "tab.active_background": "#191a1c",
+        "tab.active_background": "#43454A",
         "tab.active_foreground": "#dfe1e5",
         "tab.inactive_background": "#191a1c",
         "tab.inactive_foreground": "#b0b1b3",
 
         "tab_bar.background": "#191a1c",
 
-        "terminal.ansi.background": "#191a1c",
+        "terminal.ansi.background": "#191A1CFF",
         "terminal.ansi.black": "#000000",
         "terminal.ansi.blue": "#5594fa",
         "terminal.ansi.bright_black": "#4e5157",
@@ -444,7 +444,7 @@
         "terminal.ansi.red": "#f27481",
         "terminal.ansi.white": "#ced0d6",
         "terminal.ansi.yellow": "#e0ce70",
-        "terminal.background": "#191a1c",
+        "terminal.background": "#191A1CFF",
         "terminal.bright_foreground": "#ffffff",
         "terminal.dim_foreground": "#76777c",
         "terminal.foreground": "#ced0d6",

@@ -454,22 +454,22 @@
         "editor.indent_guide_active": "#000000AA",
         "editor.invisible": "#D6D6D6",
         "editor.line_number": "#0000006B",
-        "editor.subheader.background": "#FFFFFF",
+        "editor.subheader.background": "#F7F7F7",
         "editor.wrap_guide": "#00000033",
 
         "element.active": "#EDEDED",
-        "element.background": "#FFFFFF",
+        "element.background": "#F7F7F7",
         "element.disabled": "#F3F3F3",
         "element.hover": "#F1F1F1",
         "element.selected": "#F1F1F1",
 
-        "elevated_surface.background": "#FFFFFF",
+        "elevated_surface.background": "#F7F7F7FF",
 
         "error.background": "#FFF0EE",
         "error.border": "#FF543E",
 
         "ghost_element.active": "#EFEFEF",
-        "ghost_element.background": "#FFFFFF",
+        "ghost_element.background": "#F7F7F7",
         "ghost_element.disabled": "#EBEBEB",
         "ghost_element.hover": "#F1F1F1",
         "ghost_element.selected": "#EBEBEB",
@@ -510,7 +510,7 @@
         "panel.indent_guide": "#00000066",
         "panel.indent_guide_active": "#000000AA",
         "panel.indent_guide_hover": "#4A9BD6",
-        "panel.overlay_background": "#FFFFFF",
+        "panel.overlay_background": "#F7F7F7C6",
 
         "predictive.background": "#FFFFFF",
         "predictive.border": "#CBCBCB",
@@ -522,7 +522,7 @@
         "scrollbar.thumb.background": "#0000004D",
         "scrollbar.thumb.border": null,
         "scrollbar.thumb.hover_background": "#00000080",
-        "scrollbar.track.background": "#FFFFFF",
+        "scrollbar.track.background": "#F7F7F726",
         "scrollbar.track.border": "#00000012",
 
         "search.active_match_background": "#3D86C633",
@@ -534,16 +534,16 @@
         "success.background": "#EDF5EF",
         "success.border": "#2FA15A",
 
-        "surface.background": "#FFFFFF",
+        "surface.background": "#F7F7F7CC",
 
-        "tab.active_background": "#FFFFFF",
+        "tab.active_background": "#F1F1F1",
         "tab.active_foreground": "#000000D9",
         "tab.inactive_background": "#FFFFFF",
         "tab.inactive_foreground": "#00000099",
 
         "tab_bar.background": "#FFFFFF",
 
-        "terminal.ansi.background": "#FFFFFF",
+        "terminal.ansi.background": "#FFFFFFFF",
         "terminal.ansi.black": "#EBEBEB",
         "terminal.ansi.blue": "#005BE4",
         "terminal.ansi.bright_black": "#929292",
@@ -568,7 +568,7 @@
         "terminal.ansi.red": "#E12019",
         "terminal.ansi.white": "#000000",
         "terminal.ansi.yellow": "#FFD300",
-        "terminal.background": "#FFFFFF",
+        "terminal.background": "#FFFFFFFF",
         "terminal.bright_foreground": "#000000",
         "terminal.dim_foreground": "#000000",
         "terminal.foreground": "#000000",

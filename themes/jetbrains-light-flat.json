@@ -330,22 +330,22 @@
         "editor.indent_guide_active": "#818594AA",
         "editor.invisible": "#adadad",
         "editor.line_number": "#aeb3c2",
-        "editor.subheader.background": "#ffffff",
+        "editor.subheader.background": "#F7F8FAF2",
         "editor.wrap_guide": "#40404033",
 
         "element.active": "#DFE1E5FE",
-        "element.background": "#ffffff",
+        "element.background": "#e3e3e5",
         "element.disabled": "#F7F8FA66",
         "element.hover": "#EDEDEDF2",
         "element.selected": "#DFE1E5F8",
 
-        "elevated_surface.background": "#ffffff",
+        "elevated_surface.background": "#F7F8FAFF",
 
         "error.background": "#ffffff",
         "error.border": "#ff0000",
 
         "ghost_element.active": "#DBDCDEFE",
-        "ghost_element.background": "#ffffff",
+        "ghost_element.background": "#f7f8fa",
         "ghost_element.disabled": "#F7F8FA66",
         "ghost_element.hover": "#EDEDEDF2",
         "ghost_element.selected": "#DBDCDEF8",
@@ -386,7 +386,7 @@
         "panel.indent_guide": "#40404066",
         "panel.indent_guide_active": "#818594AA",
         "panel.indent_guide_hover": "#3573f0",
-        "panel.overlay_background": "#ffffff",
+        "panel.overlay_background": "#F7F8FACC",
 
         "predictive.background": "#ffffff",
         "predictive.border": "#727476",
@@ -398,7 +398,7 @@
         "scrollbar.thumb.background": "#4040404D",
         "scrollbar.thumb.border": null,
         "scrollbar.thumb.hover_background": "#40404080",
-        "scrollbar.track.background": "#ffffff",
+        "scrollbar.track.background": "#F7F8FA26",
         "scrollbar.track.border": "#00000012",
 
         "search.active_match_background": "#ccccff",
@@ -410,16 +410,16 @@
         "success.background": "#ffffff",
         "success.border": "#55a76a",
 
-        "surface.background": "#ffffff",
+        "surface.background": "#F7F8FACC",
 
-        "tab.active_background": "#ffffff",
+        "tab.active_background": "#E0E2E6",
         "tab.active_foreground": "#000000",
         "tab.inactive_background": "#ffffff",
         "tab.inactive_foreground": "#404040",
 
         "tab_bar.background": "#ffffff",
 
-        "terminal.ansi.background": "#ffffff",
+        "terminal.ansi.background": "#FFFFFFFF",
         "terminal.ansi.black": "#000000",
         "terminal.ansi.blue": "#063fdb",
         "terminal.ansi.bright_black": "#656565",
@@ -444,7 +444,7 @@
         "terminal.ansi.red": "#ce0606",
         "terminal.ansi.white": "#929292",
         "terminal.ansi.yellow": "#b28b00",
-        "terminal.background": "#ffffff",
+        "terminal.background": "#FFFFFFFF",
         "terminal.bright_foreground": "#656565",
         "terminal.dim_foreground": "#7f7f7f",
         "terminal.foreground": "#000000",

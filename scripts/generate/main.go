@@ -8,6 +8,7 @@ import (
 	"maps"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"zed-themes/scripts/themeutil"
@@ -32,20 +33,10 @@ var flatSurfaceBackgroundKeys = []string{
 	"background",
 	"editor.background",
 	"editor.gutter.background",
-	"editor.subheader.background",
-	"element.background",
-	"elevated_surface.background",
-	"ghost_element.background",
 	"panel.background",
-	"panel.overlay_background",
-	"scrollbar.track.background",
 	"status_bar.background",
-	"surface.background",
-	"tab.active_background",
 	"tab.inactive_background",
 	"tab_bar.background",
-	"terminal.ansi.background",
-	"terminal.background",
 	"title_bar.background",
 	"title_bar.inactive_background",
 	"toolbar.background",
@@ -401,6 +392,85 @@ func applyFlatMode(style map[string]any, meta Meta, baseEditorBg string) {
 	for _, key := range flatSurfaceBackgroundKeys {
 		style[key] = surfaceBg
 	}
+	style["tab.active_background"] = flatTabActiveBackground(style, surfaceBg)
+}
+
+func flatTabActiveBackground(style map[string]any, surfaceBg string) string {
+	if tabBg := solidColorValue(style, "tab.active_background", surfaceBg); tabBg != "" && !strings.EqualFold(tabBg, surfaceBg) {
+		return tabBg
+	}
+	if selectedBg := solidColorValue(style, "element.selected", surfaceBg); selectedBg != "" && !strings.EqualFold(selectedBg, surfaceBg) {
+		return selectedBg
+	}
+	if hoverBg := solidColorValue(style, "element.hover", surfaceBg); hoverBg != "" && !strings.EqualFold(hoverBg, surfaceBg) {
+		return hoverBg
+	}
+	return surfaceBg
+}
+
+func solidColorValue(style map[string]any, key string, surfaceBg string) string {
+	color, ok := style[key].(string)
+	if !ok || color == "" {
+		return ""
+	}
+	return flattenColor(color, surfaceBg)
+}
+
+func flattenColor(color string, surfaceBg string) string {
+	fg, fgAlpha, ok := parseHexColor(color)
+	if !ok {
+		return stripAlpha(color)
+	}
+	bg, _, ok := parseHexColor(surfaceBg)
+	if !ok {
+		return stripAlpha(color)
+	}
+	if fgAlpha == 0xFF {
+		return formatHexColor(fg)
+	}
+	if fgAlpha == 0x00 {
+		return formatHexColor(bg)
+	}
+	return formatHexColor([3]uint8{
+		blendChannel(fg[0], bg[0], fgAlpha),
+		blendChannel(fg[1], bg[1], fgAlpha),
+		blendChannel(fg[2], bg[2], fgAlpha),
+	})
+}
+
+func parseHexColor(color string) ([3]uint8, uint8, bool) {
+	h := strings.TrimPrefix(color, "#")
+	if len(h) != 6 && len(h) != 8 {
+		return [3]uint8{}, 0, false
+	}
+	r, err := strconv.ParseUint(h[0:2], 16, 8)
+	if err != nil {
+		return [3]uint8{}, 0, false
+	}
+	g, err := strconv.ParseUint(h[2:4], 16, 8)
+	if err != nil {
+		return [3]uint8{}, 0, false
+	}
+	b, err := strconv.ParseUint(h[4:6], 16, 8)
+	if err != nil {
+		return [3]uint8{}, 0, false
+	}
+	alpha := uint64(0xFF)
+	if len(h) == 8 {
+		alpha, err = strconv.ParseUint(h[6:8], 16, 8)
+		if err != nil {
+			return [3]uint8{}, 0, false
+		}
+	}
+	return [3]uint8{uint8(r), uint8(g), uint8(b)}, uint8(alpha), true
+}
+
+func formatHexColor(rgb [3]uint8) string {
+	return fmt.Sprintf("#%02X%02X%02X", rgb[0], rgb[1], rgb[2])
+}
+
+func blendChannel(fg uint8, bg uint8, alpha uint8) uint8 {
+	return uint8((uint16(fg)*uint16(alpha) + uint16(bg)*(0xFF-uint16(alpha)) + 127) / 0xFF)
 }
 
 func removeTODOs(style map[string]any) {
