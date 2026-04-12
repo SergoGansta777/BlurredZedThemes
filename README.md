@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <img alt="Themes" src="https://img.shields.io/badge/themes-17-4C9AFF?style=flat-square" />
+  <img alt="Themes" src="https://img.shields.io/badge/themes-18-4C9AFF?style=flat-square" />
   <img alt="Last commit" src="https://img.shields.io/github/last-commit/SergoGansta777/BlurredZedThemes?style=flat-square" />
   <img alt="Status" src="https://img.shields.io/badge/status-maintained-30D158?style=flat-square" />
 </p>
@@ -44,6 +44,7 @@ Grouped by theme family. Previews are added as they become available.
 | Kanagawa       | Dragon: TODO<br>Paper: TODO                                                                                                                                                                         | https://github.com/rebelot/kanagawa.nvim                      |
 | Cosmos         | <img width="320" alt="Cosmos (Hybrid)" src="https://github.com/user-attachments/assets/195383d5-5f5d-449d-af62-d9a1d0f79ef3" />                                                                     | https://github.com/nauvalazhar/cosmos                         |
 | Darkearth      | <img width="320" alt="Darkearth (Hybrid)" src="https://github.com/user-attachments/assets/5ae80649-35a1-44ed-be45-e3abeb62f6ec" />                                                                  | https://github.com/ptdewey/darkearth-nvim                     |
+| Ember          | Dark: TODO<br>Soft: TODO<br>Light: TODO                                                                                                                                                             | https://github.com/ember-theme/nvim                           |
 | Everforest     | TODO                                                                                                                                                                                                | https://github.com/sainnhe/everforest                         |
 | Ayu            | TODO                                                                                                                                                                                                | https://github.com/ayu-theme/ayu-colors                       |
 | Lunar          | <img width="320" alt="Lunar (Hybrid)" src="https://github.com/user-attachments/assets/a0e76368-8ffb-4d9b-ad9d-99bccc3884d3" />                                                                      | https://github.com/LunarVim/Colorschemes                      |
