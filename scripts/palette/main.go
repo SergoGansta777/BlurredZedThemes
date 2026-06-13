@@ -29,7 +29,7 @@ type Meta struct {
 	Appearance           string `json:"appearance"`
 	ThemeName            string `json:"theme_name"`
 	BackgroundAppearance string `json:"background_appearance"`
-	BlurMode             string `json:"blur_mode"`
+	BlurMode             string `json:"blur_mode,omitempty"`
 }
 
 type AlphaConfig = themeutil.AlphaConfig
@@ -63,6 +63,7 @@ func run() error {
 	if err != nil {
 		return err
 	}
+	style = themeutil.NormalizeImportedStyle(style)
 
 	palette := buildPalette(theme, style)
 	if cfg.StyleKeys != "" {
@@ -402,6 +403,7 @@ func writeJSON(path string, data any) error {
 	if err != nil {
 		return err
 	}
+	b = append(b, '\n')
 	return os.WriteFile(path, b, 0o644)
 }
 

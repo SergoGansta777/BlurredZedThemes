@@ -40,18 +40,18 @@ Grouped by theme family. Previews are added as they become available.
 | Theme group    | Preview                                                                                                                                                                                             | Source / inspiration                                          |
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
 | Evergarden     | Winter:<br><img width="320" alt="Evergarden Winter (Hybrid)" src="https://github.com/user-attachments/assets/a551c81f-73b1-4aec-a0f8-476ff8aefbac" /><br>Spring: TODO<br>Summer: TODO<br>Fall: TODO | https://github.com/everviolet/nvim                            |
-| JetBrains      | Dark: TODO<br>Light: TODO                                                                                                                                                                           | https://github.com/zed-industries/zed/tree/main/assets/themes |
+| JetBrains      | Dark: TODO<br>Light: TODO                                                                                                                                                                           | https://github.com/artemevsevev/zed-theme-jetbrains           |
 | Xcode          | Dark: TODO<br>Light: TODO                                                                                                                                                                           | https://github.com/skarline/zed-xcode-themes                  |
 | Kanagawa       | Dragon: TODO<br>Paper: TODO                                                                                                                                                                         | https://github.com/rebelot/kanagawa.nvim                      |
 | Cosmos         | <img width="320" alt="Cosmos (Hybrid)" src="https://github.com/user-attachments/assets/195383d5-5f5d-449d-af62-d9a1d0f79ef3" />                                                                     | https://github.com/nauvalazhar/cosmos                         |
 | Darkearth      | <img width="320" alt="Darkearth (Hybrid)" src="https://github.com/user-attachments/assets/5ae80649-35a1-44ed-be45-e3abeb62f6ec" />                                                                  | https://github.com/ptdewey/darkearth-nvim                     |
 | Ember          | Dark: TODO<br>Soft: TODO<br>Light: TODO                                                                                                                                                             | https://github.com/ember-theme/nvim                           |
-| Everforest     | TODO                                                                                                                                                                                                | https://github.com/sainnhe/everforest                         |
-| Ayu            | TODO                                                                                                                                                                                                | https://github.com/ayu-theme/ayu-colors                       |
-| Lunar          | <img width="320" alt="Lunar (Hybrid)" src="https://github.com/user-attachments/assets/a0e76368-8ffb-4d9b-ad9d-99bccc3884d3" />                                                                      | https://github.com/LunarVim/Colorschemes                      |
+| Everforest     | TODO                                                                                                                                                                                                | https://github.com/neanias/everforest-nvim                    |
+| Ayu            | TODO                                                                                                                                                                                                | https://github.com/zed-industries/zed/tree/main/assets/themes/ayu |
+| Lunar          | <img width="320" alt="Lunar (Hybrid)" src="https://github.com/user-attachments/assets/a0e76368-8ffb-4d9b-ad9d-99bccc3884d3" />                                                                      | https://github.com/comfysage/lunarfrost                       |
 | Miasma Fog     | <img width="320" alt="Miasma Fog (Hybrid)" src="https://github.com/user-attachments/assets/c0308e82-e801-418b-9f1b-c2f2692031d0" />                                                                 | https://github.com/xero/miasma.nvim                           |
 | Nordic         | <img width="320" alt="Nordic (Hybrid)" src="https://github.com/user-attachments/assets/be112f4e-6176-411a-92bf-d7659a2838d7" />                                                                     | https://github.com/AlexvZyl/nordic.nvim                       |
-| Oldworld       | TODO                                                                                                                                                                                                | https://github.com/nyoom-engineering/oldworld.nvim            |
+| Oldworld       | TODO                                                                                                                                                                                                | https://github.com/dgox16/oldworld.nvim                       |
 | Rosé Pine Dawn | <img width="320" alt="Rosé Pine Dawn (Hybrid)" src="https://github.com/user-attachments/assets/1113c3bd-892e-48bf-8200-1ed5105dfbf7" />                                                             | https://github.com/rose-pine/zed                              |
 | Vesper         | TODO                                                                                                                                                                                                | https://github.com/raunofreiberg/vesper                       |
 
@@ -75,6 +75,7 @@ Notes:
 
 - The published schema is useful, but it is not the whole story. Zed’s bundled themes currently use a few practical keys beyond the schema, so upstream theme files are the best compatibility reference.
 - This repo treats the bundled themes and the Theme Builder as the authoritative guide for new groups and real-world key usage.
+- Current Zed-native sync targets are `Ayu Mirage`, `JetBrains Dark`, `JetBrains Light`, `Rosé Pine Dawn`, `Xcode Default Dark`, and `Xcode Default Light`.
 
 ## Taskfile workflow
 
@@ -90,6 +91,7 @@ Notes:
 - Palettes define roles/semantic/accents/terminal, with optional `style` for `syntax` and `players`.
 - `alpha` overrides can be added per theme when needed (merged over `palettes/alpha.json`).
 - `overrides` are treated as derived data and can be regenerated from a reference theme.
+- For Zed-native upstream themes, prefer `go run ./scripts/generate --palette palettes/<theme>.json --compare <reference.json> --write-style-keys syntax,players` so syntax and player colors can be refreshed without copying the whole upstream style surface.
 - The generator fills missing fields with `TODO` placeholders and applies safe defaults.
 - Published/reference themes live in `themes/`.
 

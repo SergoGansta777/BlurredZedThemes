@@ -112,3 +112,43 @@ func TestBuildStyleDerivesWordDiffHighlights(t *testing.T) {
 		t.Fatalf("version_control.word_deleted = %q, want %q", got, "#CC445559")
 	}
 }
+
+func TestBuildStyleDerivesDiffHunks(t *testing.T) {
+	style := buildStyle(map[string]any{}, Palette{
+		Meta: Meta{
+			Appearance: "dark",
+		},
+		Roles: map[string]string{
+			"surface": "#101010",
+			"text":    "#FFFFFF",
+			"muted":   "#888888",
+			"subtle":  "#666666",
+			"pine":    "#22AA66",
+			"love":    "#CC4455",
+			"foam":    "#55AAFF",
+			"gold":    "#DDAA55",
+			"rose":    "#CC8855",
+			"iris":    "#AA88FF",
+		},
+		Semantic: map[string]string{
+			"created": "#22AA66",
+			"deleted": "#CC4455",
+		},
+	}, AlphaConfig{
+		Dark: map[string]string{
+			"word_added":   "59",
+			"word_deleted": "59",
+			"semantic_bg":  "1F",
+		},
+	}, false)
+
+	if got, _ := style["editor.diff_hunk.added.background"].(string); got != "#22AA6659" {
+		t.Fatalf("editor.diff_hunk.added.background = %q, want %q", got, "#22AA6659")
+	}
+	if got, _ := style["editor.diff_hunk.added.hollow_background"].(string); got != "#22AA661F" {
+		t.Fatalf("editor.diff_hunk.added.hollow_background = %q, want %q", got, "#22AA661F")
+	}
+	if got, _ := style["editor.diff_hunk.deleted.hollow_border"].(string); got != "#CC44551F" {
+		t.Fatalf("editor.diff_hunk.deleted.hollow_border = %q, want %q", got, "#CC44551F")
+	}
+}

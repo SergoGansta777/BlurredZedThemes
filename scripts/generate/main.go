@@ -48,10 +48,10 @@ type Palette struct {
 	Roles     map[string]string `json:"roles"`
 	Semantic  map[string]string `json:"semantic"`
 	Accents   []string          `json:"accents"`
-	Colors    map[string]string `json:"colors"`
+	Colors    map[string]string `json:"colors,omitempty"`
 	Terminal  map[string]string `json:"terminal"`
 	Style     map[string]any    `json:"style"`
-	Overrides map[string]any    `json:"overrides"`
+	Overrides map[string]any    `json:"overrides,omitempty"`
 	Alpha     AlphaConfig       `json:"alpha"`
 }
 
@@ -61,7 +61,7 @@ type Meta struct {
 	Appearance           string `json:"appearance"`
 	ThemeName            string `json:"theme_name"`
 	BackgroundAppearance string `json:"background_appearance"`
-	BlurMode             string `json:"blur_mode"`
+	BlurMode             string `json:"blur_mode,omitempty"`
 }
 
 type AlphaConfig = themeutil.AlphaConfig
@@ -74,6 +74,7 @@ type Config struct {
 	PruneStyle       bool
 	ComparePath      string
 	WriteOverrides   bool
+	WriteStyleKeys   string
 	WriteAlpha       bool
 	PruneAlpha       bool
 	RewriteOverrides bool
@@ -142,6 +143,7 @@ func parseFlags() Config {
 	flag.BoolVar(&cfg.PruneStyle, "prune", true, "drop keys not present in palette style when available")
 	flag.StringVar(&cfg.ComparePath, "compare", "", "reference theme json to compare generated style against")
 	flag.BoolVar(&cfg.WriteOverrides, "write-overrides", false, "update palette overrides to match reference")
+	flag.StringVar(&cfg.WriteStyleKeys, "write-style-keys", "", "comma-separated top-level style keys to copy from reference into palette style")
 	flag.BoolVar(&cfg.WriteAlpha, "write-alpha", false, "update palette alpha overrides to match reference")
 	flag.BoolVar(&cfg.PruneAlpha, "prune-alpha-overrides", false, "remove alpha-derived overrides after writing alpha")
 	flag.BoolVar(&cfg.RewriteOverrides, "rewrite-overrides", false, "replace overrides with only reference diffs (excluding standardized keys)")
@@ -265,6 +267,7 @@ func buildStyle(template map[string]any, p Palette, alpha AlphaConfig, prune boo
 		}
 		applyEditorIslandElements(style, p, alpha, islandBg)
 		setSemanticBackgrounds(style, p, alpha, editorBg, opaqueSemanticBg)
+		applyDerivedDiffHunks(style, p, alpha)
 	}
 	applyFlatMode(style, p.Meta, baseEditorBg)
 
@@ -698,11 +701,23 @@ func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[stri
 	fmt.Printf("  extra in generated: %d\n", len(extra))
 	fmt.Printf("  value diffs: %d\n", len(diffs))
 
-	if !cfg.WriteOverrides && !cfg.WriteAlpha && !cfg.PruneAlpha {
+	if !cfg.WriteOverrides && cfg.WriteStyleKeys == "" && !cfg.WriteAlpha && !cfg.PruneAlpha {
 		return nil
 	}
 
 	updated := palette
+	if cfg.WriteStyleKeys != "" {
+		if updated.Style == nil {
+			updated.Style = map[string]any{}
+		}
+		for _, key := range parseCommaList(cfg.WriteStyleKeys) {
+			if value, ok := reference[key]; ok {
+				updated.Style[key] = value
+				continue
+			}
+			delete(updated.Style, key)
+		}
+	}
 	if cfg.WriteOverrides {
 		if updated.Overrides == nil {
 			updated.Overrides = map[string]any{}
@@ -752,6 +767,22 @@ func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[stri
 	return writeJSON(cfg.PalettePath, updated)
 }
 
+func parseCommaList(value string) []string {
+	if value == "" {
+		return nil
+	}
+	parts := strings.Split(value, ",")
+	out := make([]string, 0, len(parts))
+	for _, part := range parts {
+		part = strings.TrimSpace(part)
+		if part == "" {
+			continue
+		}
+		out = append(out, part)
+	}
+	return out
+}
+
 func readThemeStyle(path string) (map[string]any, error) {
 	theme, err := readJSONFile[map[string]any](path)
 	if err != nil {
@@ -769,7 +800,7 @@ func readThemeStyle(path string) (map[string]any, error) {
 	if !ok {
 		return nil, errors.New("invalid theme: missing style map")
 	}
-	return style, nil
+	return themeutil.NormalizeImportedStyle(style), nil
 }
 
 func diffStyle(reference, generated map[string]any) ([]string, []string, []string) {
@@ -1046,6 +1077,25 @@ func applyDerivedEditorLineNumbers(style map[string]any) {
 	}
 }
 
+func applyDerivedDiffHunks(style map[string]any, p Palette, alpha AlphaConfig) {
+	setDiffHunk := func(kind string, semantic string, strongAlphaKey string) {
+		base := semanticOf(p, semantic)
+		if base == "" {
+			return
+		}
+
+		strong := alphaHexOrDefault(p.Meta.Appearance, alpha, strongAlphaKey, "59")
+		hollow := withAlpha(base, alphaHexOrDefault(p.Meta.Appearance, alpha, "semantic_bg", "26"))
+
+		setRole(style, "editor.diff_hunk."+kind+".background", withAlpha(base, strong))
+		setRole(style, "editor.diff_hunk."+kind+".hollow_background", hollow)
+		setRole(style, "editor.diff_hunk."+kind+".hollow_border", hollow)
+	}
+
+	setDiffHunk("added", "created", "word_added")
+	setDiffHunk("deleted", "deleted", "word_deleted")
+}
+
 func applyDerivedSyntax(style map[string]any, p Palette) {
 	if len(p.Roles) == 0 {
 		return
@@ -1137,7 +1187,9 @@ func applyDerivedSyntax(style map[string]any, p Palette) {
 	setSyntaxAlias(syntax, "keyword.repeat", "keyword")
 	setSyntaxAlias(syntax, "keyword.return", "keyword")
 	setSyntaxAlias(syntax, "keyword.type", "keyword", "type")
+	setSyntaxAlias(syntax, "namespace.crateRoot", "namespace", "module", "type")
 	setSyntaxAlias(syntax, "number.float", "number")
+	setSyntaxAlias(syntax, "operator.controlFlow", "keyword", "operator")
 	setSyntaxAlias(syntax, "punctuation.bracket", "punctuation")
 	setSyntaxAlias(syntax, "punctuation.delimiter", "punctuation")
 	setSyntaxAlias(syntax, "punctuation.list_marker", "punctuation.special", "punctuation")
@@ -1157,7 +1209,10 @@ func applyDerivedSyntax(style map[string]any, p Palette) {
 	setSyntaxAlias(syntax, "type.builtin", "type")
 	setSyntaxAlias(syntax, "type.class.definition", "type.definition", "type")
 	setSyntaxAlias(syntax, "type.definition", "type")
+	setSyntaxAlias(syntax, "type.enum", "type", "variant")
+	setSyntaxAlias(syntax, "type.enum.member", "variant", "property", "constant")
 	setSyntaxAlias(syntax, "type.interface", "type")
+	setSyntaxAlias(syntax, "type.parameter", "type", "parameter")
 	setSyntaxAlias(syntax, "type.super", "type")
 	setSyntaxAlias(syntax, "variable.builtin", "variable", "constant")
 	setSyntaxAlias(syntax, "variable.member", "property", "variable")
@@ -1237,6 +1292,15 @@ func shouldPruneStyle(style map[string]any) bool {
 		return true
 	}
 	return len(style) > 20
+}
+
+func alphaHexOrDefault(appearance string, cfg AlphaConfig, key string, fallback string) string {
+	if key != "" {
+		if value, ok := alphaValue(appearance, cfg, key); ok {
+			return value
+		}
+	}
+	return fallback
 }
 
 func mixOpaqueColors(fg string, bg string, alpha uint8) string {

@@ -353,8 +353,17 @@
             "color": "#BB9AF7"
           },
 
+          "namespace.crateRoot": {
+            "color": "#BB9AF7",
+            "font_style": "italic"
+          },
+
           "number.float": {
             "color": "#FF9E64"
+          },
+
+          "operator.controlFlow": {
+            "color": "#BB9AF7"
           },
 
           "punctuation.bracket": {
@@ -440,9 +449,18 @@
           "type.definition": {
             "color": "#0DB9D7"
           },
+          "type.enum": {
+            "color": "#0DB9D7"
+          },
+          "type.enum.member": {
+            "color": "#F7768E"
+          },
           "type.interface": {
             "color": "#0DB9D7",
             "font_style": "italic"
+          },
+          "type.parameter": {
+            "color": "#0DB9D7"
           },
           "type.super": {
             "color": "#0DB9D7",
@@ -493,6 +511,12 @@
         "editor.active_wrap_guide": "#6F769366",
         "editor.background": "#00000000",
         "editor.debugger_active_line.background": "#E0AF681A",
+        "editor.diff_hunk.added.background": "#9ECE6A59",
+        "editor.diff_hunk.added.hollow_background": "#9ECE6A1F",
+        "editor.diff_hunk.added.hollow_border": "#9ECE6A1F",
+        "editor.diff_hunk.deleted.background": "#F7768E59",
+        "editor.diff_hunk.deleted.hollow_background": "#F7768E1F",
+        "editor.diff_hunk.deleted.hollow_border": "#F7768E1F",
         "editor.document_highlight.bracket_background": "#7DCFFF17",
         "editor.document_highlight.read_background": "#89A4FF29",
         "editor.document_highlight.write_background": "#6F769329",
