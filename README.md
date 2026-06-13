@@ -8,7 +8,8 @@
 </p>
 
 <p align="center">
-  <img alt="Themes" src="https://img.shields.io/badge/themes-18-4C9AFF?style=flat-square" />
+  <img alt="Theme families" src="https://img.shields.io/badge/families-23-4C9AFF?style=flat-square" />
+  <img alt="Published variants" src="https://img.shields.io/badge/variants-69-0A84FF?style=flat-square" />
   <img alt="Last commit" src="https://img.shields.io/github/last-commit/SergoGansta777/BlurredZedThemes?style=flat-square" />
   <img alt="Status" src="https://img.shields.io/badge/status-maintained-30D158?style=flat-square" />
 </p>
@@ -58,7 +59,22 @@ Grouped by theme family. Previews are added as they become available.
 
 - Global alpha presets live in `palettes/alpha.json`.
 - Per-theme overrides live in `palettes/<theme>.json`.
+- The generator backfills modern syntax captures and practical Zed-only keys such as word diff highlights and hover line numbers.
 - Regenerate theme files via Taskfile (see below).
+
+## Upstream references
+
+Use these when auditing or modernizing the collection:
+
+- Theme Builder: https://zed.dev/theme-builder
+- Theme docs: https://zed.dev/docs/themes
+- Theme schema: https://zed.dev/schema/themes/v0.2.0.json
+- Bundled Zed themes: https://github.com/zed-industries/zed/tree/main/assets/themes
+
+Notes:
+
+- The published schema is useful, but it is not the whole story. Zed’s bundled themes currently use a few practical keys beyond the schema, so upstream theme files are the best compatibility reference.
+- This repo treats the bundled themes and the Theme Builder as the authoritative guide for new groups and real-world key usage.
 
 ## Taskfile workflow
 

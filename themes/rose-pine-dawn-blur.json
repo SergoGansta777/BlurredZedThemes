@@ -213,6 +213,9 @@
             "font_style": null,
             "font_weight": null
           },
+          "selector": {
+            "color": "#ea9d34"
+          },
           "string": {
             "color": "#ea9d34",
             "font_style": null,
@@ -311,6 +314,11 @@
             "font_style": null,
             "font_weight": null
           },
+          "constant.character": {
+            "color": "#56949f",
+            "font_style": null,
+            "font_weight": null
+          },
           "constant.macro": {
             "color": "#b4637a",
             "font_style": null,
@@ -354,6 +362,11 @@
             "font_style": null,
             "font_weight": null
           },
+          "function.definition": {
+            "color": "#d7827e",
+            "font_style": null,
+            "font_weight": null
+          },
           "function.macro": {
             "color": "#b4637a",
             "font_style": null,
@@ -364,7 +377,22 @@
             "font_style": null,
             "font_weight": null
           },
+          "function.method.builtin": {
+            "color": "#d7827e",
+            "font_style": null,
+            "font_weight": null
+          },
           "function.method.call": {
+            "color": "#d7827e",
+            "font_style": null,
+            "font_weight": null
+          },
+          "function.special": {
+            "color": "#d7827e",
+            "font_style": null,
+            "font_weight": null
+          },
+          "function.special.definition": {
             "color": "#d7827e",
             "font_style": null,
             "font_weight": null
@@ -467,10 +495,24 @@
             "font_style": null,
             "font_weight": 700
           },
+          "punctuation.markup": {
+            "color": "#56949f",
+            "font_style": null,
+            "font_weight": 700
+          },
           "punctuation.special": {
             "color": "#b4637a",
             "font_style": null,
             "font_weight": null
+          },
+          "punctuation.special.symbol": {
+            "color": "#b4637a",
+            "font_style": null,
+            "font_weight": null
+          },
+
+          "selector.pseudo": {
+            "color": "#56949f"
           },
 
           "string.doc": {
@@ -624,6 +666,7 @@
         "editor.foreground": "#575279",
         "editor.gutter.background": "#00000000",
         "editor.highlighted_line.background": "#F2E9E1CC",
+        "editor.hover_line_number": "#5C8999",
         "editor.indent_guide": "#6E6A8666",
         "editor.indent_guide_active": "#6E6A86AA",
         "editor.invisible": "#6e6a86",
@@ -769,6 +812,8 @@
         "version_control.ignored": "#9893a5",
         "version_control.modified": "#d7827e",
         "version_control.renamed": "#907aa9",
+        "version_control.word_added": "#56949F59",
+        "version_control.word_deleted": "#B4637A59",
 
         "vim.helix_normal.background": "#56949f",
         "vim.helix_normal.foreground": "#fffaf3",

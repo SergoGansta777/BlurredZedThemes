@@ -100,15 +100,30 @@
           "constant": {
             "color": "#85B5BA"
           },
+          "embedded": {
+            "color": "#C9C7CD"
+          },
           "emphasis": {
             "color": "#ACA1CF",
             "font_style": "italic"
           },
+          "enum": {
+            "color": "#85B5BA"
+          },
+          "field": {
+            "color": "#C9C7CD"
+          },
           "function": {
             "color": "#F5A191"
           },
+          "hint": {
+            "color": "#8B8693"
+          },
           "keyword": {
             "color": "#90B99F"
+          },
+          "label": {
+            "color": "#85B5BA"
           },
           "link_text": {
             "color": "#85B5BA"
@@ -131,11 +146,27 @@
           "operator": {
             "color": "#8B8693"
           },
+          "parameter": {
+            "color": "#C9C7CD"
+          },
+          "predictive": {
+            "color": "#9F9CA6",
+            "font_style": "italic"
+          },
+          "preproc": {
+            "color": "#90B99F"
+          },
+          "primary": {
+            "color": "#C9C7CD"
+          },
           "property": {
             "color": "#C9C7CD"
           },
           "punctuation": {
             "color": "#8B8693"
+          },
+          "selector": {
+            "color": "#E6B99D"
           },
           "string": {
             "color": "#E6B99D"
@@ -156,20 +187,246 @@
           "variable": {
             "color": "#C9C7CD"
           },
+          "variant": {
+            "color": "#85B5BA"
+          },
+
+          "comment.doc": {
+            "color": "#9F9CA6",
+            "font_style": "italic"
+          },
+          "comment.documentation": {
+            "color": "#9F9CA6",
+            "font_style": "italic"
+          },
+          "comment.error": {
+            "color": "#9F9CA6",
+            "font_style": "italic"
+          },
+          "comment.hint": {
+            "color": "#9F9CA6",
+            "font_style": "italic"
+          },
+          "comment.info": {
+            "color": "#9F9CA6",
+            "font_style": "italic"
+          },
+          "comment.note": {
+            "color": "#9F9CA6",
+            "font_style": "italic"
+          },
+          "comment.todo": {
+            "color": "#9F9CA6",
+            "font_style": "italic"
+          },
+          "comment.warn": {
+            "color": "#9F9CA6",
+            "font_style": "italic"
+          },
+          "comment.warning": {
+            "color": "#9F9CA6",
+            "font_style": "italic"
+          },
+
+          "constant.builtin": {
+            "color": "#85B5BA"
+          },
+          "constant.character": {
+            "color": "#85B5BA"
+          },
+          "constant.macro": {
+            "color": "#85B5BA"
+          },
+
+          "diff.delta": {
+            "color": "#E6B99D"
+          },
+          "diff.minus": {
+            "color": "#EA83A5"
+          },
+          "diff.plus": {
+            "color": "#90B99F"
+          },
 
           "emphasis.strong": {
             "color": "#ACA1CF",
             "font_weight": 700
           },
 
+          "function.builtin": {
+            "color": "#F5A191"
+          },
+          "function.call": {
+            "color": "#F5A191"
+          },
+          "function.decorator": {
+            "color": "#F5A191"
+          },
+          "function.definition": {
+            "color": "#F5A191"
+          },
+          "function.macro": {
+            "color": "#F5A191"
+          },
+          "function.method": {
+            "color": "#F5A191"
+          },
+          "function.method.builtin": {
+            "color": "#F5A191"
+          },
+          "function.method.call": {
+            "color": "#F5A191"
+          },
+          "function.special": {
+            "color": "#F5A191"
+          },
+          "function.special.definition": {
+            "color": "#F5A191"
+          },
+
+          "keyword.conditional": {
+            "color": "#90B99F"
+          },
+          "keyword.conditional.ternary": {
+            "color": "#90B99F"
+          },
+          "keyword.coroutine": {
+            "color": "#90B99F"
+          },
+          "keyword.debug": {
+            "color": "#90B99F"
+          },
+          "keyword.directive": {
+            "color": "#90B99F"
+          },
+          "keyword.directive.define": {
+            "color": "#90B99F"
+          },
+          "keyword.exception": {
+            "color": "#90B99F"
+          },
+          "keyword.export": {
+            "color": "#90B99F"
+          },
+          "keyword.function": {
+            "color": "#90B99F"
+          },
+          "keyword.import": {
+            "color": "#90B99F"
+          },
+          "keyword.modifier": {
+            "color": "#90B99F"
+          },
+          "keyword.operator": {
+            "color": "#90B99F"
+          },
+          "keyword.repeat": {
+            "color": "#90B99F"
+          },
+          "keyword.return": {
+            "color": "#90B99F"
+          },
+          "keyword.type": {
+            "color": "#90B99F"
+          },
+
+          "number.float": {
+            "color": "#85B5BA"
+          },
+
+          "punctuation.bracket": {
+            "color": "#8B8693"
+          },
+          "punctuation.delimiter": {
+            "color": "#8B8693"
+          },
+          "punctuation.list_marker": {
+            "color": "#8B8693"
+          },
+          "punctuation.markup": {
+            "color": "#8B8693"
+          },
+          "punctuation.special": {
+            "color": "#8B8693"
+          },
+          "punctuation.special.symbol": {
+            "color": "#8B8693"
+          },
+
+          "selector.pseudo": {
+            "color": "#85B5BA"
+          },
+
+          "string.doc": {
+            "color": "#E6B99D"
+          },
+          "string.documentation": {
+            "color": "#E6B99D"
+          },
           "string.escape": {
             "color": "#EA83A5"
           },
           "string.regex": {
             "color": "#E6B99D"
           },
+          "string.regexp": {
+            "color": "#E6B99D"
+          },
           "string.special": {
             "color": "#90B99F"
+          },
+          "string.special.path": {
+            "color": "#90B99F"
+          },
+          "string.special.symbol": {
+            "color": "#90B99F"
+          },
+          "string.special.url": {
+            "color": "#90B99F",
+            "font_style": "italic"
+          },
+
+          "tag.attribute": {
+            "color": "#F5A191"
+          },
+          "tag.delimiter": {
+            "color": "#8B8693"
+          },
+          "tag.doctype": {
+            "color": "#ACA1CF"
+          },
+
+          "text.literal": {
+            "color": "#E6B99D"
+          },
+
+          "type.builtin": {
+            "color": "#85B5BA"
+          },
+          "type.class.definition": {
+            "color": "#85B5BA"
+          },
+          "type.definition": {
+            "color": "#85B5BA"
+          },
+          "type.interface": {
+            "color": "#85B5BA"
+          },
+          "type.super": {
+            "color": "#85B5BA"
+          },
+
+          "variable.builtin": {
+            "color": "#C9C7CD"
+          },
+          "variable.member": {
+            "color": "#C9C7CD"
+          },
+          "variable.parameter": {
+            "color": "#C9C7CD"
+          },
+          "variable.special": {
+            "color": "#C9C7CD"
           }
         },
         "text": "#C9C7CD",
@@ -208,6 +465,7 @@
         "editor.foreground": "#C9C7CD",
         "editor.gutter.background": "#00000000",
         "editor.highlighted_line.background": "#27272A12",
+        "editor.hover_line_number": "#8CAFB5",
         "editor.indent_guide": "#9F9CA666",
         "editor.indent_guide_active": "#8B8693FF",
         "editor.invisible": "#9F9CA6",
@@ -353,6 +611,8 @@
         "version_control.ignored": "#6C6874",
         "version_control.modified": "#E6B99D",
         "version_control.renamed": "#ACA1CF",
+        "version_control.word_added": "#90B99F59",
+        "version_control.word_deleted": "#EA83A559",
 
         "vim.helix_normal.background": "#85B5BA",
         "vim.helix_normal.foreground": "#131314",

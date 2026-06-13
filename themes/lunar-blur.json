@@ -87,6 +87,9 @@
         "renamed": "#7aa2f7",
         "success": "#1abc9c",
         "syntax": {
+          "attribute": {
+            "color": "#e0af68"
+          },
           "boolean": {
             "color": "#ff9e64"
           },
@@ -109,6 +112,9 @@
           "emphasis": {
             "color": "#bb9af7",
             "font_style": "italic"
+          },
+          "enum": {
+            "color": "#7aa2f7"
           },
           "field": {
             "color": "#73daca"
@@ -156,11 +162,17 @@
           "preproc": {
             "color": "#9d7cd8"
           },
+          "primary": {
+            "color": "#c0caf5"
+          },
           "property": {
             "color": "#73daca"
           },
           "punctuation": {
             "color": "#2ac3de"
+          },
+          "selector": {
+            "color": "#e0af68"
           },
           "string": {
             "color": "#9ece6a"
@@ -184,6 +196,9 @@
           "variable": {
             "color": "#c0caf5"
           },
+          "variant": {
+            "color": "#2ac3de"
+          },
 
           "character.special": {
             "color": "#2ac3de"
@@ -201,8 +216,24 @@
             "color": "#db4b4b",
             "font_style": "italic"
           },
+          "comment.hint": {
+            "color": "#565f89",
+            "font_style": "italic"
+          },
+          "comment.info": {
+            "color": "#565f89",
+            "font_style": "italic"
+          },
+          "comment.note": {
+            "color": "#565f89",
+            "font_style": "italic"
+          },
           "comment.todo": {
             "color": "#e0af68",
+            "font_style": "italic"
+          },
+          "comment.warn": {
+            "color": "#565f89",
             "font_style": "italic"
           },
           "comment.warning": {
@@ -211,6 +242,9 @@
           },
 
           "constant.builtin": {
+            "color": "#ff9e64"
+          },
+          "constant.character": {
             "color": "#ff9e64"
           },
           "constant.macro": {
@@ -241,20 +275,50 @@
           "function.decorator": {
             "color": "#bb9af7"
           },
+          "function.definition": {
+            "color": "#7aa2f7"
+          },
           "function.macro": {
             "color": "#9d7cd8"
           },
           "function.method": {
             "color": "#7dcfff"
           },
+          "function.method.builtin": {
+            "color": "#7dcfff"
+          },
           "function.method.call": {
             "color": "#7dcfff"
+          },
+          "function.special": {
+            "color": "#7aa2f7"
+          },
+          "function.special.definition": {
+            "color": "#7aa2f7"
           },
 
           "keyword.conditional": {
             "color": "#bb9af7"
           },
+          "keyword.conditional.ternary": {
+            "color": "#bb9af7"
+          },
+          "keyword.coroutine": {
+            "color": "#9d7cd8"
+          },
+          "keyword.debug": {
+            "color": "#9d7cd8"
+          },
+          "keyword.directive": {
+            "color": "#9d7cd8"
+          },
+          "keyword.directive.define": {
+            "color": "#9d7cd8"
+          },
           "keyword.exception": {
+            "color": "#9d7cd8"
+          },
+          "keyword.export": {
             "color": "#9d7cd8"
           },
           "keyword.function": {
@@ -293,12 +357,32 @@
             "color": "#89ddff",
             "font_weight": 700
           },
+          "punctuation.markup": {
+            "color": "#89ddff",
+            "font_weight": 700
+          },
           "punctuation.special": {
             "color": "#89ddff"
           },
+          "punctuation.special.symbol": {
+            "color": "#89ddff"
+          },
 
+          "selector.pseudo": {
+            "color": "#7aa2f7"
+          },
+
+          "string.doc": {
+            "color": "#9ece6a"
+          },
+          "string.documentation": {
+            "color": "#9ece6a"
+          },
           "string.escape": {
             "color": "#2ac3de"
+          },
+          "string.regex": {
+            "color": "#e0af68"
           },
           "string.regexp": {
             "color": "#9ece6a"
@@ -308,6 +392,9 @@
           },
           "string.special.path": {
             "color": "#7dcfff"
+          },
+          "string.special.symbol": {
+            "color": "#2ac3de"
           },
           "string.special.url": {
             "color": "#7dcfff",
@@ -319,6 +406,9 @@
           },
           "tag.delimiter": {
             "color": "#a9b1d6"
+          },
+          "tag.doctype": {
+            "color": "#7aa2f7"
           },
 
           "text.literal": {
@@ -339,6 +429,9 @@
           "type.interface": {
             "color": "#2ac3de",
             "font_style": "italic"
+          },
+          "type.super": {
+            "color": "#2ac3de"
           },
 
           "variable.builtin": {
@@ -391,6 +484,7 @@
         "editor.foreground": "#c0caf5",
         "editor.gutter.background": "#00000000",
         "editor.highlighted_line.background": "#292E4233",
+        "editor.hover_line_number": "#86A6EF",
         "editor.indent_guide": "#A9B1D666",
         "editor.indent_guide_active": "#737AA2FF",
         "editor.invisible": "#a9b1d6",
@@ -536,6 +630,8 @@
         "version_control.ignored": "#545c7e",
         "version_control.modified": "#536c9e",
         "version_control.renamed": "#6183bb",
+        "version_control.word_added": "#9ECE6A59",
+        "version_control.word_deleted": "#DB4B4B59",
 
         "vim.helix_normal.background": "#7aa2f7",
         "vim.helix_normal.foreground": "#1a1b26",

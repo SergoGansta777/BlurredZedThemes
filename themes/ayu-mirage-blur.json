@@ -184,6 +184,9 @@
           "punctuation": {
             "color": "#6C7A96"
           },
+          "selector": {
+            "color": "#FFD173"
+          },
           "string": {
             "color": "#BAE67E"
           },
@@ -241,6 +244,215 @@
           "comment.todo": {
             "color": "#FFD173",
             "font_style": "italic"
+          },
+          "comment.warn": {
+            "color": "#5C6773",
+            "font_style": "italic"
+          },
+          "comment.warning": {
+            "color": "#5C6773",
+            "font_style": "italic"
+          },
+
+          "constant.builtin": {
+            "color": "#FFD173"
+          },
+          "constant.character": {
+            "color": "#FFD173"
+          },
+          "constant.macro": {
+            "color": "#FFD173"
+          },
+
+          "diff.delta": {
+            "color": "#FFD173"
+          },
+          "diff.minus": {
+            "color": "#F28779"
+          },
+          "diff.plus": {
+            "color": "#BAE67E"
+          },
+
+          "emphasis.strong": {
+            "color": "#D4BFFF",
+            "font_weight": 700
+          },
+
+          "function.builtin": {
+            "color": "#73D0FF"
+          },
+          "function.call": {
+            "color": "#73D0FF"
+          },
+          "function.decorator": {
+            "color": "#FFAD66"
+          },
+          "function.definition": {
+            "color": "#73D0FF"
+          },
+          "function.macro": {
+            "color": "#73D0FF"
+          },
+          "function.method": {
+            "color": "#73D0FF"
+          },
+          "function.method.builtin": {
+            "color": "#73D0FF"
+          },
+          "function.method.call": {
+            "color": "#73D0FF"
+          },
+          "function.special": {
+            "color": "#73D0FF"
+          },
+          "function.special.definition": {
+            "color": "#73D0FF"
+          },
+
+          "keyword.conditional": {
+            "color": "#FFAD66"
+          },
+          "keyword.conditional.ternary": {
+            "color": "#FFAD66"
+          },
+          "keyword.coroutine": {
+            "color": "#FFAD66"
+          },
+          "keyword.debug": {
+            "color": "#FFAD66"
+          },
+          "keyword.directive": {
+            "color": "#FFAD66"
+          },
+          "keyword.directive.define": {
+            "color": "#FFAD66"
+          },
+          "keyword.exception": {
+            "color": "#FFAD66"
+          },
+          "keyword.export": {
+            "color": "#FFAD66"
+          },
+          "keyword.function": {
+            "color": "#FFAD66"
+          },
+          "keyword.import": {
+            "color": "#FFAD66"
+          },
+          "keyword.modifier": {
+            "color": "#FFAD66"
+          },
+          "keyword.operator": {
+            "color": "#FFAD66"
+          },
+          "keyword.repeat": {
+            "color": "#FFAD66"
+          },
+          "keyword.return": {
+            "color": "#FFAD66"
+          },
+          "keyword.type": {
+            "color": "#FFAD66"
+          },
+
+          "number.float": {
+            "color": "#FFD173"
+          },
+
+          "punctuation.bracket": {
+            "color": "#6C7A96"
+          },
+          "punctuation.delimiter": {
+            "color": "#6C7A96"
+          },
+          "punctuation.list_marker": {
+            "color": "#6C7A96"
+          },
+          "punctuation.markup": {
+            "color": "#6C7A96"
+          },
+          "punctuation.special": {
+            "color": "#6C7A96"
+          },
+          "punctuation.special.symbol": {
+            "color": "#6C7A96"
+          },
+
+          "selector.pseudo": {
+            "color": "#5CCFE6"
+          },
+
+          "string.doc": {
+            "color": "#BAE67E"
+          },
+          "string.documentation": {
+            "color": "#BAE67E"
+          },
+          "string.escape": {
+            "color": "#F28779"
+          },
+          "string.regex": {
+            "color": "#FFD173"
+          },
+          "string.regexp": {
+            "color": "#FFD173"
+          },
+          "string.special": {
+            "color": "#BAE67E"
+          },
+          "string.special.path": {
+            "color": "#BAE67E"
+          },
+          "string.special.symbol": {
+            "color": "#BAE67E"
+          },
+          "string.special.url": {
+            "color": "#5CCFE6",
+            "font_style": "italic"
+          },
+
+          "tag.attribute": {
+            "color": "#FFAD66"
+          },
+          "tag.delimiter": {
+            "color": "#6C7A96"
+          },
+          "tag.doctype": {
+            "color": "#FFAD66"
+          },
+
+          "text.literal": {
+            "color": "#BAE67E"
+          },
+
+          "type.builtin": {
+            "color": "#FFD173"
+          },
+          "type.class.definition": {
+            "color": "#FFD173"
+          },
+          "type.definition": {
+            "color": "#FFD173"
+          },
+          "type.interface": {
+            "color": "#FFD173"
+          },
+          "type.super": {
+            "color": "#FFD173"
+          },
+
+          "variable.builtin": {
+            "color": "#CBCCC6"
+          },
+          "variable.member": {
+            "color": "#95E6CB"
+          },
+          "variable.parameter": {
+            "color": "#CBCCC6"
+          },
+          "variable.special": {
+            "color": "#CBCCC6"
           }
         },
         "text": "#CBCCC6",
@@ -279,6 +491,7 @@
         "editor.foreground": "#CBCCC6",
         "editor.gutter.background": "#00000000",
         "editor.highlighted_line.background": "#24293612",
+        "editor.hover_line_number": "#61BACF",
         "editor.indent_guide": "#707A8C66",
         "editor.indent_guide_active": "#5C6773FF",
         "editor.invisible": "#707A8C",
@@ -424,6 +637,8 @@
         "version_control.ignored": "#5C6773",
         "version_control.modified": "#FFD173",
         "version_control.renamed": "#D4BFFF",
+        "version_control.word_added": "#BAE67E59",
+        "version_control.word_deleted": "#F2877959",
 
         "vim.helix_normal.background": "#5CCFE6",
         "vim.helix_normal.foreground": "#1F2430",

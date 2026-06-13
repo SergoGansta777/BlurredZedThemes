@@ -106,14 +106,23 @@
           "constructor": {
             "color": "#78834B"
           },
+          "embedded": {
+            "color": "#D7C483"
+          },
           "emphasis": {
             "color": "#D7C483",
             "font_style": "italic"
+          },
+          "enum": {
+            "color": "#78834B"
           },
           "field": {
             "color": "#D7C483"
           },
           "function": {
+            "color": "#78834B"
+          },
+          "hint": {
             "color": "#78834B"
           },
           "keyword": {
@@ -141,14 +150,27 @@
           "operator": {
             "color": "#D7C483"
           },
+          "parameter": {
+            "color": "#D7C483"
+          },
+          "predictive": {
+            "color": "#666666",
+            "font_style": "italic"
+          },
           "preproc": {
             "color": "#5F875F"
+          },
+          "primary": {
+            "color": "#D7C483"
           },
           "property": {
             "color": "#D7C483"
           },
           "punctuation": {
             "color": "#D7C483"
+          },
+          "selector": {
+            "color": "#BB7744"
           },
           "string": {
             "color": "#685742"
@@ -170,6 +192,10 @@
           "variable": {
             "color": "#D7C483"
           },
+          "variant": {
+            "color": "#78834B",
+            "font_weight": 700
+          },
 
           "comment.doc": {
             "color": "#666666",
@@ -179,8 +205,39 @@
             "color": "#666666",
             "font_style": "italic"
           },
+          "comment.error": {
+            "color": "#666666",
+            "font_style": "italic"
+          },
+          "comment.hint": {
+            "color": "#666666",
+            "font_style": "italic"
+          },
+          "comment.info": {
+            "color": "#666666",
+            "font_style": "italic"
+          },
+          "comment.note": {
+            "color": "#666666",
+            "font_style": "italic"
+          },
+          "comment.todo": {
+            "color": "#666666",
+            "font_style": "italic"
+          },
+          "comment.warn": {
+            "color": "#666666",
+            "font_style": "italic"
+          },
+          "comment.warning": {
+            "color": "#666666",
+            "font_style": "italic"
+          },
 
           "constant.builtin": {
+            "color": "#BB7744"
+          },
+          "constant.character": {
             "color": "#BB7744"
           },
           "constant.macro": {
@@ -211,23 +268,71 @@
           "function.decorator": {
             "color": "#BB7744"
           },
+          "function.definition": {
+            "color": "#78834B"
+          },
           "function.macro": {
             "color": "#C9A554"
           },
           "function.method": {
             "color": "#78834B"
           },
+          "function.method.builtin": {
+            "color": "#78834B"
+          },
           "function.method.call": {
+            "color": "#78834B"
+          },
+          "function.special": {
+            "color": "#78834B"
+          },
+          "function.special.definition": {
             "color": "#78834B"
           },
 
           "keyword.conditional": {
             "color": "#5F875F"
           },
+          "keyword.conditional.ternary": {
+            "color": "#5F875F"
+          },
+          "keyword.coroutine": {
+            "color": "#5F875F"
+          },
+          "keyword.debug": {
+            "color": "#5F875F"
+          },
+          "keyword.directive": {
+            "color": "#5F875F"
+          },
+          "keyword.directive.define": {
+            "color": "#5F875F"
+          },
+          "keyword.exception": {
+            "color": "#5F875F"
+          },
+          "keyword.export": {
+            "color": "#5F875F"
+          },
+          "keyword.function": {
+            "color": "#5F875F"
+          },
           "keyword.import": {
             "color": "#5F875F"
           },
+          "keyword.modifier": {
+            "color": "#5F875F"
+          },
+          "keyword.operator": {
+            "color": "#5F875F"
+          },
+          "keyword.repeat": {
+            "color": "#5F875F"
+          },
           "keyword.return": {
+            "color": "#5F875F"
+          },
+          "keyword.type": {
             "color": "#5F875F"
           },
 
@@ -241,6 +346,12 @@
           "punctuation.delimiter": {
             "color": "#D7C483"
           },
+          "punctuation.list_marker": {
+            "color": "#C9A554"
+          },
+          "punctuation.markup": {
+            "color": "#C9A554"
+          },
           "punctuation.special": {
             "color": "#C9A554"
           },
@@ -248,17 +359,37 @@
             "color": "#C9A554"
           },
 
+          "selector.pseudo": {
+            "color": "#78834B"
+          },
+
+          "string.doc": {
+            "color": "#685742"
+          },
+          "string.documentation": {
+            "color": "#685742"
+          },
           "string.escape": {
             "color": "#BB7744"
           },
           "string.regex": {
             "color": "#C9A554"
           },
+          "string.regexp": {
+            "color": "#C9A554"
+          },
           "string.special": {
+            "color": "#C9A554"
+          },
+          "string.special.path": {
             "color": "#C9A554"
           },
           "string.special.symbol": {
             "color": "#C9A554"
+          },
+          "string.special.url": {
+            "color": "#5F875F",
+            "font_style": "italic"
           },
 
           "tag.attribute": {
@@ -266,6 +397,9 @@
           },
           "tag.delimiter": {
             "color": "#D7C483"
+          },
+          "tag.doctype": {
+            "color": "#5F875F"
           },
 
           "text.literal": {
@@ -277,9 +411,21 @@
             "color": "#78834B",
             "font_weight": 700
           },
+          "type.class.definition": {
+            "color": "#78834B",
+            "font_weight": 700
+          },
+          "type.definition": {
+            "color": "#78834B",
+            "font_weight": 700
+          },
           "type.interface": {
             "color": "#78834B",
             "font_style": "italic"
+          },
+          "type.super": {
+            "color": "#78834B",
+            "font_weight": 700
           },
 
           "variable.builtin": {
@@ -332,6 +478,7 @@
         "editor.foreground": "#D7C483",
         "editor.gutter.background": "#00000000",
         "editor.highlighted_line.background": "#1C1C1C12",
+        "editor.hover_line_number": "#909359",
         "editor.indent_guide": "#D7C48366",
         "editor.indent_guide_active": "#666666FF",
         "editor.invisible": "#D7C483B3",
@@ -477,6 +624,8 @@
         "version_control.ignored": "#666666",
         "version_control.modified": "#C9A554",
         "version_control.renamed": "#78834B",
+        "version_control.word_added": "#5F875F59",
+        "version_control.word_deleted": "#B36D4359",
 
         "vim.helix_normal.background": "#78834B",
         "vim.helix_normal.foreground": "#222222",

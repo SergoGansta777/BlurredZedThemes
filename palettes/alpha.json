@@ -48,6 +48,8 @@
     "terminal_background": "FF",
     "ui": "E0",
     "ui_inactive": "CC",
+    "word_added": "59",
+    "word_deleted": "59",
     "wrap_guide": "44"
   },
   "light": {
@@ -99,6 +101,8 @@
     "terminal_background": "FF",
     "ui": "C6",
     "ui_inactive": "C6",
+    "word_added": "59",
+    "word_deleted": "59",
     "wrap_guide": "33"
   }
 }

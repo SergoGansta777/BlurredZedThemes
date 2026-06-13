@@ -172,6 +172,9 @@
           "punctuation": {
             "color": "#9E9B93"
           },
+          "selector": {
+            "color": "#C4B28A"
+          },
           "string": {
             "color": "#8A9A7B"
           },
@@ -238,6 +241,9 @@
           "constant.builtin": {
             "color": "#B6927B"
           },
+          "constant.character": {
+            "color": "#B6927B"
+          },
           "constant.macro": {
             "color": "#C4746E"
           },
@@ -266,23 +272,50 @@
           "function.decorator": {
             "color": "#C4746E"
           },
+          "function.definition": {
+            "color": "#859FAC"
+          },
           "function.macro": {
             "color": "#C4746E"
           },
           "function.method": {
             "color": "#859FAC"
           },
+          "function.method.builtin": {
+            "color": "#859FAC"
+          },
           "function.method.call": {
+            "color": "#859FAC"
+          },
+          "function.special": {
+            "color": "#859FAC"
+          },
+          "function.special.definition": {
             "color": "#859FAC"
           },
 
           "keyword.conditional": {
             "color": "#A292A3"
           },
+          "keyword.conditional.ternary": {
+            "color": "#A292A3"
+          },
+          "keyword.coroutine": {
+            "color": "#A292A3"
+          },
           "keyword.debug": {
             "color": "#A292A3"
           },
+          "keyword.directive": {
+            "color": "#A292A3"
+          },
+          "keyword.directive.define": {
+            "color": "#A292A3"
+          },
           "keyword.exception": {
+            "color": "#A292A3"
+          },
+          "keyword.export": {
             "color": "#A292A3"
           },
           "keyword.function": {
@@ -320,6 +353,9 @@
           "punctuation.list_marker": {
             "color": "#9E9B93"
           },
+          "punctuation.markup": {
+            "color": "#9E9B93"
+          },
           "punctuation.special": {
             "color": "#9E9B93"
           },
@@ -327,13 +363,29 @@
             "color": "#C4746E"
           },
 
+          "selector.pseudo": {
+            "color": "#658594"
+          },
+
+          "string.doc": {
+            "color": "#8A9A7B"
+          },
+          "string.documentation": {
+            "color": "#8A9A7B"
+          },
           "string.escape": {
             "color": "#C4746E"
           },
           "string.regex": {
             "color": "#C4746E"
           },
+          "string.regexp": {
+            "color": "#C4746E"
+          },
           "string.special": {
+            "color": "#C4746E"
+          },
+          "string.special.path": {
             "color": "#C4746E"
           },
           "string.special.symbol": {
@@ -427,6 +479,7 @@
         "editor.foreground": "#DCD7BA",
         "editor.gutter.background": "#00000000",
         "editor.highlighted_line.background": "#2A2A3712",
+        "editor.hover_line_number": "#738B94",
         "editor.indent_guide": "#9E9B9366",
         "editor.indent_guide_active": "#54546DFF",
         "editor.invisible": "#9E9B93",
@@ -572,6 +625,8 @@
         "version_control.ignored": "#54546D",
         "version_control.modified": "#C4B28A",
         "version_control.renamed": "#A292A3",
+        "version_control.word_added": "#69946959",
+        "version_control.word_deleted": "#C4746E59",
 
         "vim.helix_normal.background": "#658594",
         "vim.helix_normal.foreground": "#181820",

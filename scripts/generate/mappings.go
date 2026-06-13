@@ -195,6 +195,8 @@ var alphaRules = []alphaRule{
 	alphaRole("minimap_bg", "foam", "minimap.thumb.background"),
 	alphaRole("minimap_hover", "foam", "minimap.thumb.hover_background"),
 	alphaRole("minimap_active", "foam", "minimap.thumb.active_background"),
+	alphaSemantic("word_added", "created", "version_control.word_added"),
+	alphaSemantic("word_deleted", "deleted", "version_control.word_deleted"),
 	alphaTerminal("terminal_background", "terminal.background"),
 	alphaTerminal("terminal_ansi_background", "terminal.ansi.background"),
 }

@@ -17,6 +17,7 @@ var standardizedKeys = map[string]struct{}{
 	"editor.document_highlight.read_background":    {},
 	"editor.document_highlight.write_background":   {},
 	"editor.highlighted_line.background":           {},
+	"editor.hover_line_number":                     {},
 	"editor.indent_guide":                          {},
 	"editor.indent_guide_active":                   {},
 	"editor.invisible":                             {},
@@ -77,6 +78,8 @@ var standardizedKeys = map[string]struct{}{
 	"version_control.conflict":                     {},
 	"version_control.conflict_marker.ours":         {},
 	"version_control.conflict_marker.theirs":       {},
+	"version_control.word_added":                   {},
+	"version_control.word_deleted":                 {},
 	"warning.background":                           {},
 }
 

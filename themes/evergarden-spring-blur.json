@@ -181,6 +181,9 @@
           "punctuation": {
             "color": "#96B4AA"
           },
+          "selector": {
+            "color": "#F5D098"
+          },
           "string": {
             "color": "#DBE6AF"
           },
@@ -251,6 +254,9 @@
           "constant.builtin": {
             "color": "#F3C0E5"
           },
+          "constant.character": {
+            "color": "#F3C0E5"
+          },
           "constant.macro": {
             "color": "#D2BDF3"
           },
@@ -279,13 +285,25 @@
           "function.decorator": {
             "color": "#F7A182"
           },
+          "function.definition": {
+            "color": "#CBE3B3"
+          },
           "function.macro": {
             "color": "#F6CEE5"
           },
           "function.method": {
             "color": "#CBE3B3"
           },
+          "function.method.builtin": {
+            "color": "#CBE3B3"
+          },
           "function.method.call": {
+            "color": "#CBE3B3"
+          },
+          "function.special": {
+            "color": "#CBE3B3"
+          },
+          "function.special.definition": {
             "color": "#CBE3B3"
           },
 
@@ -349,11 +367,19 @@
             "color": "#B3E6DB",
             "font_weight": 700
           },
+          "punctuation.markup": {
+            "color": "#B3E6DB",
+            "font_weight": 700
+          },
           "punctuation.special": {
             "color": "#F6CEE5"
           },
           "punctuation.special.symbol": {
             "color": "#D2BDF3"
+          },
+
+          "selector.pseudo": {
+            "color": "#CBE3B3"
           },
 
           "string.doc": {
@@ -471,6 +497,7 @@
         "editor.foreground": "#F8F9E8",
         "editor.gutter.background": "#00000000",
         "editor.highlighted_line.background": "#3E4A4F12",
+        "editor.hover_line_number": "#C3DCB5",
         "editor.indent_guide": "#ADC9BC66",
         "editor.indent_guide_active": "#96B4AAFF",
         "editor.invisible": "#ADC9BC",
@@ -616,6 +643,8 @@
         "version_control.ignored": "#58686D",
         "version_control.modified": "#F5D098",
         "version_control.renamed": "#B3E3CA",
+        "version_control.word_added": "#CBE3B359",
+        "version_control.word_deleted": "#F57F8259",
 
         "vim.helix_normal.background": "#CBE3B3",
         "vim.helix_normal.foreground": "#2B3438",

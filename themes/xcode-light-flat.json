@@ -152,6 +152,9 @@
           "punctuation": {
             "color": "#000000"
           },
+          "selector": {
+            "color": "#FFD300"
+          },
           "string": {
             "color": "#d12f1b"
           },
@@ -339,8 +342,18 @@
           "punctuation.list_marker": {
             "color": "#000000"
           },
+          "punctuation.markup": {
+            "color": "#000000"
+          },
           "punctuation.special": {
             "color": "#000000"
+          },
+          "punctuation.special.symbol": {
+            "color": "#000000"
+          },
+
+          "selector.pseudo": {
+            "color": "#0091FF"
           },
 
           "string.doc": {
@@ -450,6 +463,7 @@
         "editor.foreground": "#000000D9",
         "editor.gutter.background": "#FFFFFF",
         "editor.highlighted_line.background": "#00000013",
+        "editor.hover_line_number": "#000000",
         "editor.indent_guide": "#00000066",
         "editor.indent_guide_active": "#000000AA",
         "editor.invisible": "#D6D6D6",
@@ -595,6 +609,8 @@
         "version_control.ignored": "#00000066",
         "version_control.modified": "#C99B45",
         "version_control.renamed": "#8D6CB5",
+        "version_control.word_added": "#2FA15A59",
+        "version_control.word_deleted": "#D45A4A59",
 
         "vim.helix_normal.background": "#4A9BD6",
         "vim.helix_normal.foreground": "#FFFFFF",
