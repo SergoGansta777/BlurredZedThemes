@@ -528,7 +528,7 @@
         "element.hover": "#DDD0B8F0",
         "element.selected": "#B8AC96F5",
 
-        "elevated_surface.background": "#E6DAC4FF",
+        "elevated_surface.background": "#E6DAC4",
 
         "error.background": "#E6DAC4",
         "error.border": "#905050",
@@ -608,7 +608,7 @@
 
         "tab_bar.background": "#E6DAC4",
 
-        "terminal.ansi.background": "#E6DAC4FF",
+        "terminal.ansi.background": "#E6DAC4",
         "terminal.ansi.black": "#605848",
         "terminal.ansi.blue": "#3A6080",
         "terminal.ansi.bright_black": "#989080",
@@ -633,7 +633,7 @@
         "terminal.ansi.red": "#905050",
         "terminal.ansi.white": "#282418",
         "terminal.ansi.yellow": "#7A6820",
-        "terminal.background": "#E6DAC4FF",
+        "terminal.background": "#E6DAC4",
         "terminal.bright_foreground": "#282418",
         "terminal.dim_foreground": "#585040",
         "terminal.foreground": "#282418",
@@ -653,7 +653,7 @@
         "unreachable.border": "#787060",
 
         "version_control.added": "#4A6830",
-        "version_control.conflict": "#7A6820",
+        "version_control.conflict": "#946030",
         "version_control.conflict_marker.ours": "#7A682033",
         "version_control.conflict_marker.theirs": "#3A608033",
         "version_control.deleted": "#B84C30",
@@ -667,12 +667,12 @@
         "vim.helix_normal.foreground": "#E6DAC4",
         "vim.helix_select.background": "#706070",
         "vim.helix_select.foreground": "#E6DAC4",
-        "vim.insert.background": "#B84C30",
+        "vim.insert.background": "#7A6820",
         "vim.insert.foreground": "#E6DAC4",
         "vim.mode.text": "#E6DAC4",
         "vim.normal.background": "#3A6080",
         "vim.normal.foreground": "#E6DAC4",
-        "vim.replace.background": "#905050",
+        "vim.replace.background": "#B84C30",
         "vim.replace.foreground": "#E6DAC4",
         "vim.visual.background": "#706070",
         "vim.visual.foreground": "#E6DAC4",

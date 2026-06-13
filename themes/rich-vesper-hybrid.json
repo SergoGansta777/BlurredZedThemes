@@ -526,7 +526,7 @@
         "element.hover": "#28282866",
         "element.selected": "#23232380",
 
-        "elevated_surface.background": "#101010FF",
+        "elevated_surface.background": "#101010",
 
         "error.background": "#101010",
         "error.border": "#FF8080",
@@ -571,7 +571,7 @@
         "panel.background": "#00000000",
         "panel.focused_border": "#A0A0A030",
         "panel.indent_guide": "#A0A0A066",
-        "panel.indent_guide_active": "#7E7E7EFF",
+        "panel.indent_guide_active": "#7E7E7E",
         "panel.indent_guide_hover": "#FFC799",
         "panel.overlay_background": "#101010F0",
 
@@ -599,14 +599,14 @@
 
         "surface.background": "#101010CC",
 
-        "tab.active_background": "#101010FF",
+        "tab.active_background": "#101010",
         "tab.active_foreground": "#FFFFFF",
         "tab.inactive_background": "#00000000",
         "tab.inactive_foreground": "#A0A0A0",
 
         "tab_bar.background": "#00000000",
 
-        "terminal.ansi.background": "#101010FF",
+        "terminal.ansi.background": "#101010",
         "terminal.ansi.black": "#101010",
         "terminal.ansi.blue": "#ACA1CF",
         "terminal.ansi.bright_black": "#7E7E7E",
@@ -631,7 +631,7 @@
         "terminal.ansi.red": "#F5A191",
         "terminal.ansi.white": "#A0A0A0",
         "terminal.ansi.yellow": "#E6B99D",
-        "terminal.background": "#101010FF",
+        "terminal.background": "#101010",
         "terminal.bright_foreground": "#FFFFFF",
         "terminal.dim_foreground": "#7E7E7E",
         "terminal.foreground": "#A0A0A0",
@@ -651,9 +651,9 @@
         "unreachable.border": "#FF8080",
 
         "version_control.added": "#99FFE4",
-        "version_control.conflict": "#FFC79980",
+        "version_control.conflict": "#FF8080",
         "version_control.conflict_marker.ours": "#FFC79933",
-        "version_control.conflict_marker.theirs": "#FFC79933",
+        "version_control.conflict_marker.theirs": "#7E7E7E33",
         "version_control.deleted": "#FF8080",
         "version_control.ignored": "#474747",
         "version_control.modified": "#FFC79980",
@@ -661,14 +661,14 @@
         "version_control.word_added": "#99FFE459",
         "version_control.word_deleted": "#FF808059",
 
-        "vim.helix_normal.background": "#FFC799",
+        "vim.helix_normal.background": "#7E7E7E",
         "vim.helix_normal.foreground": "#101010",
         "vim.helix_select.background": "#FFC799",
         "vim.helix_select.foreground": "#101010",
-        "vim.insert.background": "#FFC799",
+        "vim.insert.background": "#FFC79980",
         "vim.insert.foreground": "#101010",
         "vim.mode.text": "#101010",
-        "vim.normal.background": "#FFC799",
+        "vim.normal.background": "#7E7E7E",
         "vim.normal.foreground": "#101010",
         "vim.replace.background": "#FF8080",
         "vim.replace.foreground": "#101010",

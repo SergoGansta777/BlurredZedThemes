@@ -764,7 +764,7 @@
         "editor.highlighted_line.background": "#FFFFFF13",
         "editor.hover_line_number": "#FFFFFF",
         "editor.indent_guide": "#FFFFFF66",
-        "editor.indent_guide_active": "#FFFFFFFF",
+        "editor.indent_guide_active": "#FFFFFF",
         "editor.invisible": "#53606E",
         "editor.line_number": "#FFFFFF6B",
         "editor.subheader.background": "#393A40",
@@ -776,7 +776,7 @@
         "element.hover": "#44454B",
         "element.selected": "#44454B",
 
-        "elevated_surface.background": "#393A40FF",
+        "elevated_surface.background": "#393A40",
 
         "error.background": "#452F33",
         "error.border": "#FF5E4A",
@@ -821,7 +821,7 @@
         "panel.background": "#292A30",
         "panel.focused_border": "#4F5056",
         "panel.indent_guide": "#FFFFFF66",
-        "panel.indent_guide_active": "#FFFFFFFF",
+        "panel.indent_guide_active": "#FFFFFF",
         "panel.indent_guide_hover": "#58ACED",
         "panel.overlay_background": "#393A40F0",
 
@@ -834,7 +834,7 @@
         "scrollbar.thumb.active_background": null,
         "scrollbar.thumb.background": "#FFFFFF80",
         "scrollbar.thumb.border": null,
-        "scrollbar.thumb.hover_background": "#FFFFFFFF",
+        "scrollbar.thumb.hover_background": "#FFFFFF",
         "scrollbar.track.background": "#393A401A",
         "scrollbar.track.border": "#FFFFFF12",
 
@@ -856,7 +856,7 @@
 
         "tab_bar.background": "#292A30",
 
-        "terminal.ansi.background": "#292A30FF",
+        "terminal.ansi.background": "#292A30",
         "terminal.ansi.black": "#45464A",
         "terminal.ansi.blue": "#4EAEFF",
         "terminal.ansi.bright_black": "#A0A0A3",
@@ -881,7 +881,7 @@
         "terminal.ansi.red": "#FF8074",
         "terminal.ansi.white": "#FFFFFF",
         "terminal.ansi.yellow": "#FFDC01",
-        "terminal.background": "#292A30FF",
+        "terminal.background": "#292A30",
         "terminal.bright_foreground": "#D6D6D6",
         "terminal.dim_foreground": "#929292",
         "terminal.foreground": "#FFFFFF",

@@ -776,7 +776,7 @@
         "element.hover": "#F1F1F1",
         "element.selected": "#F1F1F1",
 
-        "elevated_surface.background": "#F7F7F7FF",
+        "elevated_surface.background": "#F7F7F7",
 
         "error.background": "#FFF0EE",
         "error.border": "#FF543E",
@@ -856,7 +856,7 @@
 
         "tab_bar.background": "#00000000",
 
-        "terminal.ansi.background": "#FFFFFFFF",
+        "terminal.ansi.background": "#FFFFFF",
         "terminal.ansi.black": "#EBEBEB",
         "terminal.ansi.blue": "#005BE4",
         "terminal.ansi.bright_black": "#929292",
@@ -881,7 +881,7 @@
         "terminal.ansi.red": "#E12019",
         "terminal.ansi.white": "#000000",
         "terminal.ansi.yellow": "#FFD300",
-        "terminal.background": "#FFFFFFFF",
+        "terminal.background": "#FFFFFF",
         "terminal.bright_foreground": "#000000",
         "terminal.dim_foreground": "#000000",
         "terminal.foreground": "#000000",

@@ -28,3 +28,9 @@ func TestNormalizeImportedStyleRenamesKnownSyntaxTypos(t *testing.T) {
 		t.Fatalf("function.special color = %q, want %q", got, "#286983")
 	}
 }
+
+func TestWithAlphaReturnsShortOpaqueColors(t *testing.T) {
+	if got := WithAlpha("#ffffff", "FF"); got != "#FFFFFF" {
+		t.Fatalf("WithAlpha opaque = %q, want %q", got, "#FFFFFF")
+	}
+}

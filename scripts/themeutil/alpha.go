@@ -45,6 +45,9 @@ func WithAlpha(hex string, alpha string) string {
 		h = h[:6]
 	}
 	if len(h) == 6 && len(alpha) == 2 {
+		if strings.EqualFold(alpha, "FF") {
+			return "#" + strings.ToUpper(h)
+		}
 		return "#" + strings.ToUpper(h+alpha)
 	}
 	if strings.HasPrefix(hex, "#") {

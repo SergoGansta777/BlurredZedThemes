@@ -8,6 +8,7 @@ import (
 	"maps"
 	"os"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -77,6 +78,7 @@ type Config struct {
 	WriteStyleKeys   string
 	WriteAlpha       bool
 	PruneAlpha       bool
+	PruneOverrides   bool
 	RewriteOverrides bool
 	WIP              bool
 	KeepTODOs        bool
@@ -146,6 +148,7 @@ func parseFlags() Config {
 	flag.StringVar(&cfg.WriteStyleKeys, "write-style-keys", "", "comma-separated top-level style keys to copy from reference into palette style")
 	flag.BoolVar(&cfg.WriteAlpha, "write-alpha", false, "update palette alpha overrides to match reference")
 	flag.BoolVar(&cfg.PruneAlpha, "prune-alpha-overrides", false, "remove alpha-derived overrides after writing alpha")
+	flag.BoolVar(&cfg.PruneOverrides, "prune-overrides", false, "remove overrides that are already derived without changing the generated style")
 	flag.BoolVar(&cfg.RewriteOverrides, "rewrite-overrides", false, "replace overrides with only reference diffs (excluding standardized keys)")
 	flag.BoolVar(&cfg.WIP, "wip", true, "append WIP suffix to names and filenames")
 	flag.BoolVar(&cfg.KeepTODOs, "keep-todos", false, "keep TODO values for debugging")
@@ -701,7 +704,7 @@ func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[stri
 	fmt.Printf("  extra in generated: %d\n", len(extra))
 	fmt.Printf("  value diffs: %d\n", len(diffs))
 
-	if !cfg.WriteOverrides && cfg.WriteStyleKeys == "" && !cfg.WriteAlpha && !cfg.PruneAlpha {
+	if !cfg.WriteOverrides && cfg.WriteStyleKeys == "" && !cfg.WriteAlpha && !cfg.PruneAlpha && !cfg.PruneOverrides {
 		return nil
 	}
 
@@ -762,6 +765,9 @@ func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[stri
 
 	if cfg.PruneAlpha {
 		pruneAlphaOverrides(&updated, template, alphaCfg, reference)
+	}
+	if cfg.PruneOverrides {
+		pruneRedundantOverrides(&updated, template, alphaCfg, reference, cfg.PruneStyle)
 	}
 
 	return writeJSON(cfg.PalettePath, updated)
@@ -885,10 +891,10 @@ func applyRoleMappings(style map[string]any, p Palette) {
 	setRole(style, "version_control.deleted", semantic["deleted"])
 	setRole(style, "version_control.modified", semantic["modified"])
 	setRole(style, "version_control.renamed", semantic["renamed"])
-	setRole(style, "version_control.conflict", firstNonEmpty(semantic["modified"], semantic["conflict"]))
+	setRole(style, "version_control.conflict", firstNonEmpty(semantic["conflict"], semantic["modified"]))
 	setRole(style, "version_control.ignored", semantic["ignored"])
 	setRole(style, "version_control.conflict_marker.ours", semantic["warning"])
-	setRole(style, "version_control.conflict_marker.theirs", role("foam"))
+	setRole(style, "version_control.conflict_marker.theirs", semantic["info"])
 
 	setRole(style, "debugger.accent", semantic["error"])
 
@@ -1007,10 +1013,10 @@ func applyTerminalDims(style map[string]any) {
 
 func applyDerivedVim(style map[string]any, p Palette) {
 	role := func(name string) string { return roleValue(p, name) }
-	normal := firstNonEmpty(role("foam"), role("pine"))
-	insert := firstNonEmpty(role("rose"), role("gold"))
-	visual := firstNonEmpty(role("iris"), role("rose"))
-	replace := firstNonEmpty(role("love"), role("rose"))
+	normal := firstNonEmpty(semanticOf(p, "info"), role("foam"), role("pine"))
+	insert := firstNonEmpty(semanticOf(p, "modified"), role("rose"), role("gold"))
+	visual := firstNonEmpty(semanticOf(p, "renamed"), role("iris"), role("rose"))
+	replace := firstNonEmpty(semanticOf(p, "deleted"), role("love"), role("rose"))
 	foreground := firstNonEmpty(role("base"), role("surface"), role("text"))
 
 	setRole(style, "vim.mode.text", foreground)
@@ -1393,6 +1399,51 @@ func pruneAlphaOverrides(palette *Palette, template map[string]any, alphaCfg Alp
 			delete(palette.Overrides, key)
 		}
 	}
+}
+
+func pruneRedundantOverrides(palette *Palette, template map[string]any, alphaCfg AlphaConfig, reference map[string]any, pruneStyle bool) {
+	if len(palette.Overrides) == 0 {
+		return
+	}
+
+	mergedAlpha := alphaCfg
+	themeutil.MergeAlphaConfig(&mergedAlpha, palette.Alpha)
+
+	for {
+		changed := false
+		for _, key := range sortedMapKeys(palette.Overrides) {
+			trial := *palette
+			trial.Overrides = maps.Clone(palette.Overrides)
+			delete(trial.Overrides, key)
+			if len(trial.Overrides) == 0 {
+				trial.Overrides = nil
+			}
+
+			style := buildStyle(template, trial, mergedAlpha, pruneStyle)
+			removeTODOs(style)
+			missing, extra, diffs := diffStyle(reference, style)
+			if len(missing) != 0 || len(extra) != 0 || len(diffs) != 0 {
+				continue
+			}
+			delete(palette.Overrides, key)
+			changed = true
+		}
+		if !changed {
+			break
+		}
+	}
+	if len(palette.Overrides) == 0 {
+		palette.Overrides = nil
+	}
+}
+
+func sortedMapKeys(m map[string]any) []string {
+	keys := make([]string, 0, len(m))
+	for key := range m {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+	return keys
 }
 
 func alphaDerivedKeys() []string {

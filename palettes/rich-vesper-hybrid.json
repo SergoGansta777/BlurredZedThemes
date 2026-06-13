@@ -1,43 +1,10 @@
 {
-  "accents": [
-    "#FFC799",
-    "#99FFE4",
-    "#FF8080",
-    "#B2E6DC",
-    "#A0A0A0",
-    "#7E7E7E",
-    "#B38C6D"
-  ],
-  "alpha": {
-    "dark": {
-      "semantic_bg": "3D"
-    },
-    "light": {}
-  },
-  "colors": null,
   "meta": {
-    "appearance": "dark",
-    "author": "Rauno Freiberg (Hybrid/Blurred refit by SergoGansta777)",
-    "background_appearance": "blurred",
     "name": "Rich Vesper",
-    "theme_name": "Rich Vesper (Hybrid)"
-  },
-  "overrides": {
-    "border.variant": "#FFC79999",
-    "editor.active_line.background": "#191919",
-    "editor.document_highlight.read_background": "#1D3436",
-    "editor.document_highlight.write_background": "#282828",
-    "editor.indent_guide": "#FFFFFF05",
-    "editor.indent_guide_active": "#FFFFFF0A",
-    "editor.invisible": "#FFFFFF06",
-    "editor.line_number": "#505050",
-    "link_text.hover": "#FFCFA8",
-    "scrollbar.thumb.background": "#34343450",
-    "scrollbar.thumb.border": "#34343400",
-    "scrollbar.thumb.hover_background": "#343434",
-    "scrollbar.track.background": "#101010FB",
-    "scrollbar.track.border": "#101010",
-    "search.match_background": "#575757"
+    "author": "Rauno Freiberg (Hybrid/Blurred refit by SergoGansta777)",
+    "appearance": "dark",
+    "theme_name": "Rich Vesper (Hybrid)",
+    "background_appearance": "blurred"
   },
   "roles": {
     "base": "#101010",
@@ -72,6 +39,38 @@
     "unreachable": "#FF8080",
     "warning": "#FFC799"
   },
+  "accents": [
+    "#FFC799",
+    "#99FFE4",
+    "#FF8080",
+    "#B2E6DC",
+    "#A0A0A0",
+    "#7E7E7E",
+    "#B38C6D"
+  ],
+  "terminal": {
+    "terminal.ansi.background": "#101010",
+    "terminal.ansi.black": "#101010",
+    "terminal.ansi.blue": "#ACA1CF",
+    "terminal.ansi.bright_black": "#7E7E7E",
+    "terminal.ansi.bright_blue": "#B9AEDA",
+    "terminal.ansi.bright_cyan": "#F591B2",
+    "terminal.ansi.bright_green": "#99FFE4",
+    "terminal.ansi.bright_magenta": "#ECAAD6",
+    "terminal.ansi.bright_red": "#FF8080",
+    "terminal.ansi.bright_white": "#FFFFFF",
+    "terminal.ansi.bright_yellow": "#FFC799",
+    "terminal.ansi.cyan": "#EA83A5",
+    "terminal.ansi.green": "#90B99F",
+    "terminal.ansi.magenta": "#E29ECA",
+    "terminal.ansi.red": "#F5A191",
+    "terminal.ansi.white": "#A0A0A0",
+    "terminal.ansi.yellow": "#E6B99D",
+    "terminal.background": "#101010",
+    "terminal.bright_foreground": "#FFFFFF",
+    "terminal.dim_foreground": "#7E7E7E",
+    "terminal.foreground": "#A0A0A0"
+  },
   "style": {
     "syntax": {
       "attribute": {
@@ -103,18 +102,18 @@
         "color": "#FFFFFF",
         "font_weight": null
       },
-      "function.definition": {
-        "color": "#FFDEC4",
-        "background_color": "#FFC79903",
-        "font_weight": null
-      },
       "function": {
         "color": "#FFDEC4",
         "font_weight": null
       },
-      "function.method": {
+      "function.definition": {
+        "background_color": "#FFC79903",
         "color": "#FFDEC4",
-        "background_color": "#FFDEC402"
+        "font_weight": null
+      },
+      "function.method": {
+        "background_color": "#FFDEC402",
+        "color": "#FFDEC4"
       },
       "function.special": {
         "color": "#98D3C9",
@@ -140,8 +139,8 @@
         "color": "#A0A0A0"
       },
       "property": {
-        "color": "#9AB0AB",
         "background_color": "#C4E0D902",
+        "color": "#9AB0AB",
         "font_style": "italic"
       },
       "punctuation": {
@@ -187,39 +186,38 @@
         "color": "#FFC799"
       },
       "type.interface": {
-        "color": "#FFC7F9",
         "background_color": "#FFC7F902",
+        "color": "#FFC7F9",
         "font_style": "italic"
-      },
-      "variable.special": {
-        "color": "#A0A0A0"
       },
       "variable.parameter": {
         "color": "#B38C6D"
+      },
+      "variable.special": {
+        "color": "#A0A0A0"
       }
     }
   },
-  "terminal": {
-    "terminal.ansi.background": "#101010",
-    "terminal.ansi.black": "#101010",
-    "terminal.ansi.blue": "#ACA1CF",
-    "terminal.ansi.bright_black": "#7E7E7E",
-    "terminal.ansi.bright_blue": "#B9AEDA",
-    "terminal.ansi.bright_cyan": "#F591B2",
-    "terminal.ansi.bright_green": "#99FFE4",
-    "terminal.ansi.bright_magenta": "#ECAAD6",
-    "terminal.ansi.bright_red": "#FF8080",
-    "terminal.ansi.bright_white": "#FFFFFF",
-    "terminal.ansi.bright_yellow": "#FFC799",
-    "terminal.ansi.cyan": "#EA83A5",
-    "terminal.ansi.green": "#90B99F",
-    "terminal.ansi.magenta": "#E29ECA",
-    "terminal.ansi.red": "#F5A191",
-    "terminal.ansi.white": "#A0A0A0",
-    "terminal.ansi.yellow": "#E6B99D",
-    "terminal.background": "#101010",
-    "terminal.bright_foreground": "#FFFFFF",
-    "terminal.dim_foreground": "#7E7E7E",
-    "terminal.foreground": "#A0A0A0"
+  "overrides": {
+    "editor.active_line.background": "#191919",
+    "editor.document_highlight.read_background": "#1D3436",
+    "editor.document_highlight.write_background": "#282828",
+    "editor.indent_guide": "#FFFFFF05",
+    "editor.indent_guide_active": "#FFFFFF0A",
+    "editor.invisible": "#FFFFFF06",
+    "editor.line_number": "#505050",
+    "link_text.hover": "#FFCFA8",
+    "scrollbar.thumb.background": "#34343450",
+    "scrollbar.thumb.border": "#34343400",
+    "scrollbar.thumb.hover_background": "#343434",
+    "scrollbar.track.background": "#101010FB",
+    "scrollbar.track.border": "#101010",
+    "search.match_background": "#575757"
+  },
+  "alpha": {
+    "light": {},
+    "dark": {
+      "semantic_bg": "3D"
+    }
   }
 }

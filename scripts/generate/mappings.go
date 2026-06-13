@@ -135,6 +135,10 @@ func alphaRole(alphaKey, role string, keys ...string) alphaRule {
 	return alphaRule{alphaKey: alphaKey, baseKey: role, baseKind: alphaBaseRole, styleKeys: keys}
 }
 
+func alphaRoleForce(alphaKey, role string, keys ...string) alphaRule {
+	return alphaRule{alphaKey: alphaKey, baseKey: role, baseKind: alphaBaseRole, styleKeys: keys, force: true}
+}
+
 func alphaSemantic(alphaKey, semantic string, keys ...string) alphaRule {
 	return alphaRule{alphaKey: alphaKey, baseKey: semantic, baseKind: alphaBaseSemantic, styleKeys: keys}
 }
@@ -157,7 +161,11 @@ var alphaRules = []alphaRule{
 	alphaRole("overlay", "surface", "panel.overlay_background"),
 	alphaRole("subheader", "surface", "editor.subheader.background"),
 	alphaRole("active_line", "overlay", "editor.active_line.background"),
+	alphaRoleForce("active_line_number", "text", "editor.active_line_number"),
 	alphaRole("highlighted_line", "overlay", "editor.highlighted_line.background"),
+	alphaRole("line_number", "text", "editor.line_number"),
+	alphaRole("text_disabled", "text", "text.disabled", "icon.disabled"),
+	alphaRole("text_placeholder", "text", "text.placeholder"),
 	alphaRole("element_active", "highlight_med", "element.active"),
 	alphaRole("element_hover", "highlight_low", "element.hover"),
 	alphaRole("element_selected", "highlight_med", "element.selected"),
@@ -171,7 +179,7 @@ var alphaRules = []alphaRule{
 	alphaRole("border_selected", "iris", "border.selected"),
 	alphaRole("border_disabled", "muted", "border.disabled"),
 	alphaSemantic("conflict_marker", "warning", "version_control.conflict_marker.ours"),
-	alphaRole("conflict_marker", "foam", "version_control.conflict_marker.theirs"),
+	alphaSemantic("conflict_marker", "info", "version_control.conflict_marker.theirs"),
 	alphaRole("panel_focus_border", "muted", "panel.focused_border"),
 	alphaRole("panel_indent_guide", "muted", "panel.indent_guide"),
 	alphaRole("panel_indent_guide_active", "subtle", "panel.indent_guide_active"),

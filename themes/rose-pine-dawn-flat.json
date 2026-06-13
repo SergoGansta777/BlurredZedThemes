@@ -474,7 +474,7 @@
         "element.hover": "#F4EDE8F2",
         "element.selected": "#CECACDF8",
 
-        "elevated_surface.background": "#FFFAF3FF",
+        "elevated_surface.background": "#FFFAF3",
 
         "error.background": "#fffaf3",
         "error.border": "#b4637a",
@@ -554,7 +554,7 @@
 
         "tab_bar.background": "#fffaf3",
 
-        "terminal.ansi.background": "#FFFAF3FF",
+        "terminal.ansi.background": "#FFFAF3",
         "terminal.ansi.black": "#f4ede8",
         "terminal.ansi.blue": "#56949f",
         "terminal.ansi.bright_black": "#797593",
@@ -579,7 +579,7 @@
         "terminal.ansi.red": "#b4637a",
         "terminal.ansi.white": "#575279",
         "terminal.ansi.yellow": "#ea9d34",
-        "terminal.background": "#FFFAF3FF",
+        "terminal.background": "#FFFAF3",
         "terminal.bright_foreground": "#575279",
         "terminal.dim_foreground": "#797593",
         "terminal.foreground": "#575279",
@@ -599,9 +599,9 @@
         "unreachable.border": "#797593",
 
         "version_control.added": "#56949f",
-        "version_control.conflict": "#d7827e",
+        "version_control.conflict": "#ea9d34",
         "version_control.conflict_marker.ours": "#EA9D3433",
-        "version_control.conflict_marker.theirs": "#56949F33",
+        "version_control.conflict_marker.theirs": "#28698333",
         "version_control.deleted": "#b4637aCC",
         "version_control.ignored": "#9893a5",
         "version_control.modified": "#d7827e",
@@ -609,14 +609,14 @@
         "version_control.word_added": "#56949F59",
         "version_control.word_deleted": "#B4637A59",
 
-        "vim.helix_normal.background": "#56949f",
+        "vim.helix_normal.background": "#286983",
         "vim.helix_normal.foreground": "#fffaf3",
         "vim.helix_select.background": "#907aa9",
         "vim.helix_select.foreground": "#fffaf3",
         "vim.insert.background": "#d7827e",
         "vim.insert.foreground": "#fffaf3",
         "vim.mode.text": "#fffaf3",
-        "vim.normal.background": "#56949f",
+        "vim.normal.background": "#286983",
         "vim.normal.foreground": "#fffaf3",
         "vim.replace.background": "#b4637a",
         "vim.replace.foreground": "#fffaf3",

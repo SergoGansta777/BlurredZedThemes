@@ -499,7 +499,7 @@
         "editor.highlighted_line.background": "#C5C9C512",
         "editor.hover_line_number": "#879CA4",
         "editor.indent_guide": "#7A838266",
-        "editor.indent_guide_active": "#7A8382FF",
+        "editor.indent_guide_active": "#7A8382",
         "editor.invisible": "#7A8382",
         "editor.line_number": "#7A8382",
         "editor.subheader.background": "#181616CC",
@@ -511,7 +511,7 @@
         "element.hover": "#625E5A66",
         "element.selected": "#625E5A80",
 
-        "elevated_surface.background": "#181616FF",
+        "elevated_surface.background": "#181616",
 
         "error.background": "#181616",
         "error.border": "#E82424",
@@ -556,7 +556,7 @@
         "panel.background": "#181616",
         "panel.focused_border": "#7A838230",
         "panel.indent_guide": "#7A838266",
-        "panel.indent_guide_active": "#7A8382FF",
+        "panel.indent_guide_active": "#7A8382",
         "panel.indent_guide_hover": "#8BA4B0",
         "panel.overlay_background": "#181616F0",
 
@@ -569,7 +569,7 @@
         "scrollbar.thumb.active_background": null,
         "scrollbar.thumb.background": "#7A838280",
         "scrollbar.thumb.border": null,
-        "scrollbar.thumb.hover_background": "#7A8382FF",
+        "scrollbar.thumb.hover_background": "#7A8382",
         "scrollbar.track.background": "#1816161A",
         "scrollbar.track.border": "#C5C9C512",
 
@@ -591,7 +591,7 @@
 
         "tab_bar.background": "#181616",
 
-        "terminal.ansi.background": "#181616FF",
+        "terminal.ansi.background": "#181616",
         "terminal.ansi.black": "#0D0C0C",
         "terminal.ansi.blue": "#8BA4B0",
         "terminal.ansi.bright_black": "#A6A69C",
@@ -616,7 +616,7 @@
         "terminal.ansi.red": "#C4746E",
         "terminal.ansi.white": "#C5C9C5",
         "terminal.ansi.yellow": "#C4B28A",
-        "terminal.background": "#181616FF",
+        "terminal.background": "#181616",
         "terminal.bright_foreground": "#C5C9C5",
         "terminal.dim_foreground": "#8EA4A2",
         "terminal.foreground": "#C5C9C5",
@@ -636,7 +636,7 @@
         "unreachable.border": "#C4746E",
 
         "version_control.added": "#8A9A7B",
-        "version_control.conflict": "#C4B28A",
+        "version_control.conflict": "#8992A7",
         "version_control.conflict_marker.ours": "#FF9E3B33",
         "version_control.conflict_marker.theirs": "#8BA4B033",
         "version_control.deleted": "#C4746E",
@@ -655,7 +655,7 @@
         "vim.mode.text": "#181616",
         "vim.normal.background": "#8BA4B0",
         "vim.normal.foreground": "#181616",
-        "vim.replace.background": "#E82424",
+        "vim.replace.background": "#C4746E",
         "vim.replace.foreground": "#181616",
         "vim.visual.background": "#8BA4B0",
         "vim.visual.foreground": "#181616",
