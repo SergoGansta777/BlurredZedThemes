@@ -47,6 +47,11 @@ tasks:
     cmds:
       - for p in palettes/*.json; do base=$(basename "$p" .json); if [ "$base" != "alpha" ] && [ -f "themes/$base.json" ]; then go run ./scripts/generate --palette "$p" --compare "themes/$base.json"; fi; done
 
+  validate:
+    desc: Validate published theme JSON structure, keys, and color values.
+    cmds:
+      - go run ./scripts/validate
+
   audit:
     desc: Report palette cleanup debt (overrides, style extras, syntax/player coverage).
     cmds:

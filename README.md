@@ -26,12 +26,16 @@ These themes are built around Zed’s blurred UI, with optional flat variants fo
 
 ## Install
 
+As local themes:
+
 ```bash
 mkdir -p ~/.config/zed/themes
 cp themes/*.json ~/.config/zed/themes/
 ```
 
 Then restart Zed (or reload themes) and select a theme in Settings → Theme.
+
+As a Zed dev extension, install this repository directory via `zed: install dev extension`. Zed expects an `extension.toml` manifest at the repository root and theme files under `themes/`.
 
 ## Theme gallery
 
@@ -85,6 +89,9 @@ All common workflows are wrapped in `Taskfile.yml`:
 ```bash
 task gen-all
 task publish
+task verify
+task validate
+task audit
 ```
 
 Notes:
@@ -94,7 +101,17 @@ Notes:
 - `overrides` are treated as derived data and can be regenerated from a reference theme.
 - For Zed-native upstream themes, prefer `go run ./scripts/generate --palette palettes/<theme>.json --compare <reference.json> --write-style-keys syntax,players` so syntax and player colors can be refreshed without copying the whole upstream style surface.
 - The generator fills missing fields with `TODO` placeholders and applies safe defaults.
+- `task validate` checks published theme family shape, style keys, duplicate theme names, color syntax, players, and syntax highlight entries.
 - Published/reference themes live in `themes/`.
+
+Before publishing or installing as an extension, run:
+
+```bash
+task publish
+task verify
+task validate
+go test ./...
+```
 
 ## Recommended settings
 

@@ -15,8 +15,6 @@ import (
 	"zed-themes/scripts/themeutil"
 )
 
-const schemaURL = "https://zed.dev/schema/themes/v0.2.0.json"
-
 const (
 	todoValue        = "TODO"
 	transparentColor = "#00000000"
@@ -44,28 +42,8 @@ var flatSurfaceBackgroundKeys = []string{
 	"toolbar.background",
 }
 
-type Palette struct {
-	Meta      Meta              `json:"meta"`
-	Roles     map[string]string `json:"roles"`
-	Semantic  map[string]string `json:"semantic"`
-	Derived   map[string]string `json:"derived,omitempty"`
-	Accents   []string          `json:"accents"`
-	Colors    map[string]string `json:"colors,omitempty"`
-	Terminal  map[string]string `json:"terminal"`
-	Style     map[string]any    `json:"style"`
-	Overrides map[string]any    `json:"overrides,omitempty"`
-	Alpha     AlphaConfig       `json:"alpha"`
-}
-
-type Meta struct {
-	Name                 string `json:"name"`
-	Author               string `json:"author"`
-	Appearance           string `json:"appearance"`
-	ThemeName            string `json:"theme_name"`
-	BackgroundAppearance string `json:"background_appearance"`
-	BlurMode             string `json:"blur_mode,omitempty"`
-}
-
+type Palette = themeutil.Palette
+type Meta = themeutil.Meta
 type AlphaConfig = themeutil.AlphaConfig
 
 type Config struct {
@@ -158,17 +136,17 @@ func parseFlags() Config {
 }
 
 func loadInputs(cfg Config) (Palette, map[string]any, AlphaConfig, error) {
-	palette, err := readJSONFile[Palette](cfg.PalettePath)
+	palette, err := themeutil.ReadJSONFile[Palette](cfg.PalettePath)
 	if err != nil {
 		return Palette{}, nil, AlphaConfig{}, fmt.Errorf("read palette: %w", err)
 	}
 
-	template, err := readJSONFile[map[string]any](cfg.TemplatePath)
+	template, err := themeutil.ReadJSONFile[map[string]any](cfg.TemplatePath)
 	if err != nil {
 		return Palette{}, nil, AlphaConfig{}, fmt.Errorf("read template: %w", err)
 	}
 
-	alphaCfg, err := readJSONFile[AlphaConfig](cfg.AlphaPath)
+	alphaCfg, err := themeutil.ReadJSONFile[AlphaConfig](cfg.AlphaPath)
 	if err != nil && !errors.Is(err, os.ErrNotExist) {
 		return Palette{}, nil, AlphaConfig{}, fmt.Errorf("read alpha: %w", err)
 	}
@@ -196,7 +174,7 @@ func buildTheme(p Palette, style map[string]any, wip bool) map[string]any {
 		themeName = withWIPSuffix(themeName)
 	}
 	return map[string]any{
-		"$schema": schemaURL,
+		"$schema": themeutil.ThemeSchemaURL,
 		"name":    name,
 		"author":  p.Meta.Author,
 		"themes": []any{
@@ -221,7 +199,7 @@ func writeThemeOutput(outPath, label string, theme map[string]any) error {
 	if outPath == "" {
 		return nil
 	}
-	if err := writeJSON(outPath, theme); err != nil {
+	if err := themeutil.WriteJSONFile(outPath, theme); err != nil {
 		return fmt.Errorf("write %s: %w", label, err)
 	}
 	return nil
@@ -276,15 +254,16 @@ func buildStyle(template map[string]any, p Palette, alpha AlphaConfig, prune boo
 	applyFlatMode(style, p.Meta, baseEditorBg)
 
 	if text, ok := style["text"].(string); ok && text != "" {
-		if isUnset(style, "status_bar.foreground") {
+		s := styleMap(style)
+		if s.IsUnset("status_bar.foreground") {
 			style["status_bar.foreground"] = text
 		}
-		if isUnset(style, "title_bar.foreground") {
+		if s.IsUnset("title_bar.foreground") {
 			style["title_bar.foreground"] = text
 		}
 	}
 
-	setDefaults(style, defaultTransparentKeys, transparentColor)
+	styleMap(style).SetDefaults(defaultTransparentKeys, transparentColor)
 
 	if prune && shouldPruneStyle(p.Style) {
 		for k := range style {
@@ -341,35 +320,6 @@ func stripAlpha(hex string) string {
 		return hex
 	}
 	return hex
-}
-
-func isUnset(style map[string]any, key string) bool {
-	value, ok := style[key]
-	if !ok {
-		return true
-	}
-	return isTodoValue(value)
-}
-
-func hasValue(style map[string]any, key string) bool {
-	value, ok := style[key]
-	if !ok {
-		return false
-	}
-	return !isTodoValue(value)
-}
-
-func setDefault(style map[string]any, key, value string) {
-	if !isUnset(style, key) {
-		return
-	}
-	style[key] = value
-}
-
-func setDefaults(style map[string]any, keys []string, value string) {
-	for _, key := range keys {
-		setDefault(style, key, value)
-	}
 }
 
 func mergeStringMap(dst map[string]any, src map[string]string) {
@@ -780,7 +730,7 @@ func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[stri
 		pruneRedundantOverrides(&updated, template, alphaCfg, reference, cfg.PruneStyle)
 	}
 
-	return writeJSON(cfg.PalettePath, updated)
+	return themeutil.WriteJSONFile(cfg.PalettePath, updated)
 }
 
 func parseCommaList(value string) []string {
@@ -800,7 +750,7 @@ func parseCommaList(value string) []string {
 }
 
 func readThemeStyle(path string) (map[string]any, error) {
-	theme, err := readJSONFile[map[string]any](path)
+	theme, err := themeutil.ReadJSONFile[map[string]any](path)
 	if err != nil {
 		return nil, err
 	}
@@ -877,22 +827,23 @@ func applyRoleMappings(style map[string]any, p Palette) {
 		return
 	}
 
+	s := styleMap(style)
 	role := func(name string) string { return roleValue(p, name) }
 
 	for _, mapping := range defaultRoleMappings {
-		setRole(style, mapping.key, role(mapping.role))
+		s.SetRole(mapping.key, role(mapping.role))
 	}
 
 	for key, value := range defaultConstMappings {
-		setRole(style, key, value)
+		s.SetRole(key, value)
 	}
-	setAny(style, "minimap.thumb.border", nil)
+	s.SetAny("minimap.thumb.border", nil)
 
-	setAny(style, "scrollbar.thumb.active_background", nil)
+	s.SetAny("scrollbar.thumb.active_background", nil)
 	if scrollbarThumb := derivedColor(p, "scrollbar_thumb"); scrollbarThumb != "" {
-		setRole(style, "scrollbar.thumb.border", withAlpha(scrollbarThumb, "00"))
+		s.SetRole("scrollbar.thumb.border", withAlpha(scrollbarThumb, "00"))
 	} else {
-		setAny(style, "scrollbar.thumb.border", nil)
+		s.SetAny("scrollbar.thumb.border", nil)
 	}
 
 	semantic := map[string]string{
@@ -919,23 +870,23 @@ func applyRoleMappings(style map[string]any, p Palette) {
 			continue
 		}
 		if v != "" {
-			setRole(style, k, v)
-			setRole(style, k+".border", v)
+			s.SetRole(k, v)
+			s.SetRole(k+".border", v)
 		}
 	}
 
-	setRole(style, "version_control.added", firstNonEmpty(semantic["vcs_added"], semantic["created"]))
-	setRole(style, "version_control.deleted", firstNonEmpty(semantic["vcs_deleted"], semantic["deleted"]))
-	setRole(style, "version_control.modified", firstNonEmpty(semantic["vcs_modified"], semantic["modified"]))
-	setRole(style, "version_control.renamed", firstNonEmpty(semantic["vcs_renamed"], semantic["renamed"]))
-	setRole(style, "version_control.conflict", firstNonEmpty(semantic["vcs_conflict"], semantic["conflict"], semantic["modified"]))
-	setRole(style, "version_control.ignored", semantic["ignored"])
-	setRole(style, "version_control.conflict_marker.ours", semantic["warning"])
-	setRole(style, "version_control.conflict_marker.theirs", semantic["info"])
-	setRole(style, "version_control.word_added", semantic["vcs_word_added"])
-	setRole(style, "version_control.word_deleted", semantic["vcs_word_deleted"])
+	s.SetRole("version_control.added", firstNonEmpty(semantic["vcs_added"], semantic["created"]))
+	s.SetRole("version_control.deleted", firstNonEmpty(semantic["vcs_deleted"], semantic["deleted"]))
+	s.SetRole("version_control.modified", firstNonEmpty(semantic["vcs_modified"], semantic["modified"]))
+	s.SetRole("version_control.renamed", firstNonEmpty(semantic["vcs_renamed"], semantic["renamed"]))
+	s.SetRole("version_control.conflict", firstNonEmpty(semantic["vcs_conflict"], semantic["conflict"], semantic["modified"]))
+	s.SetRole("version_control.ignored", semantic["ignored"])
+	s.SetRole("version_control.conflict_marker.ours", semantic["warning"])
+	s.SetRole("version_control.conflict_marker.theirs", semantic["info"])
+	s.SetRole("version_control.word_added", semantic["vcs_word_added"])
+	s.SetRole("version_control.word_deleted", semantic["vcs_word_deleted"])
 
-	setRole(style, "debugger.accent", semantic["error"])
+	s.SetRole("debugger.accent", semantic["error"])
 
 	if len(p.Accents) == 0 {
 		accents := []string{role("foam"), role("iris"), role("pine"), role("rose"), role("gold"), role("love")}
@@ -956,6 +907,7 @@ func setSemanticBackgrounds(style map[string]any, p Palette, alpha AlphaConfig, 
 		return
 	}
 
+	s := styleMap(style)
 	type rule struct {
 		key        string
 		alpha      string
@@ -977,7 +929,7 @@ func setSemanticBackgrounds(style map[string]any, p Palette, alpha AlphaConfig, 
 
 	for _, r := range rules {
 		bgKey := r.key + ".background"
-		if hasValue(style, bgKey) {
+		if s.HasValue(bgKey) {
 			continue
 		}
 		if r.forceSolid && opaqueEditorBg != "" {
@@ -1003,28 +955,11 @@ func setSemanticBackgrounds(style map[string]any, p Palette, alpha AlphaConfig, 
 	}
 	for _, k := range editorFallback {
 		bgKey := k + ".background"
-		if hasValue(style, bgKey) {
+		if s.HasValue(bgKey) {
 			continue
 		}
 		style[bgKey] = fallbackBg
 	}
-}
-
-func setRole(style map[string]any, key, value string) {
-	if value == "" {
-		return
-	}
-	if hasValue(style, key) {
-		return
-	}
-	style[key] = value
-}
-
-func setAny(style map[string]any, key string, value any) {
-	if hasValue(style, key) {
-		return
-	}
-	style[key] = value
 }
 
 func applyTerminalDims(style map[string]any) {
@@ -1051,6 +986,7 @@ func applyTerminalDims(style map[string]any) {
 }
 
 func applyDerivedVim(style map[string]any, p Palette) {
+	s := styleMap(style)
 	role := func(name string) string { return roleValue(p, name) }
 	normal := firstNonEmpty(derivedColor(p, "vim_normal"), semanticOf(p, "info"), role("foam"), role("pine"))
 	insert := firstNonEmpty(derivedColor(p, "vim_insert"), semanticOf(p, "modified"), role("rose"), role("gold"))
@@ -1058,27 +994,27 @@ func applyDerivedVim(style map[string]any, p Palette) {
 	replace := firstNonEmpty(derivedColor(p, "vim_replace"), semanticOf(p, "deleted"), role("love"), role("rose"))
 	foreground := firstNonEmpty(role("base"), role("surface"), role("text"))
 
-	setRole(style, "vim.mode.text", foreground)
-	setRole(style, "vim.normal.background", normal)
-	setRole(style, "vim.normal.foreground", foreground)
-	setRole(style, "vim.helix_normal.background", normal)
-	setRole(style, "vim.helix_normal.foreground", foreground)
-	setRole(style, "vim.insert.background", insert)
-	setRole(style, "vim.insert.foreground", foreground)
-	setRole(style, "vim.visual.background", visual)
-	setRole(style, "vim.visual.foreground", foreground)
-	setRole(style, "vim.helix_select.background", visual)
-	setRole(style, "vim.helix_select.foreground", foreground)
-	setRole(style, "vim.visual_line.background", visual)
-	setRole(style, "vim.visual_line.foreground", foreground)
-	setRole(style, "vim.visual_block.background", visual)
-	setRole(style, "vim.visual_block.foreground", foreground)
-	setRole(style, "vim.replace.background", replace)
-	setRole(style, "vim.replace.foreground", foreground)
+	s.SetRole("vim.mode.text", foreground)
+	s.SetRole("vim.normal.background", normal)
+	s.SetRole("vim.normal.foreground", foreground)
+	s.SetRole("vim.helix_normal.background", normal)
+	s.SetRole("vim.helix_normal.foreground", foreground)
+	s.SetRole("vim.insert.background", insert)
+	s.SetRole("vim.insert.foreground", foreground)
+	s.SetRole("vim.visual.background", visual)
+	s.SetRole("vim.visual.foreground", foreground)
+	s.SetRole("vim.helix_select.background", visual)
+	s.SetRole("vim.helix_select.foreground", foreground)
+	s.SetRole("vim.visual_line.background", visual)
+	s.SetRole("vim.visual_line.foreground", foreground)
+	s.SetRole("vim.visual_block.background", visual)
+	s.SetRole("vim.visual_block.foreground", foreground)
+	s.SetRole("vim.replace.background", replace)
+	s.SetRole("vim.replace.foreground", foreground)
 }
 
 func applyDerivedPlayers(style map[string]any, p Palette, alpha AlphaConfig) {
-	if hasValue(style, "players") {
+	if styleMap(style).HasValue("players") {
 		return
 	}
 	if len(p.Accents) == 0 {
@@ -1105,7 +1041,7 @@ func applyDerivedPlayers(style map[string]any, p Palette, alpha AlphaConfig) {
 }
 
 func applyDerivedEditorLineNumbers(style map[string]any) {
-	if hasValue(style, "editor.hover_line_number") {
+	if styleMap(style).HasValue("editor.hover_line_number") {
 		return
 	}
 
@@ -1123,6 +1059,7 @@ func applyDerivedEditorLineNumbers(style map[string]any) {
 }
 
 func applyDerivedDiffHunks(style map[string]any, p Palette, alpha AlphaConfig) {
+	s := styleMap(style)
 	setDiffHunk := func(kind string, semantic string, strongAlphaKey string) {
 		base := semanticOf(p, semantic)
 		if base == "" {
@@ -1132,9 +1069,9 @@ func applyDerivedDiffHunks(style map[string]any, p Palette, alpha AlphaConfig) {
 		strong := alphaHexOrDefault(p.Meta.Appearance, alpha, strongAlphaKey, "59")
 		hollow := withAlpha(base, alphaHexOrDefault(p.Meta.Appearance, alpha, "semantic_bg", "26"))
 
-		setRole(style, "editor.diff_hunk."+kind+".background", withAlpha(base, strong))
-		setRole(style, "editor.diff_hunk."+kind+".hollow_background", hollow)
-		setRole(style, "editor.diff_hunk."+kind+".hollow_border", hollow)
+		s.SetRole("editor.diff_hunk."+kind+".background", withAlpha(base, strong))
+		s.SetRole("editor.diff_hunk."+kind+".hollow_background", hollow)
+		s.SetRole("editor.diff_hunk."+kind+".hollow_border", hollow)
 	}
 
 	setDiffHunk("added", "created", "word_added")

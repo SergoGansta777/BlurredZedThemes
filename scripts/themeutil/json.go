@@ -1,11 +1,11 @@
-package main
+package themeutil
 
 import (
 	"encoding/json"
 	"os"
 )
 
-func readJSONFile[T any](path string) (T, error) {
+func ReadJSONFile[T any](path string) (T, error) {
 	var out T
 	b, err := os.ReadFile(path)
 	if err != nil {
@@ -17,7 +17,7 @@ func readJSONFile[T any](path string) (T, error) {
 	return out, nil
 }
 
-func writeJSON(path string, data any) error {
+func WriteJSONFile(path string, data any) error {
 	b, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return err

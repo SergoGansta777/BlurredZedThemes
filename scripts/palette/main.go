@@ -1,7 +1,6 @@
-package palette
+package main
 
 import (
-	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -12,26 +11,8 @@ import (
 	"zed-themes/scripts/themeutil"
 )
 
-type Palette struct {
-	Meta      Meta              `json:"meta"`
-	Roles     map[string]string `json:"roles"`
-	Semantic  map[string]string `json:"semantic"`
-	Accents   []string          `json:"accents"`
-	Terminal  map[string]string `json:"terminal"`
-	Style     map[string]any    `json:"style"`
-	Alpha     AlphaConfig       `json:"alpha"`
-	Overrides map[string]any    `json:"overrides"`
-}
-
-type Meta struct {
-	Name                 string `json:"name"`
-	Author               string `json:"author"`
-	Appearance           string `json:"appearance"`
-	ThemeName            string `json:"theme_name"`
-	BackgroundAppearance string `json:"background_appearance"`
-	BlurMode             string `json:"blur_mode,omitempty"`
-}
-
+type Palette = themeutil.Palette
+type Meta = themeutil.Meta
 type AlphaConfig = themeutil.AlphaConfig
 
 type Config struct {
@@ -55,7 +36,7 @@ func run() error {
 		return errors.New("missing --theme")
 	}
 
-	theme, err := readJSONFile[map[string]any](cfg.ThemePath)
+	theme, err := themeutil.ReadJSONFile[map[string]any](cfg.ThemePath)
 	if err != nil {
 		return fmt.Errorf("read theme: %w", err)
 	}
@@ -70,7 +51,7 @@ func run() error {
 		palette.Style = pickStyleKeys(style, cfg.StyleKeys)
 	}
 	if cfg.WithAlpha {
-		alphaCfg, err := readJSONFile[AlphaConfig](cfg.AlphaPath)
+		alphaCfg, err := themeutil.ReadJSONFile[AlphaConfig](cfg.AlphaPath)
 		if err != nil && !errors.Is(err, os.ErrNotExist) {
 			return fmt.Errorf("read alpha: %w", err)
 		}
@@ -85,7 +66,7 @@ func run() error {
 		return fmt.Errorf("create output dir: %w", err)
 	}
 
-	return writeJSON(cfg.OutPath, palette)
+	return themeutil.WriteJSONFile(cfg.OutPath, palette)
 }
 
 func parseFlags() Config {
@@ -401,25 +382,4 @@ func firstNonEmpty(values ...string) string {
 		}
 	}
 	return ""
-}
-
-func writeJSON(path string, data any) error {
-	b, err := json.MarshalIndent(data, "", "  ")
-	if err != nil {
-		return err
-	}
-	b = append(b, '\n')
-	return os.WriteFile(path, b, 0o644)
-}
-
-func readJSONFile[T any](path string) (T, error) {
-	var out T
-	b, err := os.ReadFile(path)
-	if err != nil {
-		return out, err
-	}
-	if err := json.Unmarshal(b, &out); err != nil {
-		return out, err
-	}
-	return out, nil
 }

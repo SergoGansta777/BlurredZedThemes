@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
@@ -13,14 +12,7 @@ import (
 	"zed-themes/scripts/themeutil"
 )
 
-type Palette struct {
-	Accents   []string          `json:"accents"`
-	Derived   map[string]string `json:"derived"`
-	Style     map[string]any    `json:"style"`
-	Overrides map[string]any    `json:"overrides"`
-	Alpha     AlphaConfig       `json:"alpha"`
-}
-
+type Palette = themeutil.Palette
 type AlphaConfig = themeutil.AlphaConfig
 
 type auditRow struct {
@@ -64,7 +56,7 @@ func run() error {
 			continue
 		}
 
-		palette, err := readJSONFile[Palette](path)
+		palette, err := themeutil.ReadJSONFile[Palette](path)
 		if err != nil {
 			return fmt.Errorf("read %s: %w", path, err)
 		}
@@ -204,16 +196,4 @@ func countKnownSyntaxTypos(style map[string]any) int {
 		}
 	}
 	return count
-}
-
-func readJSONFile[T any](path string) (T, error) {
-	var out T
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return out, err
-	}
-	if err := json.Unmarshal(data, &out); err != nil {
-		return out, err
-	}
-	return out, nil
 }
