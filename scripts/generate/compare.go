@@ -22,53 +22,14 @@ func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[stri
 	fmt.Printf("  extra in generated: %d\n", len(extra))
 	fmt.Printf("  value diffs: %d\n", len(diffs))
 
-	if !cfg.WriteOverrides && cfg.WriteStyleKeys == "" && !cfg.WriteAlpha && !cfg.PruneAlpha && !cfg.PruneOverrides {
+	if !shouldUpdatePalette(cfg) {
 		return nil
 	}
 
 	updated := palette
-	if cfg.WriteStyleKeys != "" {
-		if updated.Style == nil {
-			updated.Style = map[string]any{}
-		}
-		for _, key := range parseCommaList(cfg.WriteStyleKeys) {
-			if value, ok := reference[key]; ok {
-				updated.Style[key] = value
-				continue
-			}
-			delete(updated.Style, key)
-		}
-	}
+	applyStyleKeyUpdates(&updated, reference, cfg.WriteStyleKeys)
 	if cfg.WriteOverrides {
-		if updated.Overrides == nil {
-			updated.Overrides = map[string]any{}
-		}
-		if cfg.RewriteOverrides {
-			updated.Overrides = map[string]any{}
-		}
-		if updated.Style == nil {
-			updated.Style = map[string]any{}
-		}
-		for _, key := range missing {
-			if key == "syntax" || key == "players" {
-				updated.Style[key] = reference[key]
-				continue
-			}
-			if themeutil.IsStandardizedKey(key) {
-				continue
-			}
-			updated.Overrides[key] = reference[key]
-		}
-		for _, key := range diffs {
-			if key == "syntax" || key == "players" {
-				updated.Style[key] = reference[key]
-				continue
-			}
-			if themeutil.IsStandardizedKey(key) {
-				continue
-			}
-			updated.Overrides[key] = reference[key]
-		}
+		applyReferenceOverrides(&updated, reference, missing, diffs, cfg.RewriteOverrides)
 	}
 
 	if cfg.WriteAlpha {
@@ -89,6 +50,58 @@ func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[stri
 	}
 
 	return themeutil.WriteJSONFile(cfg.PalettePath, updated)
+}
+
+func shouldUpdatePalette(cfg Config) bool {
+	return cfg.WriteOverrides ||
+		cfg.WriteStyleKeys != "" ||
+		cfg.WriteAlpha ||
+		cfg.PruneAlpha ||
+		cfg.PruneOverrides
+}
+
+func applyStyleKeyUpdates(palette *Palette, reference map[string]any, keysCSV string) {
+	if keysCSV == "" {
+		return
+	}
+	if palette.Style == nil {
+		palette.Style = map[string]any{}
+	}
+	for _, key := range parseCommaList(keysCSV) {
+		if value, ok := reference[key]; ok {
+			palette.Style[key] = value
+			continue
+		}
+		delete(palette.Style, key)
+	}
+}
+
+func applyReferenceOverrides(palette *Palette, reference map[string]any, missing, diffs []string, rewrite bool) {
+	if palette.Overrides == nil || rewrite {
+		palette.Overrides = map[string]any{}
+	}
+	if palette.Style == nil {
+		palette.Style = map[string]any{}
+	}
+	applyReferenceOverrideKeys(palette, reference, missing)
+	applyReferenceOverrideKeys(palette, reference, diffs)
+}
+
+func applyReferenceOverrideKeys(palette *Palette, reference map[string]any, keys []string) {
+	for _, key := range keys {
+		if isStylePayloadKey(key) {
+			palette.Style[key] = reference[key]
+			continue
+		}
+		if themeutil.IsStandardizedKey(key) {
+			continue
+		}
+		palette.Overrides[key] = reference[key]
+	}
+}
+
+func isStylePayloadKey(key string) bool {
+	return key == "syntax" || key == "players"
 }
 
 func parseCommaList(value string) []string {
