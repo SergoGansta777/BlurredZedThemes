@@ -30,7 +30,7 @@
     "name": "Nordic Hybrid",
     "theme_name": "Nordic (Hybrid)"
   },
-  "overrides": {
+  "derived": {
     "conflict.border": "#BF616A",
 
     "debugger.accent": "#BF616A"

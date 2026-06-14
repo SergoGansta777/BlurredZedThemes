@@ -33,7 +33,7 @@
     "name": "Darkearth",
     "theme_name": "Darkearth (Hybrid)"
   },
-  "overrides": {
+  "derived": {
     "icon.accent": "#77824A"
   },
   "roles": {

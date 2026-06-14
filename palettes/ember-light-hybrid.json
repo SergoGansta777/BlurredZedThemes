@@ -32,7 +32,7 @@
     "name": "Ember Light",
     "theme_name": "Ember Light (Hybrid)"
   },
-  "overrides": {
+  "derived": {
     "editor.active_line_number": "#B84C30",
     "editor.invisible": "#B8AC96",
     "editor.line_number": "#989080",

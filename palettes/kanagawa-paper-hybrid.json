@@ -32,7 +32,7 @@
     "name": "Kanagawa Paper",
     "theme_name": "Kanagawa Paper (Hybrid)"
   },
-  "overrides": {
+  "derived": {
     "created.background": "#262B2F",
 
     "deleted.background": "#30282F",

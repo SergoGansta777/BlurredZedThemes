@@ -36,8 +36,8 @@ func applyRoleMappings(style map[string]any, p Palette) {
 			continue
 		}
 		if v != "" {
-			s.SetRole(k, v)
-			s.SetRole(k+".border", v)
+			s.SetRole(k, firstNonEmpty(derivedColor(p, k), v))
+			s.SetRole(k+".border", firstNonEmpty(derivedColor(p, k+".border"), v))
 		}
 	}
 
@@ -52,7 +52,7 @@ func applyRoleMappings(style map[string]any, p Palette) {
 	s.SetRole("version_control.word_added", semantic["vcs_word_added"])
 	s.SetRole("version_control.word_deleted", semantic["vcs_word_deleted"])
 
-	s.SetRole("debugger.accent", semantic["error"])
+	s.SetRole("debugger.accent", firstNonEmpty(derivedColor(p, "debugger.accent"), semantic["error"]))
 
 	if len(p.Accents) == 0 {
 		accents := []string{role("foam"), role("iris"), role("pine"), role("rose"), role("gold"), role("love")}

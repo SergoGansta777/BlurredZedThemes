@@ -32,7 +32,7 @@
     "name": "Kanagawa",
     "theme_name": "Kanagawa Dragon (Hybrid)"
   },
-  "overrides": {
+  "derived": {
     "debugger.accent": "#E46876"
   },
   "roles": {

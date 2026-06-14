@@ -29,7 +29,7 @@
     "name": "Ember",
     "theme_name": "Ember (Hybrid)"
   },
-  "overrides": {
+  "derived": {
     "editor.active_line_number": "#E08060",
     "editor.invisible": "#3E3C38",
     "editor.line_number": "#585550",

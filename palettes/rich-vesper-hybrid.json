@@ -45,6 +45,7 @@
     "indent_guide": "#FFFFFF",
     "indent_guide_active": "#FFFFFF",
     "invisible": "#FFFFFF",
+    "link_text.hover": "#FFCFA8",
     "line_number": "#505050",
     "scrollbar_thumb": "#343434",
     "scrollbar_thumb_hover": "#343434",
@@ -209,9 +210,6 @@
         "color": "#A0A0A0"
       }
     }
-  },
-  "overrides": {
-    "link_text.hover": "#FFCFA8"
   },
   "alpha": {
     "light": {},

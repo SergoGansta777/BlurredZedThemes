@@ -29,7 +29,7 @@
     "name": "Ember Soft",
     "theme_name": "Ember Soft (Hybrid)"
   },
-  "overrides": {
+  "derived": {
     "editor.active_line_number": "#E08060",
     "editor.invisible": "#444240",
     "editor.line_number": "#585550",
