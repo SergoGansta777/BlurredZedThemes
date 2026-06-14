@@ -654,7 +654,7 @@
 
         "drop_target.background": "#DFE1E580",
 
-        "editor.active_line.background": "#1f2024",
+        "editor.active_line.background": "#1F2024",
         "editor.active_line_number": "#a1a3ab",
         "editor.active_wrap_guide": "#B0B1B366",
         "editor.background": "#191a1c",
@@ -682,8 +682,8 @@
         "element.active": "#494a4d",
         "element.background": "#393b41",
         "element.disabled": "#2b2d30",
-        "element.hover": "#3c3e41",
-        "element.selected": "#43454a",
+        "element.hover": "#3C3E41",
+        "element.selected": "#43454A",
 
         "elevated_surface.background": "#26282B",
 

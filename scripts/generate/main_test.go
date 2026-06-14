@@ -192,6 +192,15 @@ func TestPruneRedundantOverridesKeepsRequiredOverrides(t *testing.T) {
 	}
 }
 
+func TestValuesEqualTreatsHexColorCaseAsEqual(t *testing.T) {
+	if !valuesEqual("#1f2024", "#1F2024") {
+		t.Fatal("hex colors should compare case-insensitively")
+	}
+	if valuesEqual("#1f2024", "#1F202440") {
+		t.Fatal("hex colors with different alpha should not compare equal")
+	}
+}
+
 func TestSemanticVersionControlAndVimDerivations(t *testing.T) {
 	style := buildStyle(map[string]any{}, Palette{
 		Meta: Meta{
@@ -238,6 +247,60 @@ func TestSemanticVersionControlAndVimDerivations(t *testing.T) {
 	}
 	if got, _ := style["vim.replace.background"].(string); got != "#D45A4A" {
 		t.Fatalf("vim.replace.background = %q, want %q", got, "#D45A4A")
+	}
+}
+
+func TestSemanticVersionControlOverrides(t *testing.T) {
+	style := buildStyle(map[string]any{}, Palette{
+		Meta: Meta{
+			Appearance: "dark",
+		},
+		Roles: map[string]string{
+			"surface":        "#101010",
+			"text":           "#FFFFFF",
+			"muted":          "#888888",
+			"subtle":         "#666666",
+			"pine":           "#22AA66",
+			"love":           "#CC4455",
+			"foam":           "#55AAFF",
+			"gold":           "#DDAA55",
+			"rose":           "#CC8855",
+			"iris":           "#AA88FF",
+			"highlight_med":  "#222222",
+			"highlight_low":  "#181818",
+			"highlight_high": "#333333",
+		},
+		Semantic: map[string]string{
+			"created":        "#22AA66",
+			"deleted":        "#CC4455",
+			"modified":       "#DDAA55",
+			"renamed":        "#AA88FF",
+			"vcs_added":      "#549159",
+			"vcs_deleted":    "#A75749",
+			"vcs_modified":   "#375FAD",
+			"vcs_renamed":    "#6183BB",
+			"vcs_word_added": "#294436",
+		},
+	}, AlphaConfig{
+		Dark: map[string]string{
+			"word_added": "59",
+		},
+	}, false)
+
+	if got, _ := style["version_control.added"].(string); got != "#549159" {
+		t.Fatalf("version_control.added = %q, want %q", got, "#549159")
+	}
+	if got, _ := style["version_control.deleted"].(string); got != "#A75749" {
+		t.Fatalf("version_control.deleted = %q, want %q", got, "#A75749")
+	}
+	if got, _ := style["version_control.modified"].(string); got != "#375FAD" {
+		t.Fatalf("version_control.modified = %q, want %q", got, "#375FAD")
+	}
+	if got, _ := style["version_control.renamed"].(string); got != "#6183BB" {
+		t.Fatalf("version_control.renamed = %q, want %q", got, "#6183BB")
+	}
+	if got, _ := style["version_control.word_added"].(string); got != "#294436" {
+		t.Fatalf("version_control.word_added = %q, want %q", got, "#294436")
 	}
 }
 

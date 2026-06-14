@@ -199,7 +199,6 @@
     }
   },
   "overrides": {
-    "editor.active_line.background": "#191919",
     "editor.document_highlight.read_background": "#1D3436",
     "editor.document_highlight.write_background": "#282828",
     "editor.indent_guide": "#FFFFFF05",
@@ -210,13 +209,14 @@
     "scrollbar.thumb.background": "#34343450",
     "scrollbar.thumb.border": "#34343400",
     "scrollbar.thumb.hover_background": "#343434",
-    "scrollbar.track.background": "#101010FB",
     "scrollbar.track.border": "#101010",
     "search.match_background": "#575757"
   },
   "alpha": {
     "light": {},
     "dark": {
+      "active_line": "FF",
+      "scrollbar_track": "FB",
       "semantic_bg": "3D"
     }
   }

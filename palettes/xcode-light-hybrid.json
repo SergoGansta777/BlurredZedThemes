@@ -445,7 +445,6 @@
     "search.active_match_background": "#3D86C633",
     "search.match_background": "#00000026",
     "success.background": "#EDF5EF",
-    "tab.active_background": "#FFFFFF",
     "text.accent": "#4A9BD6",
     "vim.helix_select.background": "#9A79C4",
     "vim.replace.background": "#D86A5C",

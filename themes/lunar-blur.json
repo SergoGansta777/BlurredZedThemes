@@ -491,7 +491,7 @@
 
         "drop_target.background": "#C0CAF580",
 
-        "editor.active_line.background": "#292e4266",
+        "editor.active_line.background": "#292E4266",
         "editor.active_line_number": "#7aa2f7",
         "editor.active_wrap_guide": "#A9B1D666",
         "editor.background": "#00000000",

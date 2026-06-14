@@ -37,6 +37,8 @@
     "renamed": "#0033b3",
     "success": "#55a76a",
     "unreachable": "#727476",
+    "vcs_word_added": "#bee6be",
+    "vcs_word_deleted": "#ffd5cc",
     "warning": "#f49810"
   },
   "accents": [
@@ -398,9 +400,7 @@
     "element.background": "#e3e3e5",
     "link_text.hover": "#006dcc",
     "search.active_match_background": "#ccccff",
-    "search.match_background": "#fcd47e",
-    "version_control.word_added": "#bee6be",
-    "version_control.word_deleted": "#ffd5cc"
+    "search.match_background": "#fcd47e"
   },
   "alpha": {
     "light": {

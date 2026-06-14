@@ -37,6 +37,7 @@
     "renamed": "#907aa9",
     "success": "#286983",
     "unreachable": "#797593",
+    "vcs_deleted": "#b4637aCC",
     "warning": "#ea9d34"
   },
   "accents": [
@@ -230,10 +231,6 @@
         "color": "#d7827e"
       }
     }
-  },
-  "overrides": {
-    "editor.active_line.background": "#f2e9e180",
-    "version_control.deleted": "#b4637aCC"
   },
   "alpha": {
     "light": {

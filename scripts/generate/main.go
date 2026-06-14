@@ -831,6 +831,11 @@ func diffStyle(reference, generated map[string]any) ([]string, []string, []strin
 }
 
 func valuesEqual(a, b any) bool {
+	if as, ok := a.(string); ok {
+		if bs, ok := b.(string); ok && hexColorsEqual(as, bs) {
+			return true
+		}
+	}
 	ab, err := json.Marshal(a)
 	if err != nil {
 		return false
@@ -840,6 +845,21 @@ func valuesEqual(a, b any) bool {
 		return false
 	}
 	return string(ab) == string(bb)
+}
+
+func hexColorsEqual(a, b string) bool {
+	if !strings.HasPrefix(a, "#") || !strings.HasPrefix(b, "#") {
+		return false
+	}
+	ah := strings.TrimPrefix(a, "#")
+	bh := strings.TrimPrefix(b, "#")
+	if len(ah) != len(bh) {
+		return false
+	}
+	if len(ah) != 6 && len(ah) != 8 {
+		return false
+	}
+	return strings.EqualFold(ah, bh)
 }
 
 func applyRoleMappings(style map[string]any, p Palette) {
@@ -881,20 +901,25 @@ func applyRoleMappings(style map[string]any, p Palette) {
 		semantic[k] = v
 	}
 	for k, v := range semantic {
+		if strings.HasPrefix(k, "vcs_") {
+			continue
+		}
 		if v != "" {
 			setRole(style, k, v)
 			setRole(style, k+".border", v)
 		}
 	}
 
-	setRole(style, "version_control.added", semantic["created"])
-	setRole(style, "version_control.deleted", semantic["deleted"])
-	setRole(style, "version_control.modified", semantic["modified"])
-	setRole(style, "version_control.renamed", semantic["renamed"])
-	setRole(style, "version_control.conflict", firstNonEmpty(semantic["conflict"], semantic["modified"]))
+	setRole(style, "version_control.added", firstNonEmpty(semantic["vcs_added"], semantic["created"]))
+	setRole(style, "version_control.deleted", firstNonEmpty(semantic["vcs_deleted"], semantic["deleted"]))
+	setRole(style, "version_control.modified", firstNonEmpty(semantic["vcs_modified"], semantic["modified"]))
+	setRole(style, "version_control.renamed", firstNonEmpty(semantic["vcs_renamed"], semantic["renamed"]))
+	setRole(style, "version_control.conflict", firstNonEmpty(semantic["vcs_conflict"], semantic["conflict"], semantic["modified"]))
 	setRole(style, "version_control.ignored", semantic["ignored"])
 	setRole(style, "version_control.conflict_marker.ours", semantic["warning"])
 	setRole(style, "version_control.conflict_marker.theirs", semantic["info"])
+	setRole(style, "version_control.word_added", semantic["vcs_word_added"])
+	setRole(style, "version_control.word_deleted", semantic["vcs_word_deleted"])
 
 	setRole(style, "debugger.accent", semantic["error"])
 

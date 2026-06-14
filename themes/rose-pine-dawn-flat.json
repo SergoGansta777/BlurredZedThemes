@@ -443,7 +443,7 @@
 
         "drop_target.background": "#57527922",
 
-        "editor.active_line.background": "#f2e9e180",
+        "editor.active_line.background": "#F2E9E180",
         "editor.active_line_number": "#56949f",
         "editor.active_wrap_guide": "#6E6A8688",
         "editor.background": "#fffaf3",

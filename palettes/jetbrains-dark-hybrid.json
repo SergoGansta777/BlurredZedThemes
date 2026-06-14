@@ -35,6 +35,11 @@
     "modified": "#70aeff",
     "predictive": "#808080",
     "success": "#57965d",
+    "vcs_added": "#549159",
+    "vcs_deleted": "#a75749",
+    "vcs_modified": "#375fad",
+    "vcs_word_added": "#294436",
+    "vcs_word_deleted": "#45302b",
     "warning": "#f2c55c"
   },
   "accents": [
@@ -386,7 +391,6 @@
   },
   "overrides": {
     "border.variant": "#393b41",
-    "editor.active_line.background": "#1f2024",
     "editor.active_line_number": "#a1a3ab",
     "editor.background": "#191a1c",
     "editor.document_highlight.read_background": "#373b39",
@@ -400,23 +404,17 @@
     "element.active": "#494a4d",
     "element.background": "#393b41",
     "element.disabled": "#2b2d30",
-    "element.hover": "#3c3e41",
-    "element.selected": "#43454a",
     "link_text.hover": "#548af7",
     "search.active_match_background": "#2d543f",
-    "search.match_background": "#114957",
-    "version_control.added": "#549159",
-    "version_control.deleted": "#a75749",
-    "version_control.modified": "#375fad",
-    "version_control.word_added": "#294436",
-    "version_control.word_deleted": "#45302b"
+    "search.match_background": "#114957"
   },
   "alpha": {
     "light": {},
     "dark": {
+      "active_line": "FF",
       "element_active": "66",
-      "element_hover": "66",
-      "element_selected": "80",
+      "element_hover": "FF",
+      "element_selected": "FF",
       "ghost_active": "66",
       "ghost_hover": "66",
       "ghost_selected": "80"

@@ -34,14 +34,6 @@
     "name": "Lunar (Hybrid)",
     "theme_name": "Lunar (Hybrid)"
   },
-  "overrides": {
-    "editor.active_line.background": "#292e4266",
-
-    "version_control.added": "#266d6a",
-    "version_control.deleted": "#b2555b",
-    "version_control.modified": "#536c9e",
-    "version_control.renamed": "#6183bb"
-  },
   "roles": {
     "base": "#1a1b26",
     "foam": "#7aa2f7",
@@ -73,6 +65,10 @@
     "renamed": "#7aa2f7",
     "success": "#1abc9c",
     "unreachable": "#db4b4b",
+    "vcs_added": "#266d6a",
+    "vcs_deleted": "#b2555b",
+    "vcs_modified": "#536c9e",
+    "vcs_renamed": "#6183bb",
     "warning": "#e0af68"
   },
   "style": {
