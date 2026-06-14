@@ -7,16 +7,8 @@ import (
 )
 
 func alphaValue(appearance string, cfg AlphaConfig, key string) (string, bool) {
-	if strings.EqualFold(appearance, "light") {
-		if v := cfg.Light[key]; v != "" {
-			return v, true
-		}
-		return "", false
-	}
-	if v := cfg.Dark[key]; v != "" {
-		return v, true
-	}
-	return "", false
+	value := themeutil.AlphaFor(appearance, cfg, key)
+	return value, value != ""
 }
 
 func alphaBaseValue(p Palette, rule alphaRule) string {

@@ -128,17 +128,9 @@ func setSemanticBackgrounds(style map[string]any, p Palette, alpha AlphaConfig, 
 	}
 }
 
-func semanticColor(p Palette, name string) string {
-	return themeutil.SemanticColor(p.Roles, p.Semantic, name)
-}
-
 func derivedColor(p Palette, name string) string {
 	if p.Derived == nil {
 		return ""
 	}
 	return p.Derived[name]
-}
-
-func isStandardizedKey(key string) bool {
-	return themeutil.IsStandardizedKey(key)
 }

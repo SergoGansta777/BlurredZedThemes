@@ -120,7 +120,7 @@ func roleOpaque(p Palette, name string) string {
 }
 
 func semanticOf(p Palette, name string) string {
-	return semanticColor(p, name)
+	return themeutil.SemanticColor(p.Roles, p.Semantic, name)
 }
 
 func terminalBaseOf(p Palette, key string) string {

@@ -55,7 +55,7 @@ func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[stri
 				updated.Style[key] = reference[key]
 				continue
 			}
-			if isStandardizedKey(key) {
+			if themeutil.IsStandardizedKey(key) {
 				continue
 			}
 			updated.Overrides[key] = reference[key]
@@ -65,7 +65,7 @@ func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[stri
 				updated.Style[key] = reference[key]
 				continue
 			}
-			if isStandardizedKey(key) {
+			if themeutil.IsStandardizedKey(key) {
 				continue
 			}
 			updated.Overrides[key] = reference[key]
