@@ -15,7 +15,7 @@ func applyRoleMappings(style map[string]any, p Palette) {
 	role := func(name string) string { return roleValue(p, name) }
 
 	for _, mapping := range defaultRoleMappings {
-		s.SetRole(mapping.key, role(mapping.role))
+		s.SetRole(mapping.key, firstNonEmpty(derivedColor(p, mapping.key), role(mapping.role)))
 	}
 
 	for key, value := range defaultConstMappings {

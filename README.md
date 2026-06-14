@@ -63,7 +63,7 @@ Grouped by theme family. Previews are added as they become available.
 
 - Global alpha presets live in `palettes/alpha.json`.
 - Per-theme overrides live in `palettes/<theme>.json`.
-- Use palette `derived` entries for generator-only base colors such as native search, document highlight, Vim, or scrollbar colors before falling back to raw `overrides`.
+- Use palette `derived` entries for generator-only base colors such as native search, document highlight, Vim, scrollbar, or role-mapped style-key colors before falling back to raw `overrides`.
 - The generator backfills modern syntax captures and practical Zed-only keys such as word diff highlights and hover line numbers.
 - Regenerate theme files via Taskfile (see below).
 

@@ -41,6 +41,12 @@
     "vcs_word_deleted": "#ffd5cc",
     "warning": "#f49810"
   },
+  "derived": {
+    "editor.background": "#ffffff",
+    "editor.gutter.background": "#ffffff",
+    "element.background": "#e3e3e5",
+    "link_text.hover": "#006dcc"
+  },
   "accents": [
     "#3573f0",
     "#0033b3",
@@ -390,15 +396,11 @@
   },
   "overrides": {
     "editor.active_line_number": "#767a8a",
-    "editor.background": "#ffffff",
     "editor.document_highlight.read_background": "#edebfc",
     "editor.document_highlight.write_background": "#fce8f4",
-    "editor.gutter.background": "#ffffff",
     "editor.highlighted_line.background": "#ccccff",
     "editor.invisible": "#adadad",
     "editor.line_number": "#aeb3c2",
-    "element.background": "#e3e3e5",
-    "link_text.hover": "#006dcc",
     "search.active_match_background": "#ccccff",
     "search.match_background": "#fcd47e"
   },

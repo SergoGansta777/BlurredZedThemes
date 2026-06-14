@@ -42,6 +42,13 @@
     "vcs_word_deleted": "#45302b",
     "warning": "#f2c55c"
   },
+  "derived": {
+    "editor.background": "#191a1c",
+    "editor.foreground": "#bcbec4",
+    "editor.gutter.background": "#191a1c",
+    "element.background": "#393b41",
+    "link_text.hover": "#548af7"
+  },
   "accents": [
     "#467ff2",
     "#3474f0",
@@ -392,19 +399,14 @@
   "overrides": {
     "border.variant": "#393b41",
     "editor.active_line_number": "#a1a3ab",
-    "editor.background": "#191a1c",
     "editor.document_highlight.read_background": "#373b39",
     "editor.document_highlight.write_background": "#402f33",
-    "editor.foreground": "#bcbec4",
-    "editor.gutter.background": "#191a1c",
     "editor.highlighted_line.background": "#2d543f",
     "editor.invisible": "#6f737a",
     "editor.line_number": "#4b5059",
     "editor.wrap_guide": "#393b40",
     "element.active": "#494a4d",
-    "element.background": "#393b41",
     "element.disabled": "#2b2d30",
-    "link_text.hover": "#548af7",
     "search.active_match_background": "#2d543f",
     "search.match_background": "#114957"
   },
