@@ -48,6 +48,7 @@ type Palette struct {
 	Meta      Meta              `json:"meta"`
 	Roles     map[string]string `json:"roles"`
 	Semantic  map[string]string `json:"semantic"`
+	Derived   map[string]string `json:"derived,omitempty"`
 	Accents   []string          `json:"accents"`
 	Colors    map[string]string `json:"colors,omitempty"`
 	Terminal  map[string]string `json:"terminal"`
@@ -503,15 +504,24 @@ func alphaValue(appearance string, cfg AlphaConfig, key string) (string, bool) {
 }
 
 func alphaBaseValue(p Palette, rule alphaRule) string {
+	base, _ := alphaBaseValueForRule(p, rule)
+	return base
+}
+
+func alphaBaseValueForRule(p Palette, rule alphaRule) (string, bool) {
+	if value := derivedColor(p, rule.alphaKey); value != "" {
+		return stripAlpha(value), true
+	}
+
 	switch rule.baseKind {
 	case alphaBaseRole:
-		return roleOpaque(p, rule.baseKey)
+		return roleOpaque(p, rule.baseKey), false
 	case alphaBaseSemantic:
-		return semanticOf(p, rule.baseKey)
+		return semanticOf(p, rule.baseKey), false
 	case alphaBaseTerminal:
-		return terminalBaseOf(p, rule.baseKey)
+		return terminalBaseOf(p, rule.baseKey), false
 	default:
-		return ""
+		return "", false
 	}
 }
 
@@ -522,13 +532,13 @@ func applyAlphaRules(style map[string]any, p Palette, alpha AlphaConfig) {
 		if !ok {
 			continue
 		}
-		base := alphaBaseValue(p, rule)
+		base, fromDerived := alphaBaseValueForRule(p, rule)
 		if base == "" {
 			continue
 		}
 		for _, styleKey := range rule.styleKeys {
 			if current, ok := style[styleKey].(string); ok && current != "" && !isTodoValue(current) {
-				if !rule.force && !strings.EqualFold(stripAlpha(current), stripAlpha(base)) {
+				if !rule.force && !fromDerived && !strings.EqualFold(stripAlpha(current), stripAlpha(base)) {
 					continue
 				}
 			}
@@ -879,7 +889,11 @@ func applyRoleMappings(style map[string]any, p Palette) {
 	setAny(style, "minimap.thumb.border", nil)
 
 	setAny(style, "scrollbar.thumb.active_background", nil)
-	setAny(style, "scrollbar.thumb.border", nil)
+	if scrollbarThumb := derivedColor(p, "scrollbar_thumb"); scrollbarThumb != "" {
+		setRole(style, "scrollbar.thumb.border", withAlpha(scrollbarThumb, "00"))
+	} else {
+		setAny(style, "scrollbar.thumb.border", nil)
+	}
 
 	semantic := map[string]string{
 		"error":       role("love"),
@@ -1038,10 +1052,10 @@ func applyTerminalDims(style map[string]any) {
 
 func applyDerivedVim(style map[string]any, p Palette) {
 	role := func(name string) string { return roleValue(p, name) }
-	normal := firstNonEmpty(semanticOf(p, "info"), role("foam"), role("pine"))
-	insert := firstNonEmpty(semanticOf(p, "modified"), role("rose"), role("gold"))
-	visual := firstNonEmpty(semanticOf(p, "renamed"), role("iris"), role("rose"))
-	replace := firstNonEmpty(semanticOf(p, "deleted"), role("love"), role("rose"))
+	normal := firstNonEmpty(derivedColor(p, "vim_normal"), semanticOf(p, "info"), role("foam"), role("pine"))
+	insert := firstNonEmpty(derivedColor(p, "vim_insert"), semanticOf(p, "modified"), role("rose"), role("gold"))
+	visual := firstNonEmpty(derivedColor(p, "vim_visual"), semanticOf(p, "renamed"), role("iris"), role("rose"))
+	replace := firstNonEmpty(derivedColor(p, "vim_replace"), semanticOf(p, "deleted"), role("love"), role("rose"))
 	foreground := firstNonEmpty(role("base"), role("surface"), role("text"))
 
 	setRole(style, "vim.mode.text", foreground)
@@ -1491,6 +1505,13 @@ func alphaDerivedKeys() []string {
 
 func semanticColor(p Palette, name string) string {
 	return themeutil.SemanticColor(p.Roles, p.Semantic, name)
+}
+
+func derivedColor(p Palette, name string) string {
+	if p.Derived == nil {
+		return ""
+	}
+	return p.Derived[name]
 }
 
 func isStandardizedKey(key string) bool {

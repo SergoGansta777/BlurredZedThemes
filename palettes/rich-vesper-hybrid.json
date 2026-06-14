@@ -39,6 +39,18 @@
     "unreachable": "#FF8080",
     "warning": "#FFC799"
   },
+  "derived": {
+    "doc_highlight_read": "#1D3436",
+    "doc_highlight_write": "#282828",
+    "indent_guide": "#FFFFFF",
+    "indent_guide_active": "#FFFFFF",
+    "invisible": "#FFFFFF",
+    "line_number": "#505050",
+    "scrollbar_thumb": "#343434",
+    "scrollbar_thumb_hover": "#343434",
+    "scrollbar_track_border": "#101010",
+    "search_match": "#575757"
+  },
   "accents": [
     "#FFC799",
     "#99FFE4",
@@ -199,24 +211,22 @@
     }
   },
   "overrides": {
-    "editor.document_highlight.read_background": "#1D3436",
-    "editor.document_highlight.write_background": "#282828",
-    "editor.indent_guide": "#FFFFFF05",
-    "editor.indent_guide_active": "#FFFFFF0A",
-    "editor.invisible": "#FFFFFF06",
-    "editor.line_number": "#505050",
-    "link_text.hover": "#FFCFA8",
-    "scrollbar.thumb.background": "#34343450",
-    "scrollbar.thumb.border": "#34343400",
-    "scrollbar.thumb.hover_background": "#343434",
-    "scrollbar.track.border": "#101010",
-    "search.match_background": "#575757"
+    "link_text.hover": "#FFCFA8"
   },
   "alpha": {
     "light": {},
     "dark": {
       "active_line": "FF",
+      "doc_highlight_read": "FF",
+      "doc_highlight_write": "FF",
+      "indent_guide": "05",
+      "indent_guide_active": "0A",
+      "invisible": "06",
+      "line_number": "FF",
+      "scrollbar_thumb": "50",
       "scrollbar_track": "FB",
+      "scrollbar_track_border": "FF",
+      "search_match": "FF",
       "semantic_bg": "3D"
     }
   }

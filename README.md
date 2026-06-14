@@ -59,6 +59,7 @@ Grouped by theme family. Previews are added as they become available.
 
 - Global alpha presets live in `palettes/alpha.json`.
 - Per-theme overrides live in `palettes/<theme>.json`.
+- Use palette `derived` entries for generator-only base colors such as native search, document highlight, Vim, or scrollbar colors before falling back to raw `overrides`.
 - The generator backfills modern syntax captures and practical Zed-only keys such as word diff highlights and hover line numbers.
 - Regenerate theme files via Taskfile (see below).
 
@@ -88,7 +89,7 @@ task publish
 
 Notes:
 
-- Palettes define roles/semantic/accents/terminal, with optional `style` for `syntax` and `players`.
+- Palettes define roles/semantic/derived/accents/terminal, with optional `style` for `syntax` and `players`.
 - `alpha` overrides can be added per theme when needed (merged over `palettes/alpha.json`).
 - `overrides` are treated as derived data and can be regenerated from a reference theme.
 - For Zed-native upstream themes, prefer `go run ./scripts/generate --palette palettes/<theme>.json --compare <reference.json> --write-style-keys syntax,players` so syntax and player colors can be refreshed without copying the whole upstream style surface.

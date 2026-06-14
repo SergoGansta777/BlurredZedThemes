@@ -201,6 +201,71 @@ func TestValuesEqualTreatsHexColorCaseAsEqual(t *testing.T) {
 	}
 }
 
+func TestDerivedPaletteOverridesAlphaBasesAndVim(t *testing.T) {
+	style := buildStyle(map[string]any{}, Palette{
+		Meta: Meta{
+			Appearance: "dark",
+		},
+		Roles: map[string]string{
+			"surface":        "#101010",
+			"text":           "#FFFFFF",
+			"muted":          "#888888",
+			"subtle":         "#666666",
+			"pine":           "#22AA66",
+			"love":           "#CC4455",
+			"foam":           "#55AAFF",
+			"gold":           "#DDAA55",
+			"rose":           "#CC8855",
+			"iris":           "#AA88FF",
+			"highlight_med":  "#222222",
+			"highlight_low":  "#181818",
+			"highlight_high": "#333333",
+		},
+		Derived: map[string]string{
+			"doc_highlight_read":    "#445566",
+			"invisible":             "#FFFFFF",
+			"scrollbar_thumb":       "#343434",
+			"scrollbar_thumb_hover": "#343434",
+			"search_match":          "#FFFFFF",
+			"vim_replace":           "#D86A5C",
+			"vim_visual":            "#9A79C4",
+		},
+	}, AlphaConfig{
+		Dark: map[string]string{
+			"doc_highlight_read":    "33",
+			"invisible":             "06",
+			"scrollbar_thumb":       "50",
+			"scrollbar_thumb_hover": "FF",
+			"search_match":          "26",
+		},
+	}, false)
+
+	if got, _ := style["editor.document_highlight.read_background"].(string); got != "#44556633" {
+		t.Fatalf("editor.document_highlight.read_background = %q, want %q", got, "#44556633")
+	}
+	if got, _ := style["editor.invisible"].(string); got != "#FFFFFF06" {
+		t.Fatalf("editor.invisible = %q, want %q", got, "#FFFFFF06")
+	}
+	if got, _ := style["scrollbar.thumb.background"].(string); got != "#34343450" {
+		t.Fatalf("scrollbar.thumb.background = %q, want %q", got, "#34343450")
+	}
+	if got, _ := style["scrollbar.thumb.border"].(string); got != "#34343400" {
+		t.Fatalf("scrollbar.thumb.border = %q, want %q", got, "#34343400")
+	}
+	if got, _ := style["scrollbar.thumb.hover_background"].(string); got != "#343434" {
+		t.Fatalf("scrollbar.thumb.hover_background = %q, want %q", got, "#343434")
+	}
+	if got, _ := style["search.match_background"].(string); got != "#FFFFFF26" {
+		t.Fatalf("search.match_background = %q, want %q", got, "#FFFFFF26")
+	}
+	if got, _ := style["vim.visual.background"].(string); got != "#9A79C4" {
+		t.Fatalf("vim.visual.background = %q, want %q", got, "#9A79C4")
+	}
+	if got, _ := style["vim.replace.background"].(string); got != "#D86A5C" {
+		t.Fatalf("vim.replace.background = %q, want %q", got, "#D86A5C")
+	}
+}
+
 func TestSemanticVersionControlAndVimDerivations(t *testing.T) {
 	style := buildStyle(map[string]any{}, Palette{
 		Meta: Meta{

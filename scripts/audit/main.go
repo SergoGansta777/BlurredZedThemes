@@ -14,10 +14,11 @@ import (
 )
 
 type Palette struct {
-	Accents   []string       `json:"accents"`
-	Style     map[string]any `json:"style"`
-	Overrides map[string]any `json:"overrides"`
-	Alpha     AlphaConfig    `json:"alpha"`
+	Accents   []string          `json:"accents"`
+	Derived   map[string]string `json:"derived"`
+	Style     map[string]any    `json:"style"`
+	Overrides map[string]any    `json:"overrides"`
+	Alpha     AlphaConfig       `json:"alpha"`
 }
 
 type AlphaConfig = themeutil.AlphaConfig
@@ -25,6 +26,7 @@ type AlphaConfig = themeutil.AlphaConfig
 type auditRow struct {
 	Name         string
 	Overrides    int
+	Derived      int
 	StyleExtras  int
 	SyntaxKeys   int
 	SyntaxSource string
@@ -70,6 +72,7 @@ func run() error {
 		row := auditRow{
 			Name:         strings.TrimSuffix(filepath.Base(path), filepath.Ext(path)),
 			Overrides:    len(palette.Overrides),
+			Derived:      len(palette.Derived),
 			StyleExtras:  countStyleExtras(palette.Style),
 			SyntaxKeys:   countNestedMapKeys(palette.Style, "syntax"),
 			SyntaxSource: "explicit",
@@ -108,13 +111,14 @@ func run() error {
 	})
 
 	w := tabwriter.NewWriter(os.Stdout, 0, 4, 2, ' ', 0)
-	fmt.Fprintln(w, "palette\toverrides\tstyle_extras\tsyntax\tsyntax_src\tplayers\tplayer_src\talpha_light\talpha_dark\tissues")
+	fmt.Fprintln(w, "palette\toverrides\tderived\tstyle_extras\tsyntax\tsyntax_src\tplayers\tplayer_src\talpha_light\talpha_dark\tissues")
 	for _, row := range rows {
 		fmt.Fprintf(
 			w,
-			"%s\t%d\t%d\t%d\t%s\t%d\t%s\t%d\t%d\t%s\n",
+			"%s\t%d\t%d\t%d\t%d\t%s\t%d\t%s\t%d\t%d\t%s\n",
 			row.Name,
 			row.Overrides,
+			row.Derived,
 			row.StyleExtras,
 			row.SyntaxKeys,
 			row.SyntaxSource,

@@ -192,6 +192,7 @@ var alphaRules = []alphaRule{
 	alphaRole("search_match", "foam", "search.match_background"),
 	alphaRole("search_active", "rose", "search.active_match_background"),
 	alphaRole("debugger_line", "rose", "editor.debugger_active_line.background"),
+	alphaRole("invisible", "muted", "editor.invisible"),
 	alphaRole("indent_guide", "muted", "editor.indent_guide"),
 	alphaRole("indent_guide_active", "subtle", "editor.indent_guide_active"),
 	alphaRole("wrap_guide", "muted", "editor.wrap_guide"),
