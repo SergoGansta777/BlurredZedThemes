@@ -105,7 +105,7 @@ func applyEditorIslandElements(style map[string]any, p Palette, alpha AlphaConfi
 			return
 		}
 		if alphaHex, ok := alphaValue(p.Meta.Appearance, alpha, alphaKey); ok {
-			style[styleKey] = withAlpha(editorBg, alphaHex)
+			style[styleKey] = themeutil.WithAlpha(editorBg, alphaHex)
 			return
 		}
 		style[styleKey] = editorBg

@@ -8,10 +8,6 @@ import (
 	"zed-themes/scripts/themeutil"
 )
 
-func withAlpha(hex string, alpha string) string {
-	return themeutil.WithAlpha(hex, alpha)
-}
-
 func solidColorValue(style map[string]any, key string, surfaceBg string) string {
 	color, ok := style[key].(string)
 	if !ok || color == "" {

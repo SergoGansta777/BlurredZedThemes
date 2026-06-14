@@ -1,5 +1,7 @@
 package main
 
+import "zed-themes/scripts/themeutil"
+
 func applyTerminalDims(style map[string]any) {
 	dims := map[string]string{
 		"terminal.ansi.dim_black":   "terminal.ansi.black",
@@ -70,7 +72,7 @@ func applyDerivedPlayers(style map[string]any, p Palette, alpha AlphaConfig) {
 		players = append(players, map[string]string{
 			"cursor":     c,
 			"background": c,
-			"selection":  withAlpha(c, alphaHex),
+			"selection":  themeutil.WithAlpha(c, alphaHex),
 		})
 	}
 	if len(players) > 0 {
@@ -105,9 +107,9 @@ func applyDerivedDiffHunks(style map[string]any, p Palette, alpha AlphaConfig) {
 		}
 
 		strong := alphaHexOrDefault(p.Meta.Appearance, alpha, strongAlphaKey, "59")
-		hollow := withAlpha(base, alphaHexOrDefault(p.Meta.Appearance, alpha, "semantic_bg", "26"))
+		hollow := themeutil.WithAlpha(base, alphaHexOrDefault(p.Meta.Appearance, alpha, "semantic_bg", "26"))
 
-		s.SetRole("editor.diff_hunk."+kind+".background", withAlpha(base, strong))
+		s.SetRole("editor.diff_hunk."+kind+".background", themeutil.WithAlpha(base, strong))
 		s.SetRole("editor.diff_hunk."+kind+".hollow_background", hollow)
 		s.SetRole("editor.diff_hunk."+kind+".hollow_border", hollow)
 	}

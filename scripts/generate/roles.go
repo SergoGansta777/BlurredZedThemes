@@ -25,7 +25,7 @@ func applyRoleMappings(style map[string]any, p Palette) {
 
 	s.SetAny("scrollbar.thumb.active_background", nil)
 	if scrollbarThumb := derivedColor(p, "scrollbar_thumb"); scrollbarThumb != "" {
-		s.SetRole("scrollbar.thumb.border", withAlpha(scrollbarThumb, "00"))
+		s.SetRole("scrollbar.thumb.border", themeutil.WithAlpha(scrollbarThumb, "00"))
 	} else {
 		s.SetAny("scrollbar.thumb.border", nil)
 	}
@@ -103,7 +103,7 @@ func setSemanticBackgrounds(style map[string]any, p Palette, alpha AlphaConfig, 
 			continue
 		}
 		if fg, ok := style[r.key].(string); ok && fg != "" {
-			style[bgKey] = withAlpha(fg, r.alpha)
+			style[bgKey] = themeutil.WithAlpha(fg, r.alpha)
 			continue
 		}
 		style[bgKey] = editorBg

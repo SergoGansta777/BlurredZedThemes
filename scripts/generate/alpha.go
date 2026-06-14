@@ -58,7 +58,7 @@ func applyAlphaRules(style map[string]any, p Palette, alpha AlphaConfig) {
 					continue
 				}
 			}
-			style[styleKey] = withAlpha(base, alphaHex)
+			style[styleKey] = themeutil.WithAlpha(base, alphaHex)
 		}
 	}
 }
