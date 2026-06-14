@@ -125,9 +125,9 @@ func themeStyle(theme map[string]any) (map[string]any, error) {
 
 func deriveRoles(style map[string]any) map[string]string {
 	role := map[string]string{}
-	role["surface"] = stripAlpha(stringValue(style, "editor.background"))
-	role["base"] = stripAlpha(stringValue(style, "background"))
-	role["overlay"] = stripAlpha(stringValue(style, "editor.active_line.background"))
+	role["surface"] = themeutil.StripAlpha(stringValue(style, "editor.background"))
+	role["base"] = themeutil.StripAlpha(stringValue(style, "background"))
+	role["overlay"] = themeutil.StripAlpha(stringValue(style, "editor.active_line.background"))
 	role["muted"] = stringValue(style, "text.muted")
 	role["subtle"] = stringValue(style, "text.placeholder")
 	role["text"] = stringValue(style, "text")
@@ -139,9 +139,9 @@ func deriveRoles(style map[string]any) map[string]string {
 	role["foam"] = firstNonEmpty(stringValue(style, "text.accent"), stringValue(style, "link_text.hover"))
 	role["iris"] = firstNonEmpty(stringValue(style, "renamed"), stringValue(style, "keyword"))
 
-	role["highlight_low"] = stripAlpha(stringValue(style, "element.hover"))
-	role["highlight_med"] = stripAlpha(stringValue(style, "element.selected"))
-	role["highlight_high"] = stripAlpha(stringValue(style, "ghost_element.active"))
+	role["highlight_low"] = themeutil.StripAlpha(stringValue(style, "element.hover"))
+	role["highlight_med"] = themeutil.StripAlpha(stringValue(style, "element.selected"))
+	role["highlight_high"] = themeutil.StripAlpha(stringValue(style, "ghost_element.active"))
 
 	for k, v := range role {
 		if v == "" {
@@ -362,17 +362,6 @@ func inferAlphaOverrides(p Palette, base AlphaConfig, style map[string]any) Alph
 		return AlphaConfig{}
 	}
 	return out
-}
-
-func stripAlpha(hex string) string {
-	h := strings.TrimPrefix(hex, "#")
-	if len(h) == 8 {
-		return "#" + h[:6]
-	}
-	if strings.HasPrefix(hex, "#") {
-		return hex
-	}
-	return hex
 }
 
 func firstNonEmpty(values ...string) string {

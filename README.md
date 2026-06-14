@@ -92,6 +92,7 @@ task publish
 task verify
 task validate
 task audit
+task check
 ```
 
 Notes:
@@ -107,10 +108,7 @@ Notes:
 Before publishing or installing as an extension, run:
 
 ```bash
-task publish
-task verify
-task validate
-go test ./...
+task check
 ```
 
 ## Recommended settings

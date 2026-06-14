@@ -52,6 +52,15 @@ tasks:
     cmds:
       - go run ./scripts/validate
 
+  check:
+    desc: Run the full generation, validation, and test suite.
+    cmds:
+      - task publish
+      - task verify
+      - task validate
+      - go test ./...
+      - git diff --check
+
   audit:
     desc: Report palette cleanup debt (overrides, style extras, syntax/player coverage).
     cmds:

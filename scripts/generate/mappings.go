@@ -1,5 +1,7 @@
 package main
 
+import "zed-themes/scripts/themeutil"
+
 type roleMapping struct {
 	key  string
 	role string
@@ -114,7 +116,7 @@ func roleValue(p Palette, name string) string {
 }
 
 func roleOpaque(p Palette, name string) string {
-	return stripAlpha(roleValue(p, name))
+	return themeutil.StripAlpha(roleValue(p, name))
 }
 
 func semanticOf(p Palette, name string) string {
@@ -126,7 +128,7 @@ func terminalBaseOf(p Palette, key string) string {
 		return ""
 	}
 	if v, ok := p.Terminal[key]; ok {
-		return stripAlpha(v)
+		return themeutil.StripAlpha(v)
 	}
 	return ""
 }

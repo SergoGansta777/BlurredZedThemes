@@ -34,3 +34,12 @@ func TestWithAlphaReturnsShortOpaqueColors(t *testing.T) {
 		t.Fatalf("WithAlpha opaque = %q, want %q", got, "#FFFFFF")
 	}
 }
+
+func TestStripAlpha(t *testing.T) {
+	if got := StripAlpha("#AABBCC80"); got != "#AABBCC" {
+		t.Fatalf("StripAlpha = %q, want %q", got, "#AABBCC")
+	}
+	if got := StripAlpha("#AABBCC"); got != "#AABBCC" {
+		t.Fatalf("StripAlpha opaque = %q, want %q", got, "#AABBCC")
+	}
+}

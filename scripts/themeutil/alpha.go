@@ -56,6 +56,17 @@ func WithAlpha(hex string, alpha string) string {
 	return hex
 }
 
+func StripAlpha(hex string) string {
+	h := strings.TrimPrefix(hex, "#")
+	if len(h) == 8 {
+		return "#" + h[:6]
+	}
+	if strings.HasPrefix(hex, "#") {
+		return hex
+	}
+	return hex
+}
+
 func InferAlpha(value, base string) (string, bool) {
 	v := strings.TrimPrefix(strings.ToUpper(value), "#")
 	b := strings.TrimPrefix(strings.ToUpper(base), "#")

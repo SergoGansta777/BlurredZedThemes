@@ -1,6 +1,6 @@
 package themeutil
 
-func SemanticColor(roles map[string]string, semantic map[string]string, name string) string {
+func SemanticColors(roles map[string]string, semantic map[string]string) map[string]string {
 	role := func(n string) string { return roles[n] }
 	out := map[string]string{
 		"error":       role("love"),
@@ -21,5 +21,9 @@ func SemanticColor(roles map[string]string, semantic map[string]string, name str
 	for k, v := range semantic {
 		out[k] = v
 	}
-	return out[name]
+	return out
+}
+
+func SemanticColor(roles map[string]string, semantic map[string]string, name string) string {
+	return SemanticColors(roles, semantic)[name]
 }
