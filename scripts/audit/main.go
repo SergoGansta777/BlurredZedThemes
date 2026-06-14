@@ -126,8 +126,8 @@ func run() error {
 
 func summarizeIssues(row auditRow) string {
 	var issues []string
-	if row.Overrides >= 10 {
-		issues = append(issues, "override-heavy")
+	if row.Overrides > 0 {
+		issues = append(issues, fmt.Sprintf("overrides:%d", row.Overrides))
 	}
 	if row.StyleExtras > 0 {
 		issues = append(issues, fmt.Sprintf("extra-style:%d", row.StyleExtras))

@@ -99,7 +99,7 @@ Notes:
 
 - Palettes define roles/semantic/derived/accents/terminal, with optional `style` for `syntax` and `players`.
 - `alpha` overrides can be added per theme when needed (merged over `palettes/alpha.json`).
-- `overrides` are treated as derived data and can be regenerated from a reference theme.
+- Prefer `derived` for generated exact style-key values and keep raw `overrides` at zero unless a future Zed key cannot be modeled yet.
 - For Zed-native upstream themes, prefer `go run ./scripts/generate --palette palettes/<theme>.json --compare <reference.json> --write-style-keys syntax,players` so syntax and player colors can be refreshed without copying the whole upstream style surface.
 - The generator fills missing fields with `TODO` placeholders and applies safe defaults.
 - `task validate` checks published theme family shape, style keys, duplicate theme names, color syntax, players, and syntax highlight entries.
