@@ -45,6 +45,10 @@ func applyAlphaRules(style map[string]any, p Palette, alpha AlphaConfig) {
 			continue
 		}
 		for _, styleKey := range rule.StyleKeys {
+			if value := derivedColor(p, styleKey); value != "" {
+				style[styleKey] = value
+				continue
+			}
 			if current, ok := style[styleKey].(string); ok && current != "" && !isTodoValue(current) {
 				if !rule.Force && !fromDerived && !strings.EqualFold(themeutil.StripAlpha(current), themeutil.StripAlpha(base)) {
 					continue

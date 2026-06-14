@@ -98,6 +98,10 @@ func setSemanticBackgrounds(style map[string]any, p Palette, alpha AlphaConfig, 
 		if s.HasValue(bgKey) {
 			continue
 		}
+		if value := derivedColor(p, bgKey); value != "" {
+			style[bgKey] = value
+			continue
+		}
 		if r.forceSolid && opaqueEditorBg != "" {
 			style[bgKey] = opaqueEditorBg
 			continue
@@ -122,6 +126,10 @@ func setSemanticBackgrounds(style map[string]any, p Palette, alpha AlphaConfig, 
 	for _, k := range editorFallback {
 		bgKey := k + ".background"
 		if s.HasValue(bgKey) {
+			continue
+		}
+		if value := derivedColor(p, bgKey); value != "" {
+			style[bgKey] = value
 			continue
 		}
 		style[bgKey] = fallbackBg
