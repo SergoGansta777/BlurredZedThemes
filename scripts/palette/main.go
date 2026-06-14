@@ -36,17 +36,21 @@ func run() error {
 		return errors.New("missing --theme")
 	}
 
-	theme, err := themeutil.ReadJSONFile[map[string]any](cfg.ThemePath)
+	family, err := themeutil.ReadJSONFile[themeutil.ThemeFamily](cfg.ThemePath)
 	if err != nil {
 		return fmt.Errorf("read theme: %w", err)
 	}
-	style, err := themeStyle(theme)
+	theme, err := themeutil.FirstTheme(family)
+	if err != nil {
+		return err
+	}
+	style, err := themeutil.FirstThemeStyle(family)
 	if err != nil {
 		return err
 	}
 	style = themeutil.NormalizeImportedStyle(style)
 
-	palette := buildPalette(theme, style)
+	palette := buildPalette(family, theme, style)
 	if cfg.StyleKeys != "" {
 		palette.Style = pickStyleKeys(style, cfg.StyleKeys)
 	}
@@ -85,7 +89,7 @@ func defaultPalettePath(themePath string) string {
 	return filepath.Join("palettes", base+".json")
 }
 
-func buildPalette(theme map[string]any, style map[string]any) Palette {
+func buildPalette(family themeutil.ThemeFamily, theme themeutil.ThemeContent, style map[string]any) Palette {
 	backgroundAppearance := stringValue(style, "background.appearance")
 	blurMode := ""
 	if strings.EqualFold(backgroundAppearance, "blurred") && isTransparentColor(stringValue(style, "editor.background")) {
@@ -93,10 +97,10 @@ func buildPalette(theme map[string]any, style map[string]any) Palette {
 	}
 	return Palette{
 		Meta: Meta{
-			Name:                 stringField(theme, "name"),
-			Author:               stringField(theme, "author"),
-			Appearance:           themeString(theme, "appearance"),
-			ThemeName:            themeString(theme, "name"),
+			Name:                 family.Name,
+			Author:               family.Author,
+			Appearance:           theme.Appearance,
+			ThemeName:            theme.Name,
 			BackgroundAppearance: backgroundAppearance,
 			BlurMode:             blurMode,
 		},
@@ -105,22 +109,6 @@ func buildPalette(theme map[string]any, style map[string]any) Palette {
 		Accents:  stringSlice(style, "accents"),
 		Terminal: deriveTerminal(style),
 	}
-}
-
-func themeStyle(theme map[string]any) (map[string]any, error) {
-	themes, ok := theme["themes"].([]any)
-	if !ok || len(themes) == 0 {
-		return nil, errors.New("invalid theme: missing themes array")
-	}
-	first, ok := themes[0].(map[string]any)
-	if !ok {
-		return nil, errors.New("invalid theme: themes[0] not object")
-	}
-	style, ok := first["style"].(map[string]any)
-	if !ok {
-		return nil, errors.New("invalid theme: missing style map")
-	}
-	return style, nil
 }
 
 func deriveRoles(style map[string]any) map[string]string {
@@ -176,28 +164,6 @@ func deriveTerminal(style map[string]any) map[string]string {
 		}
 	}
 	return out
-}
-
-func themeString(theme map[string]any, key string) string {
-	themes, ok := theme["themes"].([]any)
-	if !ok || len(themes) == 0 {
-		return ""
-	}
-	obj, ok := themes[0].(map[string]any)
-	if !ok {
-		return ""
-	}
-	if v, ok := obj[key].(string); ok {
-		return v
-	}
-	return ""
-}
-
-func stringField(m map[string]any, key string) string {
-	if v, ok := m[key].(string); ok {
-		return v
-	}
-	return ""
 }
 
 func stringValue(style map[string]any, key string) string {

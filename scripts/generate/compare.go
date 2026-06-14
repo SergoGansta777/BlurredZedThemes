@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"maps"
 	"sort"
@@ -109,21 +108,13 @@ func parseCommaList(value string) []string {
 }
 
 func readThemeStyle(path string) (map[string]any, error) {
-	theme, err := themeutil.ReadJSONFile[map[string]any](path)
+	family, err := themeutil.ReadJSONFile[themeutil.ThemeFamily](path)
 	if err != nil {
 		return nil, err
 	}
-	themes, ok := theme["themes"].([]any)
-	if !ok || len(themes) == 0 {
-		return nil, errors.New("invalid theme: missing themes array")
-	}
-	first, ok := themes[0].(map[string]any)
-	if !ok {
-		return nil, errors.New("invalid theme: themes[0] not object")
-	}
-	style, ok := first["style"].(map[string]any)
-	if !ok {
-		return nil, errors.New("invalid theme: missing style map")
+	style, err := themeutil.FirstThemeStyle(family)
+	if err != nil {
+		return nil, err
 	}
 	return themeutil.NormalizeImportedStyle(style), nil
 }

@@ -19,19 +19,6 @@ type config struct {
 	TemplatePath  string
 }
 
-type themeFamily struct {
-	Schema string         `json:"$schema"`
-	Author string         `json:"author"`
-	Name   string         `json:"name"`
-	Themes []themeContent `json:"themes"`
-}
-
-type themeContent struct {
-	Appearance string         `json:"appearance"`
-	Name       string         `json:"name"`
-	Style      map[string]any `json:"style"`
-}
-
 func main() {
 	if err := run(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -61,7 +48,7 @@ func run() error {
 	issues := validateExtensionManifest(cfg.ExtensionPath)
 	themeCount := 0
 	for _, path := range paths {
-		family, err := themeutil.ReadJSONFile[themeFamily](path)
+		family, err := themeutil.ReadJSONFile[themeutil.ThemeFamily](path)
 		if err != nil {
 			issues = append(issues, fmt.Sprintf("%s: read: %v", path, err))
 			continue
@@ -138,7 +125,7 @@ func validateExtensionManifest(path string) []string {
 	return issues
 }
 
-func validateThemeFamily(path string, family themeFamily, allowedStyleKeys map[string]struct{}) []string {
+func validateThemeFamily(path string, family themeutil.ThemeFamily, allowedStyleKeys map[string]struct{}) []string {
 	var issues []string
 	if family.Schema != "" && family.Schema != themeutil.ThemeSchemaURL {
 		issues = append(issues, fmt.Sprintf("%s: $schema = %q, want %q", path, family.Schema, themeutil.ThemeSchemaURL))
