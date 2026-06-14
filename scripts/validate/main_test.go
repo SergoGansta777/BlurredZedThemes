@@ -4,6 +4,8 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+
+	"zed-themes/scripts/themeutil"
 )
 
 func TestIsHexColor(t *testing.T) {
@@ -54,6 +56,36 @@ func TestValidateSyntaxFields(t *testing.T) {
 	})
 	if len(issues) != 2 {
 		t.Fatalf("issues = %v, want two syntax issues", issues)
+	}
+}
+
+func TestValidatePaletteRejectsUnknownDerivedKeysAndOverrides(t *testing.T) {
+	allowed := derivedKeySet(map[string]struct{}{
+		"editor.background": {},
+	})
+
+	issues := validatePalette("palette.json", themeutil.Palette{
+		Derived: map[string]string{
+			"editor.background": "#000000",
+			"unknown_key":       "#FFFFFF",
+		},
+		Overrides: map[string]any{
+			"editor.foreground": "#FFFFFF",
+		},
+	}, allowed)
+
+	if len(issues) != 2 {
+		t.Fatalf("issues = %v, want unknown-derived and overrides issues", issues)
+	}
+}
+
+func TestDerivedKeySetAllowsAlphaAndVimKeys(t *testing.T) {
+	allowed := derivedKeySet(map[string]struct{}{})
+
+	for _, key := range []string{"search_match", "vim_replace"} {
+		if _, ok := allowed[key]; !ok {
+			t.Fatalf("derivedKeySet missing %q", key)
+		}
 	}
 }
 

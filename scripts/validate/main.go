@@ -15,6 +15,7 @@ import (
 
 type config struct {
 	ThemesDir     string
+	PalettesDir   string
 	ExtensionPath string
 	TemplatePath  string
 }
@@ -34,6 +35,7 @@ func run() error {
 		return fmt.Errorf("read template: %w", err)
 	}
 	allowedStyleKeys := keySet(template)
+	allowedDerivedKeys := derivedKeySet(allowedStyleKeys)
 
 	paths, err := filepath.Glob(filepath.Join(cfg.ThemesDir, "*.json"))
 	if err != nil {
@@ -68,6 +70,9 @@ func run() error {
 		themeCount += len(family.Themes)
 	}
 
+	paletteCount, paletteIssues := validatePalettes(cfg.PalettesDir, allowedDerivedKeys)
+	issues = append(issues, paletteIssues...)
+
 	if len(issues) > 0 {
 		for _, issue := range issues {
 			fmt.Fprintln(os.Stderr, issue)
@@ -75,13 +80,14 @@ func run() error {
 		return errors.New("validation failed")
 	}
 
-	fmt.Printf("validated %d themes in %d files\n", themeCount, len(paths))
+	fmt.Printf("validated %d themes in %d files and %d palettes\n", themeCount, len(paths), paletteCount)
 	return nil
 }
 
 func parseFlags() config {
 	var cfg config
 	flag.StringVar(&cfg.ThemesDir, "themes-dir", "themes", "directory containing published theme JSON files")
+	flag.StringVar(&cfg.PalettesDir, "palettes-dir", "palettes", "directory containing source palette JSON files")
 	flag.StringVar(&cfg.ExtensionPath, "extension", "extension.toml", "extension manifest path")
 	flag.StringVar(&cfg.TemplatePath, "template", "templates/base-style.json", "base style template used as the allowed style-key set")
 	flag.Parse()
@@ -153,6 +159,49 @@ func validateThemeFamily(path string, family themeutil.ThemeFamily, allowedStyle
 			continue
 		}
 		issues = append(issues, validateStyle(location, theme.Style, allowedStyleKeys)...)
+	}
+	return issues
+}
+
+func validatePalettes(dir string, allowedDerivedKeys map[string]struct{}) (int, []string) {
+	paths, err := filepath.Glob(filepath.Join(dir, "*.json"))
+	if err != nil {
+		return 0, []string{fmt.Sprintf("glob palettes: %v", err)}
+	}
+	if len(paths) == 0 {
+		return 0, []string{fmt.Sprintf("no palettes found in %s", dir)}
+	}
+	sort.Strings(paths)
+
+	var issues []string
+	count := 0
+	for _, path := range paths {
+		if filepath.Base(path) == "alpha.json" {
+			continue
+		}
+
+		palette, err := themeutil.ReadJSONFile[themeutil.Palette](path)
+		if err != nil {
+			issues = append(issues, fmt.Sprintf("%s: read: %v", path, err))
+			continue
+		}
+		count++
+		issues = append(issues, validatePalette(path, palette, allowedDerivedKeys)...)
+	}
+	return count, issues
+}
+
+func validatePalette(path string, palette themeutil.Palette, allowedDerivedKeys map[string]struct{}) []string {
+	var issues []string
+	if len(palette.Overrides) > 0 {
+		issues = append(issues, fmt.Sprintf("%s: overrides should be empty; use derived for generated values", path))
+	}
+	for key, value := range palette.Derived {
+		if _, ok := allowedDerivedKeys[key]; !ok {
+			issues = append(issues, fmt.Sprintf("%s: derived.%s is not a known generated key", path, key))
+			continue
+		}
+		issues = append(issues, validateOptionalColor(path+".derived."+key, value)...)
 	}
 	return issues
 }
@@ -329,6 +378,20 @@ func keySet(m map[string]any) map[string]struct{} {
 	out := make(map[string]struct{}, len(m))
 	for k := range m {
 		out[k] = struct{}{}
+	}
+	return out
+}
+
+func derivedKeySet(allowedStyleKeys map[string]struct{}) map[string]struct{} {
+	out := make(map[string]struct{}, len(allowedStyleKeys)+len(themeutil.AlphaRules)+4)
+	for key := range allowedStyleKeys {
+		out[key] = struct{}{}
+	}
+	for _, rule := range themeutil.AlphaRules {
+		out[rule.AlphaKey] = struct{}{}
+	}
+	for _, key := range []string{"vim_normal", "vim_insert", "vim_visual", "vim_replace"} {
+		out[key] = struct{}{}
 	}
 	return out
 }
