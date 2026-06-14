@@ -11,23 +11,23 @@ func alphaValue(appearance string, cfg AlphaConfig, key string) (string, bool) {
 	return value, value != ""
 }
 
-func alphaBaseValue(p Palette, rule alphaRule) string {
+func alphaBaseValue(p Palette, rule themeutil.AlphaRule) string {
 	base, _ := alphaBaseValueForRule(p, rule)
 	return base
 }
 
-func alphaBaseValueForRule(p Palette, rule alphaRule) (string, bool) {
-	if value := derivedColor(p, rule.alphaKey); value != "" {
+func alphaBaseValueForRule(p Palette, rule themeutil.AlphaRule) (string, bool) {
+	if value := derivedColor(p, rule.AlphaKey); value != "" {
 		return themeutil.StripAlpha(value), true
 	}
 
-	switch rule.baseKind {
-	case alphaBaseRole:
-		return roleOpaque(p, rule.baseKey), false
-	case alphaBaseSemantic:
-		return semanticOf(p, rule.baseKey), false
-	case alphaBaseTerminal:
-		return terminalBaseOf(p, rule.baseKey), false
+	switch rule.BaseKind {
+	case themeutil.AlphaBaseRole:
+		return roleOpaque(p, rule.BaseKey), false
+	case themeutil.AlphaBaseSemantic:
+		return semanticOf(p, rule.BaseKey), false
+	case themeutil.AlphaBaseTerminal:
+		return terminalBaseOf(p, rule.BaseKey), false
 	default:
 		return "", false
 	}
@@ -35,8 +35,8 @@ func alphaBaseValueForRule(p Palette, rule alphaRule) (string, bool) {
 
 func applyAlphaRules(style map[string]any, p Palette, alpha AlphaConfig) {
 	appearance := p.Meta.Appearance
-	for _, rule := range alphaRules {
-		alphaHex, ok := alphaValue(appearance, alpha, rule.alphaKey)
+	for _, rule := range themeutil.AlphaRules {
+		alphaHex, ok := alphaValue(appearance, alpha, rule.AlphaKey)
 		if !ok {
 			continue
 		}
@@ -44,9 +44,9 @@ func applyAlphaRules(style map[string]any, p Palette, alpha AlphaConfig) {
 		if base == "" {
 			continue
 		}
-		for _, styleKey := range rule.styleKeys {
+		for _, styleKey := range rule.StyleKeys {
 			if current, ok := style[styleKey].(string); ok && current != "" && !isTodoValue(current) {
-				if !rule.force && !fromDerived && !strings.EqualFold(themeutil.StripAlpha(current), themeutil.StripAlpha(base)) {
+				if !rule.Force && !fromDerived && !strings.EqualFold(themeutil.StripAlpha(current), themeutil.StripAlpha(base)) {
 					continue
 				}
 			}

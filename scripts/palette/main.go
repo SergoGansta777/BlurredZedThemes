@@ -263,84 +263,26 @@ func inferAlphaOverrides(p Palette, base AlphaConfig, style map[string]any) Alph
 		}
 	}
 
-	role := func(name string) string { return p.Roles[name] }
-	semantic := func(name string) string { return themeutil.SemanticColor(p.Roles, p.Semantic, name) }
-
-	specs := []struct {
-		alphaKey string
-		styleKey string
-		base     func() string
-	}{
-		{"ui", "background", func() string { return role("surface") }},
-		{"ui_inactive", "title_bar.inactive_background", func() string { return role("surface") }},
-		{"surface", "surface.background", func() string { return role("surface") }},
-		{"elevated", "elevated_surface.background", func() string { return role("surface") }},
-		{"overlay", "panel.overlay_background", func() string { return role("surface") }},
-		{"subheader", "editor.subheader.background", func() string { return role("surface") }},
-		{"active_line", "editor.active_line.background", func() string { return role("overlay") }},
-		{"active_line_number", "editor.active_line_number", func() string { return role("text") }},
-		{"highlighted_line", "editor.highlighted_line.background", func() string { return role("overlay") }},
-		{"line_number", "editor.line_number", func() string { return role("text") }},
-		{"text_disabled", "text.disabled", func() string { return role("text") }},
-		{"text_disabled", "icon.disabled", func() string { return role("text") }},
-		{"text_placeholder", "text.placeholder", func() string { return role("text") }},
-		{"element_active", "element.active", func() string { return role("highlight_med") }},
-		{"element_selected", "element.selected", func() string { return role("highlight_med") }},
-		{"element_hover", "element.hover", func() string { return role("highlight_low") }},
-		{"element_disabled", "element.disabled", func() string { return role("surface") }},
-		{"ghost_active", "ghost_element.active", func() string { return role("highlight_high") }},
-		{"ghost_selected", "ghost_element.selected", func() string { return role("highlight_high") }},
-		{"ghost_hover", "ghost_element.hover", func() string { return role("highlight_low") }},
-		{"ghost_disabled", "ghost_element.disabled", func() string { return role("surface") }},
-		{"border_variant", "border.variant", func() string { return role("foam") }},
-		{"border_focused", "border.focused", func() string { return role("foam") }},
-		{"border_selected", "border.selected", func() string { return role("iris") }},
-		{"border_disabled", "border.disabled", func() string { return role("muted") }},
-		{"tab_active", "tab.active_background", func() string { return role("surface") }},
-		{"conflict_marker", "version_control.conflict_marker.ours", func() string { return semantic("warning") }},
-		{"panel_focus_border", "panel.focused_border", func() string { return role("muted") }},
-		{"panel_indent_guide", "panel.indent_guide", func() string { return role("muted") }},
-		{"panel_indent_guide_active", "panel.indent_guide_active", func() string { return role("subtle") }},
-		{"pane_focus_border", "pane.focused_border", func() string { return role("muted") }},
-		{"pane_group_border", "pane_group.border", func() string { return role("muted") }},
-		{"scrollbar_thumb", "scrollbar.thumb.background", func() string { return role("muted") }},
-		{"scrollbar_thumb_hover", "scrollbar.thumb.hover_background", func() string { return role("muted") }},
-		{"scrollbar_track", "scrollbar.track.background", func() string { return role("surface") }},
-		{"scrollbar_track_border", "scrollbar.track.border", func() string { return role("text") }},
-		{"search_match", "search.match_background", func() string { return role("foam") }},
-		{"search_active", "search.active_match_background", func() string { return role("rose") }},
-		{"debugger_line", "editor.debugger_active_line.background", func() string { return role("rose") }},
-		{"indent_guide", "editor.indent_guide", func() string { return role("muted") }},
-		{"indent_guide_active", "editor.indent_guide_active", func() string { return role("subtle") }},
-		{"wrap_guide", "editor.wrap_guide", func() string { return role("muted") }},
-		{"active_wrap_guide", "editor.active_wrap_guide", func() string { return role("muted") }},
-		{"doc_highlight_read", "editor.document_highlight.read_background", func() string { return role("foam") }},
-		{"doc_highlight_write", "editor.document_highlight.write_background", func() string { return role("muted") }},
-		{"doc_highlight_bracket", "editor.document_highlight.bracket_background", func() string { return role("iris") }},
-		{"drop_target", "drop_target.background", func() string { return role("text") }},
-		{"minimap_bg", "minimap.thumb.background", func() string { return role("foam") }},
-		{"minimap_hover", "minimap.thumb.hover_background", func() string { return role("foam") }},
-		{"minimap_active", "minimap.thumb.active_background", func() string { return role("foam") }},
-	}
-
 	overrides := map[string]string{}
-	for _, spec := range specs {
-		baseColor := spec.base()
+	for _, rule := range themeutil.AlphaRules {
+		baseColor := alphaBaseValue(p, rule)
 		if baseColor == "" {
 			continue
 		}
-		refValue, ok := style[spec.styleKey].(string)
-		if !ok || refValue == "" {
-			continue
+		for _, styleKey := range rule.StyleKeys {
+			refValue, ok := style[styleKey].(string)
+			if !ok || refValue == "" {
+				continue
+			}
+			alpha, ok := themeutil.InferAlpha(refValue, baseColor)
+			if !ok {
+				continue
+			}
+			if def := defaults[rule.AlphaKey]; def != "" && strings.EqualFold(def, alpha) {
+				continue
+			}
+			overrides[rule.AlphaKey] = strings.ToUpper(alpha)
 		}
-		alpha, ok := themeutil.InferAlpha(refValue, baseColor)
-		if !ok {
-			continue
-		}
-		if def := defaults[spec.alphaKey]; def != "" && strings.EqualFold(def, alpha) {
-			continue
-		}
-		overrides[spec.alphaKey] = strings.ToUpper(alpha)
 	}
 
 	selectionAlpha := themeutil.InferSelectionAlpha(style)
@@ -362,6 +304,19 @@ func inferAlphaOverrides(p Palette, base AlphaConfig, style map[string]any) Alph
 		return AlphaConfig{}
 	}
 	return out
+}
+
+func alphaBaseValue(p Palette, rule themeutil.AlphaRule) string {
+	switch rule.BaseKind {
+	case themeutil.AlphaBaseRole:
+		return themeutil.StripAlpha(p.Roles[rule.BaseKey])
+	case themeutil.AlphaBaseSemantic:
+		return themeutil.SemanticColor(p.Roles, p.Semantic, rule.BaseKey)
+	case themeutil.AlphaBaseTerminal:
+		return themeutil.StripAlpha(p.Terminal[rule.BaseKey])
+	default:
+		return ""
+	}
 }
 
 func firstNonEmpty(values ...string) string {

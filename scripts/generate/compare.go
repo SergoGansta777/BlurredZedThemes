@@ -195,12 +195,12 @@ func applyAlphaOverrides(palette *Palette, base AlphaConfig, reference map[strin
 	}
 
 	overrides := map[string]string{}
-	for _, rule := range alphaRules {
+	for _, rule := range themeutil.AlphaRules {
 		baseColor := alphaBaseValue(*palette, rule)
 		if baseColor == "" {
 			continue
 		}
-		for _, styleKey := range rule.styleKeys {
+		for _, styleKey := range rule.StyleKeys {
 			refValue, ok := reference[styleKey].(string)
 			if !ok || refValue == "" {
 				continue
@@ -209,10 +209,10 @@ func applyAlphaOverrides(palette *Palette, base AlphaConfig, reference map[strin
 			if !ok {
 				continue
 			}
-			if def := defaults[rule.alphaKey]; def != "" && strings.EqualFold(def, alpha) {
+			if def := defaults[rule.AlphaKey]; def != "" && strings.EqualFold(def, alpha) {
 				continue
 			}
-			overrides[rule.alphaKey] = strings.ToUpper(alpha)
+			overrides[rule.AlphaKey] = strings.ToUpper(alpha)
 		}
 	}
 
@@ -304,9 +304,9 @@ func sortedMapKeys(m map[string]any) []string {
 
 func alphaDerivedKeys() []string {
 	seen := map[string]struct{}{}
-	keys := make([]string, 0, len(alphaRules))
-	for _, rule := range alphaRules {
-		for _, styleKey := range rule.styleKeys {
+	keys := make([]string, 0, len(themeutil.AlphaRules))
+	for _, rule := range themeutil.AlphaRules {
+		for _, styleKey := range rule.StyleKeys {
 			if styleKey == "" {
 				continue
 			}
