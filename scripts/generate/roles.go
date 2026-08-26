@@ -24,7 +24,9 @@ func applyRoleMappings(style map[string]any, p Palette) {
 	s.SetAny("minimap.thumb.border", nil)
 
 	s.SetAny("scrollbar.thumb.active_background", nil)
-	if scrollbarThumb := derivedColor(p, "scrollbar_thumb"); scrollbarThumb != "" {
+	if scrollbarBorder := derivedColor(p, "scrollbar.thumb.border"); scrollbarBorder != "" {
+		style["scrollbar.thumb.border"] = scrollbarBorder
+	} else if scrollbarThumb := derivedColor(p, "scrollbar_thumb"); scrollbarThumb != "" {
 		s.SetRole("scrollbar.thumb.border", themeutil.WithAlpha(scrollbarThumb, "00"))
 	} else {
 		s.SetAny("scrollbar.thumb.border", nil)
