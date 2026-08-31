@@ -43,7 +43,7 @@ Grouped by theme family. Previews are added as they become available.
 
 | Theme group    | Preview                                                                                                                                                                                             | Source / inspiration                                          |
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| Evergarden     | Winter:<br><img width="320" alt="Evergarden Winter (Hybrid)" src="https://github.com/user-attachments/assets/a551c81f-73b1-4aec-a0f8-476ff8aefbac" /><br>Spring: TODO<br>Summer: TODO<br>Fall: TODO | https://github.com/everviolet/nvim                            |
+| Evergarden     | Winter:<br><img width="320" alt="Evergarden Winter (Hybrid)" src="https://github.com/user-attachments/assets/a551c81f-73b1-4aec-a0f8-476ff8aefbac" /><br>Spring: TODO<br>Summer: TODO<br>Fall: TODO | https://github.com/evergardentheme/nvim                       |
 | JetBrains      | Dark: TODO<br>Light: TODO                                                                                                                                                                           | https://github.com/artemevsevev/zed-theme-jetbrains           |
 | Xcode          | Dark: TODO<br>Light: TODO                                                                                                                                                                           | https://github.com/skarline/zed-xcode-themes                  |
 | Kanagawa       | Dragon: TODO<br>Paper: TODO                                                                                                                                                                         | https://github.com/rebelot/kanagawa.nvim                      |
@@ -62,8 +62,8 @@ Grouped by theme family. Previews are added as they become available.
 ## Customization
 
 - Global alpha presets live in `palettes/alpha.json`.
-- Per-theme overrides live in `palettes/<theme>.json`.
-- Use palette `derived` entries for generator-only base colors such as native search, document highlight, Vim, scrollbar, or role-mapped style-key colors before falling back to raw `overrides`.
+- Per-theme values live in `palettes/<theme>.json`.
+- Use palette `derived` entries for exact generated colors such as native search, document highlights, Vim, scrollbars, or other style keys.
 - The generator backfills modern syntax captures and practical Zed-only keys such as word diff highlights and hover line numbers.
 - Regenerate theme files via Taskfile (see below).
 
@@ -98,8 +98,8 @@ task check
 Notes:
 
 - Palettes define roles/semantic/derived/accents/terminal, with optional `style` for `syntax` and `players`.
-- `alpha` overrides can be added per theme when needed (merged over `palettes/alpha.json`).
-- Prefer `derived` for generated exact style-key values and keep raw `overrides` at zero unless a future Zed key cannot be modeled yet.
+- Per-theme `alpha` values can be added when needed and are merged over `palettes/alpha.json`.
+- Use `derived` as the single source for exact generated style-key values.
 - For Zed-native upstream themes, prefer `go run ./scripts/generate --palette palettes/<theme>.json --compare <reference.json> --write-style-keys syntax,players` so syntax and player colors can be refreshed without copying the whole upstream style surface.
 - The generator fills missing fields with `TODO` placeholders and applies safe defaults.
 - `task validate` checks published theme family shape, style keys, duplicate theme names, color syntax, players, and syntax highlight entries.

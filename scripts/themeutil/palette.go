@@ -1,16 +1,14 @@
 package themeutil
 
 type Palette struct {
-	Meta      Meta              `json:"meta"`
-	Roles     map[string]string `json:"roles"`
-	Semantic  map[string]string `json:"semantic"`
-	Derived   map[string]string `json:"derived,omitempty"`
-	Accents   []string          `json:"accents"`
-	Colors    map[string]string `json:"colors,omitempty"`
-	Terminal  map[string]string `json:"terminal"`
-	Style     map[string]any    `json:"style"`
-	Overrides map[string]any    `json:"overrides,omitempty"`
-	Alpha     AlphaConfig       `json:"alpha"`
+	Meta     Meta              `json:"meta"`
+	Roles    map[string]string `json:"roles"`
+	Semantic map[string]string `json:"semantic"`
+	Derived  map[string]string `json:"derived,omitempty"`
+	Accents  []string          `json:"accents"`
+	Terminal map[string]string `json:"terminal"`
+	Style    map[string]any    `json:"style"`
+	Alpha    AlphaConfig       `json:"alpha"`
 }
 
 type Meta struct {

@@ -59,7 +59,7 @@ func TestValidateSyntaxFields(t *testing.T) {
 	}
 }
 
-func TestValidatePaletteRejectsUnknownDerivedKeysAndOverrides(t *testing.T) {
+func TestValidatePaletteRejectsUnknownDerivedKeys(t *testing.T) {
 	allowed := derivedKeySet(map[string]struct{}{
 		"editor.background": {},
 	})
@@ -69,13 +69,10 @@ func TestValidatePaletteRejectsUnknownDerivedKeysAndOverrides(t *testing.T) {
 			"editor.background": "#000000",
 			"unknown_key":       "#FFFFFF",
 		},
-		Overrides: map[string]any{
-			"editor.foreground": "#FFFFFF",
-		},
 	}, allowed)
 
-	if len(issues) != 2 {
-		t.Fatalf("issues = %v, want unknown-derived and overrides issues", issues)
+	if len(issues) != 1 {
+		t.Fatalf("issues = %v, want one unknown-derived issue", issues)
 	}
 }
 

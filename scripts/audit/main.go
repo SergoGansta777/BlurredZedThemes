@@ -17,7 +17,6 @@ type AlphaConfig = themeutil.AlphaConfig
 
 type auditRow struct {
 	Name         string
-	Overrides    int
 	Derived      int
 	StyleExtras  int
 	SyntaxKeys   int
@@ -63,7 +62,6 @@ func run() error {
 
 		row := auditRow{
 			Name:         strings.TrimSuffix(filepath.Base(path), filepath.Ext(path)),
-			Overrides:    len(palette.Overrides),
 			Derived:      len(palette.Derived),
 			StyleExtras:  countStyleExtras(palette.Style),
 			SyntaxKeys:   countNestedMapKeys(palette.Style, "syntax"),
@@ -90,9 +88,6 @@ func run() error {
 	}
 
 	sort.Slice(rows, func(i, j int) bool {
-		if rows[i].Overrides != rows[j].Overrides {
-			return rows[i].Overrides > rows[j].Overrides
-		}
 		if rows[i].StyleExtras != rows[j].StyleExtras {
 			return rows[i].StyleExtras > rows[j].StyleExtras
 		}
@@ -103,13 +98,12 @@ func run() error {
 	})
 
 	w := tabwriter.NewWriter(os.Stdout, 0, 4, 2, ' ', 0)
-	fmt.Fprintln(w, "palette\toverrides\tderived\tstyle_extras\tsyntax\tsyntax_src\tplayers\tplayer_src\talpha_light\talpha_dark\tissues")
+	fmt.Fprintln(w, "palette\tderived\tstyle_extras\tsyntax\tsyntax_src\tplayers\tplayer_src\talpha_light\talpha_dark\tissues")
 	for _, row := range rows {
 		fmt.Fprintf(
 			w,
-			"%s\t%d\t%d\t%d\t%d\t%s\t%d\t%s\t%d\t%d\t%s\n",
+			"%s\t%d\t%d\t%d\t%s\t%d\t%s\t%d\t%d\t%s\n",
 			row.Name,
-			row.Overrides,
 			row.Derived,
 			row.StyleExtras,
 			row.SyntaxKeys,
@@ -126,9 +120,6 @@ func run() error {
 
 func summarizeIssues(row auditRow) string {
 	var issues []string
-	if row.Overrides > 0 {
-		issues = append(issues, fmt.Sprintf("overrides:%d", row.Overrides))
-	}
 	if row.StyleExtras > 0 {
 		issues = append(issues, fmt.Sprintf("extra-style:%d", row.StyleExtras))
 	}

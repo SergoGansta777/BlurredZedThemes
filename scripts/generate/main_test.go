@@ -153,45 +153,6 @@ func TestBuildStyleDerivesDiffHunks(t *testing.T) {
 	}
 }
 
-func TestPruneRedundantOverridesKeepsRequiredOverrides(t *testing.T) {
-	template := map[string]any{}
-	palette := Palette{
-		Meta: Meta{
-			Appearance: "dark",
-		},
-		Roles: map[string]string{
-			"surface":        "#101010",
-			"text":           "#FFFFFF",
-			"muted":          "#888888",
-			"subtle":         "#666666",
-			"pine":           "#22AA66",
-			"love":           "#CC4455",
-			"foam":           "#55AAFF",
-			"gold":           "#DDAA55",
-			"rose":           "#CC8855",
-			"iris":           "#AA88FF",
-			"highlight_med":  "#222222",
-			"highlight_low":  "#181818",
-			"highlight_high": "#333333",
-		},
-		Overrides: map[string]any{
-			"version_control.added": "#55AAFF",
-			"editor.line_number":    "#777777",
-		},
-	}
-
-	reference := buildStyle(template, palette, AlphaConfig{}, false)
-	removeTODOs(reference)
-	pruneRedundantOverrides(&palette, template, AlphaConfig{}, reference, false)
-
-	if _, ok := palette.Overrides["version_control.added"]; ok {
-		t.Fatal("version_control.added should be pruned")
-	}
-	if got, ok := palette.Overrides["editor.line_number"]; !ok || got != "#777777" {
-		t.Fatalf("editor.line_number override = %v, present %v; want preserved #777777", got, ok)
-	}
-}
-
 func TestValuesEqualTreatsHexColorCaseAsEqual(t *testing.T) {
 	if !valuesEqual("#1f2024", "#1F2024") {
 		t.Fatal("hex colors should compare case-insensitively")

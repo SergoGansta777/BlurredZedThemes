@@ -3,14 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"maps"
-	"sort"
 	"strings"
 
 	"zed-themes/scripts/themeutil"
 )
 
-func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[string]any, alphaCfg AlphaConfig, generated map[string]any) error {
+func compareAndMaybeUpdatePalette(cfg Config, palette Palette, alphaCfg AlphaConfig, generated map[string]any) error {
 	reference, err := readThemeStyle(cfg.ComparePath)
 	if err != nil {
 		return fmt.Errorf("read reference theme: %w", err)
@@ -28,9 +26,6 @@ func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[stri
 
 	updated := palette
 	applyStyleKeyUpdates(&updated, reference, cfg.WriteStyleKeys)
-	if cfg.WriteOverrides {
-		applyReferenceOverrides(&updated, reference, missing, diffs, cfg.RewriteOverrides)
-	}
 
 	if cfg.WriteAlpha {
 		if updated.Alpha.Light == nil {
@@ -42,22 +37,11 @@ func compareAndMaybeUpdatePalette(cfg Config, palette Palette, template map[stri
 		applyAlphaOverrides(&updated, alphaCfg, reference)
 	}
 
-	if cfg.PruneAlpha {
-		pruneAlphaOverrides(&updated, template, alphaCfg, reference)
-	}
-	if cfg.PruneOverrides {
-		pruneRedundantOverrides(&updated, template, alphaCfg, reference, cfg.PruneStyle)
-	}
-
 	return themeutil.WriteJSONFile(cfg.PalettePath, updated)
 }
 
 func shouldUpdatePalette(cfg Config) bool {
-	return cfg.WriteOverrides ||
-		cfg.WriteStyleKeys != "" ||
-		cfg.WriteAlpha ||
-		cfg.PruneAlpha ||
-		cfg.PruneOverrides
+	return cfg.WriteStyleKeys != "" || cfg.WriteAlpha
 }
 
 func applyStyleKeyUpdates(palette *Palette, reference map[string]any, keysCSV string) {
@@ -74,34 +58,6 @@ func applyStyleKeyUpdates(palette *Palette, reference map[string]any, keysCSV st
 		}
 		delete(palette.Style, key)
 	}
-}
-
-func applyReferenceOverrides(palette *Palette, reference map[string]any, missing, diffs []string, rewrite bool) {
-	if palette.Overrides == nil || rewrite {
-		palette.Overrides = map[string]any{}
-	}
-	if palette.Style == nil {
-		palette.Style = map[string]any{}
-	}
-	applyReferenceOverrideKeys(palette, reference, missing)
-	applyReferenceOverrideKeys(palette, reference, diffs)
-}
-
-func applyReferenceOverrideKeys(palette *Palette, reference map[string]any, keys []string) {
-	for _, key := range keys {
-		if isStylePayloadKey(key) {
-			palette.Style[key] = reference[key]
-			continue
-		}
-		if themeutil.IsStandardizedKey(key) {
-			continue
-		}
-		palette.Overrides[key] = reference[key]
-	}
-}
-
-func isStylePayloadKey(key string) bool {
-	return key == "syntax" || key == "players"
 }
 
 func parseCommaList(value string) []string {
@@ -234,92 +190,4 @@ func applyAlphaOverrides(palette *Palette, base AlphaConfig, reference map[strin
 			palette.Alpha.Dark[k] = v
 		}
 	}
-}
-
-func pruneAlphaOverrides(palette *Palette, template map[string]any, alphaCfg AlphaConfig, reference map[string]any) {
-	if palette.Overrides == nil {
-		return
-	}
-	mergedAlpha := alphaCfg
-	themeutil.MergeAlphaConfig(&mergedAlpha, palette.Alpha)
-	candidate := *palette
-	candidate.Overrides = maps.Clone(palette.Overrides)
-
-	alphaKeys := alphaDerivedKeys()
-	for _, key := range alphaKeys {
-		delete(candidate.Overrides, key)
-	}
-	style := buildStyle(template, candidate, mergedAlpha, false)
-	for _, key := range alphaKeys {
-		refValue, ok := reference[key]
-		if !ok {
-			continue
-		}
-		if genValue, ok := style[key]; ok && valuesEqual(refValue, genValue) {
-			delete(palette.Overrides, key)
-		}
-	}
-}
-
-func pruneRedundantOverrides(palette *Palette, template map[string]any, alphaCfg AlphaConfig, reference map[string]any, pruneStyle bool) {
-	if len(palette.Overrides) == 0 {
-		return
-	}
-
-	mergedAlpha := alphaCfg
-	themeutil.MergeAlphaConfig(&mergedAlpha, palette.Alpha)
-
-	for {
-		changed := false
-		for _, key := range sortedMapKeys(palette.Overrides) {
-			trial := *palette
-			trial.Overrides = maps.Clone(palette.Overrides)
-			delete(trial.Overrides, key)
-			if len(trial.Overrides) == 0 {
-				trial.Overrides = nil
-			}
-
-			style := buildStyle(template, trial, mergedAlpha, pruneStyle)
-			removeTODOs(style)
-			missing, extra, diffs := diffStyle(reference, style)
-			if len(missing) != 0 || len(extra) != 0 || len(diffs) != 0 {
-				continue
-			}
-			delete(palette.Overrides, key)
-			changed = true
-		}
-		if !changed {
-			break
-		}
-	}
-	if len(palette.Overrides) == 0 {
-		palette.Overrides = nil
-	}
-}
-
-func sortedMapKeys(m map[string]any) []string {
-	keys := make([]string, 0, len(m))
-	for key := range m {
-		keys = append(keys, key)
-	}
-	sort.Strings(keys)
-	return keys
-}
-
-func alphaDerivedKeys() []string {
-	seen := map[string]struct{}{}
-	keys := make([]string, 0, len(themeutil.AlphaRules))
-	for _, rule := range themeutil.AlphaRules {
-		for _, styleKey := range rule.StyleKeys {
-			if styleKey == "" {
-				continue
-			}
-			if _, ok := seen[styleKey]; ok {
-				continue
-			}
-			seen[styleKey] = struct{}{}
-			keys = append(keys, styleKey)
-		}
-	}
-	return keys
 }

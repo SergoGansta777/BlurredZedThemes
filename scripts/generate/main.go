@@ -30,20 +30,16 @@ type Meta = themeutil.Meta
 type AlphaConfig = themeutil.AlphaConfig
 
 type Config struct {
-	TemplatePath     string
-	PalettePath      string
-	AlphaPath        string
-	OutPath          string
-	PruneStyle       bool
-	ComparePath      string
-	WriteOverrides   bool
-	WriteStyleKeys   string
-	WriteAlpha       bool
-	PruneAlpha       bool
-	PruneOverrides   bool
-	RewriteOverrides bool
-	WIP              bool
-	KeepTODOs        bool
+	TemplatePath   string
+	PalettePath    string
+	AlphaPath      string
+	OutPath        string
+	PruneStyle     bool
+	ComparePath    string
+	WriteStyleKeys string
+	WriteAlpha     bool
+	WIP            bool
+	KeepTODOs      bool
 }
 
 func main() {
@@ -68,7 +64,7 @@ func run() error {
 	style, theme := buildThemeOutput(cfg, palette, template, alphaCfg)
 
 	if cfg.ComparePath != "" {
-		if err := compareAndMaybeUpdatePalette(cfg, palette, template, alphaCfg, style); err != nil {
+		if err := compareAndMaybeUpdatePalette(cfg, palette, alphaCfg, style); err != nil {
 			return err
 		}
 	}
@@ -100,12 +96,8 @@ func parseFlags() Config {
 	flag.StringVar(&cfg.OutPath, "out", "", "output theme json path")
 	flag.BoolVar(&cfg.PruneStyle, "prune", true, "drop keys not present in palette style when available")
 	flag.StringVar(&cfg.ComparePath, "compare", "", "reference theme json to compare generated style against")
-	flag.BoolVar(&cfg.WriteOverrides, "write-overrides", false, "update palette overrides to match reference")
 	flag.StringVar(&cfg.WriteStyleKeys, "write-style-keys", "", "comma-separated top-level style keys to copy from reference into palette style")
-	flag.BoolVar(&cfg.WriteAlpha, "write-alpha", false, "update palette alpha overrides to match reference")
-	flag.BoolVar(&cfg.PruneAlpha, "prune-alpha-overrides", false, "remove alpha-derived overrides after writing alpha")
-	flag.BoolVar(&cfg.PruneOverrides, "prune-overrides", false, "remove overrides that are already derived without changing the generated style")
-	flag.BoolVar(&cfg.RewriteOverrides, "rewrite-overrides", false, "replace overrides with only reference diffs (excluding standardized keys)")
+	flag.BoolVar(&cfg.WriteAlpha, "write-alpha", false, "update palette alpha values to match reference")
 	flag.BoolVar(&cfg.WIP, "wip", true, "append WIP suffix to names and filenames")
 	flag.BoolVar(&cfg.KeepTODOs, "keep-todos", false, "keep TODO values for debugging")
 	flag.Parse()

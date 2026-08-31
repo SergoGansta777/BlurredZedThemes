@@ -35,8 +35,6 @@ func buildStyle(template map[string]any, p Palette, alpha AlphaConfig, prune boo
 		style["accents"] = p.Accents
 	}
 
-	mergeStringMap(style, p.Colors)
-
 	mergeStringMap(style, p.Terminal)
 	applyTerminalDims(style)
 	applyAlphaRules(style, p, alpha)
@@ -44,7 +42,6 @@ func buildStyle(template map[string]any, p Palette, alpha AlphaConfig, prune boo
 	applyDerivedVim(style, p)
 	applyDerivedPlayers(style, p, alpha)
 	applyDerivedSyntax(style, p)
-	mergeAny(style, p.Overrides)
 	applyDerivedEditorLineNumbers(style)
 	baseEditorBg, _ := style["editor.background"].(string)
 	applyBlurMode(style, p.Meta)
@@ -97,7 +94,8 @@ func applyEditorIslandElements(style map[string]any, p Palette, alpha AlphaConfi
 	}
 
 	setIsland := func(styleKey, alphaKey string) {
-		if hasPaletteOverride(p, styleKey) {
+		if value := derivedColor(p, styleKey); value != "" {
+			style[styleKey] = value
 			return
 		}
 		if alphaKey == "" {
@@ -112,14 +110,6 @@ func applyEditorIslandElements(style map[string]any, p Palette, alpha AlphaConfi
 	}
 
 	setIsland("tab.active_background", "tab_active")
-}
-
-func hasPaletteOverride(p Palette, key string) bool {
-	if p.Overrides == nil {
-		return false
-	}
-	_, ok := p.Overrides[key]
-	return ok
 }
 
 func mergeStringMap(dst map[string]any, src map[string]string) {

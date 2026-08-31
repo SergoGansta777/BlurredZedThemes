@@ -193,9 +193,6 @@ func validatePalettes(dir string, allowedDerivedKeys map[string]struct{}) (int, 
 
 func validatePalette(path string, palette themeutil.Palette, allowedDerivedKeys map[string]struct{}) []string {
 	var issues []string
-	if len(palette.Overrides) > 0 {
-		issues = append(issues, fmt.Sprintf("%s: overrides should be empty; use derived for generated values", path))
-	}
 	for key, value := range palette.Derived {
 		if _, ok := allowedDerivedKeys[key]; !ok {
 			issues = append(issues, fmt.Sprintf("%s: derived.%s is not a known generated key", path, key))

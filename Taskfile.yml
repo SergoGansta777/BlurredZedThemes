@@ -18,17 +18,6 @@ tasks:
       - for p in palettes/*.json; do base=$(basename "$p" .json); if [ "$base" != "alpha" ]; then go run ./scripts/generate --palette "$p"; fi; done
       - go run scripts/format/main.go generated/themes/*.json
 
-  sync:
-    desc: Sync a palette against its reference theme (THEME=<name>).
-    cmds:
-      - test -n "{{.THEME}}"
-      - scripts/sync.sh "{{.THEME}}"
-
-  sync-all:
-    desc: Sync all palettes against their reference themes.
-    cmds:
-      - for p in palettes/*.json; do base=$(basename "$p" .json); if [ "$base" != "alpha" ] && [ -f "themes/$base.json" ]; then scripts/sync.sh "$base"; fi; done
-
   extract:
     desc: Extract a palette from a reference theme (THEME=<name>).
     cmds:
@@ -62,6 +51,6 @@ tasks:
       - git diff --check
 
   audit:
-    desc: Report palette cleanup debt (overrides, style extras, syntax/player coverage).
+    desc: Report palette cleanup debt (derived values, style extras, syntax/player coverage).
     cmds:
       - go run ./scripts/audit
