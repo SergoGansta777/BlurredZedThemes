@@ -333,6 +333,11 @@
         "font_style": null,
         "font_weight": null
       },
+      "variable.parameter": {
+        "color": "#dfbfffff",
+        "font_style": null,
+        "font_weight": null
+      },
       "variant": {
         "color": "#72cffeff",
         "font_style": null,

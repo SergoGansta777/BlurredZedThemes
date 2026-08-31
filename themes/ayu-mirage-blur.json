@@ -622,7 +622,9 @@
             "font_weight": null
           },
           "variable.parameter": {
-            "color": "#CBCCC6"
+            "color": "#dfbfffff",
+            "font_style": null,
+            "font_weight": null
           },
           "variable.special": {
             "color": "#cccac2ff",
