@@ -44,6 +44,12 @@
   "derived": {
     "editor.active_line_number": "#767a8a",
     "editor.background": "#ffffff",
+    "editor.diff_hunk.added.background": "#e5f5e5ff",
+    "editor.diff_hunk.added.hollow_background": "#e5f5e5aa",
+    "editor.diff_hunk.added.hollow_border": "#bee6beff",
+    "editor.diff_hunk.deleted.background": "#ffeeebff",
+    "editor.diff_hunk.deleted.hollow_background": "#ffeeebff",
+    "editor.diff_hunk.deleted.hollow_border": "#ffd5ccff",
     "editor.document_highlight.read_background": "#edebfc",
     "editor.document_highlight.write_background": "#fce8f4",
     "editor.gutter.background": "#ffffff",
@@ -52,8 +58,8 @@
     "editor.line_number": "#aeb3c2",
     "element.background": "#e3e3e5",
     "link_text.hover": "#006dcc",
-    "search.active_match_background": "#ccccff",
-    "search.match_background": "#fcd47e"
+    "search.active_match_background": "#168aff66",
+    "search.match_background": "#ffbe349f"
   },
   "accents": [
     "#3573f0",

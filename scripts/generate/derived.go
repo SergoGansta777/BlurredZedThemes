@@ -108,10 +108,11 @@ func applyDerivedDiffHunks(style map[string]any, p Palette, alpha AlphaConfig) {
 
 		strong := alphaHexOrDefault(p.Meta.Appearance, alpha, strongAlphaKey, "59")
 		hollow := themeutil.WithAlpha(base, alphaHexOrDefault(p.Meta.Appearance, alpha, "semantic_bg", "26"))
+		key := func(suffix string) string { return "editor.diff_hunk." + kind + "." + suffix }
 
-		s.SetRole("editor.diff_hunk."+kind+".background", themeutil.WithAlpha(base, strong))
-		s.SetRole("editor.diff_hunk."+kind+".hollow_background", hollow)
-		s.SetRole("editor.diff_hunk."+kind+".hollow_border", hollow)
+		s.SetRole(key("background"), firstNonEmpty(derivedColor(p, key("background")), themeutil.WithAlpha(base, strong)))
+		s.SetRole(key("hollow_background"), firstNonEmpty(derivedColor(p, key("hollow_background")), hollow))
+		s.SetRole(key("hollow_border"), firstNonEmpty(derivedColor(p, key("hollow_border")), hollow))
 	}
 
 	setDiffHunk("added", "created", "word_added")
