@@ -597,8 +597,8 @@
         "scrollbar.track.background": "#1E25281A",
         "scrollbar.track.border": "#F8F9E812",
 
-        "search.active_match_background": "#F5D09866",
-        "search.match_background": "#CBE3B34D",
+        "search.active_match_background": "#AFD9E6",
+        "search.match_background": "#374145",
 
         "status_bar.background": "#1E2528",
         "status_bar.foreground": "#F8F9E8",

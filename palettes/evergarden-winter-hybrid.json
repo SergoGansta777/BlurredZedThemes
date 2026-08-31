@@ -64,6 +64,10 @@
     "unreachable": "#F57F82",
     "warning": "#F5D098"
   },
+  "derived": {
+    "search.active_match_background": "#AFD9E6",
+    "search.match_background": "#374145"
+  },
   "style": {
     "syntax": {
       "attribute": {
