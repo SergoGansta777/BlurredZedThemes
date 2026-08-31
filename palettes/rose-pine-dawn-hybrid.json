@@ -41,6 +41,9 @@
     "warning": "#ea9d34"
   },
   "derived": {
+    "border.selected": "#56949f33",
+    "element_active": "#56949f",
+    "element_selected": "#56949f",
     "scrollbar.thumb.background": "#9893a5",
     "scrollbar.thumb.border": "#9893a5",
     "scrollbar.thumb.hover_background": "#797593",
@@ -244,9 +247,9 @@
   },
   "alpha": {
     "light": {
-      "element_active": "FE",
+      "element_active": "1A",
       "element_hover": "F2",
-      "element_selected": "F8",
+      "element_selected": "2E",
       "ghost_active": "FE",
       "ghost_hover": "F2",
       "ghost_selected": "F8",

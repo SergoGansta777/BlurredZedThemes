@@ -426,7 +426,7 @@
 
         "border.disabled": "#6E6A8666",
         "border.focused": "#56949F55",
-        "border.selected": "#907AA955",
+        "border.selected": "#56949f33",
         "border.transparent": "#00000000",
         "border.variant": "#56949F99",
 
@@ -468,11 +468,11 @@
         "editor.subheader.background": "#FFFAF3F2",
         "editor.wrap_guide": "#6E6A8633",
 
-        "element.active": "#CECACDFE",
+        "element.active": "#56949F1A",
         "element.background": "#fffaf3",
         "element.disabled": "#FFFAF366",
         "element.hover": "#F4EDE8F2",
-        "element.selected": "#CECACDF8",
+        "element.selected": "#56949F2E",
 
         "elevated_surface.background": "#FFFAF3",
 
