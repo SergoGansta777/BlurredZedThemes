@@ -59,6 +59,7 @@ Grouped by theme family. Previews are added as they become available.
 | Rosé Pine Dawn | <img width="320" alt="Rosé Pine Dawn (Hybrid)" src="https://github.com/user-attachments/assets/1113c3bd-892e-48bf-8200-1ed5105dfbf7" />                                                             | https://github.com/rose-pine/zed                              |
 | Vesper         | TODO                                                                                                                                                                                                | https://github.com/raunofreiberg/vesper                       |
 | Token          | Dark: TODO | https://github.com/ThorstenRhau/token |
+| Rusty          | Dark: local draft, licensing unresolved | https://github.com/armannikoyan/rusty |
 
 ## Customization
 
@@ -82,6 +83,36 @@ go run scripts/format/main.go themes/token-dark.json
 ```
 
 For future upstream reviews, compare the pinned revision's `lua/token/palette.lua`, `groups/treesitter.lua`, `groups/syntax.lua`, `typography.lua`, `terminal.lua`, and `lualine.lua`. Preserve the Zed adaptations above rather than replacing the generated theme wholesale. Retain `licenses/token.txt` when redistributing Token-derived data.
+
+### Rusty (Local Draft)
+
+Adapted from [Rusty at f310310](https://github.com/armannikoyan/rusty/tree/f310310991ecd50ca10745f8960cb5b8bd2ef208), checked September 10, 2026. `drafts/rusty/palette.json` generates the single opaque **Rusty** theme in `drafts/rusty/themes/rusty.json`. Published collection counts above exclude this draft. Keeping both files outside `palettes/` and `themes/` excludes them from normal generation, publishing, extension discovery, and wildcard installation.
+
+The port follows the source palette, not the README's optional transparency example. It preserves the charcoal background, cool-gray selection, italic comments, purple statements, orange types/constants, green strings, aqua Tree-sitter/LSP functions, and neutral LSP variables/enum members. Where legacy and LSP mappings differ, the port favors the explicit modern mappings.
+
+Intentional Zed adaptations:
+
+- Selected tabs and menus use the original selection color rather than Neovim's reversed foreground/background.
+- The current-line color uses upstream's `#282a2e`, but visibility follows Zed's `current_line_highlight` setting. Set it to `none` to match Rusty's default, or `line` to enable it.
+- Zed diagnostic warnings use the original yellow, while errors retain the original red. Upstream's red `WarningMsg` is a Vim message mapping, not an explicit LSP diagnostic palette.
+- Search highlights use dark yellow-tinted backgrounds instead of bright yellow with inverted text.
+- Diff hunks use a darker neutral background than upstream's `#494e56`; word additions/deletions use restrained green/red backgrounds because Zed retains syntax foregrounds.
+- Vim mode indicators retain upstream Lualine's blue, green, purple, and red hues.
+- Terminal ANSI colors are mapped from the named palette hues. Upstream claims terminal support but defines no ANSI assignments at this revision. Bright colors retain the original hues (bright black uses the comment color); dim colors are explicitly subdued.
+- Zed-only UI and syntax groups use the existing generator, with explicit overrides where its defaults differ from Rusty. No upstream Lua code is copied.
+
+The original red is retained despite measuring approximately 4.46:1 against the editor background, with lower contrast on selections and highlights. This is a fidelity-first port, not a claim of universal accessibility compliance.
+
+```bash
+go run ./scripts/generate --palette drafts/rusty/palette.json --wip=false --out drafts/rusty/themes/rusty.json
+go run scripts/format/main.go drafts/rusty/palette.json drafts/rusty/themes/rusty.json
+go run ./scripts/validate --palettes-dir drafts/rusty --themes-dir drafts/rusty/themes
+go run ./scripts/generate --palette drafts/rusty/palette.json --compare drafts/rusty/themes/rusty.json
+```
+
+For local preview, copy `drafts/rusty/themes/rusty.json` into `~/.config/zed/themes/` and select **Rusty**. Review `lua/rusty/colors.lua`, `lua/rusty/init.lua`, and `lua/rusty/plugins/lualine.lua` at the pinned revision when updating. Draft checks above are separate from `task check`, which covers the published collection.
+
+**Publication hold:** no license file or license grant was found in the upstream source or README. This draft is not represented as Apache-licensed. It may be kept in local history, but upstream licensing remains unresolved; do not push or redistribute this draft until clarified. Moving it outside the extension directories does not exclude it from a Git push. Attribution alone is not a license grant.
 
 ### Shared Settings
 
@@ -161,3 +192,5 @@ These settings match the screenshots and keep the layout clean. Themes are desig
 Licensed under the Apache License, Version 2.0. See `LICENSE`.
 
 Token-derived palette and theme data retain Thorsten Rhau's [BSD 3-Clause license](licenses/token.txt).
+
+The local Rusty draft is excluded from the Apache license statement; upstream licensing remains unresolved (see above).
