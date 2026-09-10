@@ -8,8 +8,8 @@
 </p>
 
 <p align="center">
-  <img alt="Theme families" src="https://img.shields.io/badge/families-24-4C9AFF?style=flat-square" />
-  <img alt="Published variants" src="https://img.shields.io/badge/variants-72-0A84FF?style=flat-square" />
+  <img alt="Theme families" src="https://img.shields.io/badge/families-25-4C9AFF?style=flat-square" />
+  <img alt="Published variants" src="https://img.shields.io/badge/variants-73-0A84FF?style=flat-square" />
   <img alt="Last commit" src="https://img.shields.io/github/last-commit/SergoGansta777/BlurredZedThemes?style=flat-square" />
   <img alt="Status" src="https://img.shields.io/badge/status-maintained-30D158?style=flat-square" />
 </p>
@@ -22,7 +22,7 @@ These themes are built around Zed’s blurred UI, with optional flat variants fo
 - Balanced alpha values for panels, overlays, tabs, and status bars.
 - Flat variants with one consistent opaque surface background across editor, panels, tabs, and toolbars.
 - Consistent syntax mapping across all themes and variants.
-- Three variants per theme: Blur, Hybrid, and Flat.
+- Three variants per theme: Blur, Hybrid, and Flat, except Token Dark (opaque only).
 
 ## Install
 
@@ -58,8 +58,32 @@ Grouped by theme family. Previews are added as they become available.
 | Oldworld       | TODO                                                                                                                                                                                                | https://github.com/dgox16/oldworld.nvim                       |
 | Rosé Pine Dawn | <img width="320" alt="Rosé Pine Dawn (Hybrid)" src="https://github.com/user-attachments/assets/1113c3bd-892e-48bf-8200-1ed5105dfbf7" />                                                             | https://github.com/rose-pine/zed                              |
 | Vesper         | TODO                                                                                                                                                                                                | https://github.com/raunofreiberg/vesper                       |
+| Token          | Dark: TODO | https://github.com/ThorstenRhau/token |
 
 ## Customization
+
+### Token Dark
+
+Adapted from [classic Token](https://github.com/ThorstenRhau/token/tree/86e66d9ab7c74d53e7ac56a02b7f8bee56196cda), checked September 10, 2026. Only the original dark palette is included, not Ultra, Meridian, Flint, Temper, or light variants.
+
+`palettes/token-dark.json` generates `themes/token-dark.json`, selectable as **Token Dark**. It preserves the core upstream syntax colors and typography, the 16 ANSI colors, neutral selection, and diagnostic/line-diff backgrounds. Intentional Zed adaptations:
+
+- Uniform opaque editor/chrome surfaces and selected tabs matching the neutral selection.
+- Darker, opaque search and word-diff highlights to keep syntax readable without Neovim's foreground inversion.
+- Distinct upstream Vim mode hues: neutral normal, green insert, peach visual, and red replace.
+- Explicit dim ANSI colors, with colored entries blended 20% toward the editor background and black darkened separately.
+- Shared generator defaults for Zed-only captures and UI groups, with palette-local corrections for semantic comments and macros.
+
+To install only Token Dark, copy `themes/token-dark.json` into `~/.config/zed/themes/` and select **Token Dark**. To regenerate it without publishing the rest of the collection:
+
+```bash
+go run ./scripts/generate --palette palettes/token-dark.json --wip=false --out themes/token-dark.json
+go run scripts/format/main.go themes/token-dark.json
+```
+
+For future upstream reviews, compare the pinned revision's `lua/token/palette.lua`, `groups/treesitter.lua`, `groups/syntax.lua`, `typography.lua`, `terminal.lua`, and `lualine.lua`. Preserve the Zed adaptations above rather than replacing the generated theme wholesale. Retain `licenses/token.txt` when redistributing Token-derived data.
+
+### Shared Settings
 
 - Global alpha presets live in `palettes/alpha.json`.
 - Per-theme values live in `palettes/<theme>.json`.
@@ -135,3 +159,5 @@ These settings match the screenshots and keep the layout clean. Themes are desig
 ## License
 
 Licensed under the Apache License, Version 2.0. See `LICENSE`.
+
+Token-derived palette and theme data retain Thorsten Rhau's [BSD 3-Clause license](licenses/token.txt).
