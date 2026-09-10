@@ -112,6 +112,13 @@ go run ./scripts/generate --palette drafts/rusty/palette.json --compare drafts/r
 
 For local preview, copy `drafts/rusty/themes/rusty.json` into `~/.config/zed/themes/` and select **Rusty**. Review `lua/rusty/colors.lua`, `lua/rusty/init.lua`, and `lua/rusty/plugins/lualine.lua` at the pinned revision when updating. Draft checks above are separate from `task check`, which covers the published collection.
 
+```bash
+mkdir -p ~/.config/zed/themes
+cp drafts/rusty/themes/rusty.json ~/.config/zed/themes/
+```
+
+Validation at import: draft validation and regeneration comparison pass, as does `task check` for the published collection. Comments measure approximately 4.61:1 against the active-search background; primary text measures 9.80:1 against the editor and 6.68:1 against selection. These are calculated color contrasts, not a substitute for visual review. In-editor review is still pending: inspect completion menus, active tabs, search, diffs, diagnostics, terminal output, and current-line highlighting before treating the port as visually verified.
+
 **Publication hold:** no license file or license grant was found in the upstream source or README. This draft is not represented as Apache-licensed. It may be kept in local history, but upstream licensing remains unresolved; do not push or redistribute this draft until clarified. Moving it outside the extension directories does not exclude it from a Git push. Attribution alone is not a license grant.
 
 ### Shared Settings
