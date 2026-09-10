@@ -679,22 +679,22 @@
         "editor.subheader.background": "#26282BD0",
         "editor.wrap_guide": "#393b40",
 
-        "element.active": "#494a4d",
+        "element.active": "#2c3d56",
         "element.background": "#393b41",
         "element.disabled": "#2b2d30",
-        "element.hover": "#3C3E41",
-        "element.selected": "#43454A",
+        "element.hover": "#292d33",
+        "element.selected": "#26344a",
 
         "elevated_surface.background": "#26282B",
 
         "error.background": "#191a1c",
         "error.border": "#fa6675",
 
-        "ghost_element.active": "#494A4D66",
+        "ghost_element.active": "#2c3d56",
         "ghost_element.background": "#26282b",
         "ghost_element.disabled": "#26282B40",
-        "ghost_element.hover": "#3C3E4166",
-        "ghost_element.selected": "#494A4D80",
+        "ghost_element.hover": "#292d33",
+        "ghost_element.selected": "#26344a",
 
         "hidden.background": "#191a1c",
         "hidden.border": "#6f737a",
@@ -758,7 +758,7 @@
 
         "surface.background": "#26282BCC",
 
-        "tab.active_background": "#43454A",
+        "tab.active_background": "#26344A",
         "tab.active_foreground": "#dfe1e5",
         "tab.inactive_background": "#191a1c",
         "tab.inactive_foreground": "#b0b1b3",
