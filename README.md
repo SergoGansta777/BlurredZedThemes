@@ -59,69 +59,9 @@ Grouped by theme family. Previews are added as they become available.
 | Rosé Pine Dawn | <img width="320" alt="Rosé Pine Dawn (Hybrid)" src="https://github.com/user-attachments/assets/1113c3bd-892e-48bf-8200-1ed5105dfbf7" />                                                             | https://github.com/rose-pine/zed                              |
 | Vesper         | TODO                                                                                                                                                                                                | https://github.com/raunofreiberg/vesper                       |
 | Token          | Dark: TODO | https://github.com/ThorstenRhau/token |
-| Rusty          | Hybrid / Blur / Flat: licensing unresolved | https://github.com/armannikoyan/rusty |
+| Rusty          | TODO | https://github.com/armannikoyan/rusty |
 
 ## Customization
-
-### Token Dark
-
-Adapted from [classic Token](https://github.com/ThorstenRhau/token/tree/86e66d9ab7c74d53e7ac56a02b7f8bee56196cda), checked September 10, 2026. Only the original dark palette is included, not Ultra, Meridian, Flint, Temper, or light variants.
-
-`palettes/token-dark-hybrid.json` generates **Token Dark (Hybrid)**, **Token Dark (Blur)**, and **Token Dark (Flat)** using the shared opacity presets. These are three appearances of the same classic dark palette, not alternate upstream palettes. It preserves the core upstream syntax colors and typography, the 16 ANSI colors, neutral selection, and diagnostic/line-diff backgrounds. Intentional Zed adaptations:
-
-- Hybrid keeps an opaque editor with translucent chrome; Blur also makes the editor/gutter transparent; Flat uses uniform opaque editor/chrome surfaces. The darker popup surfaces and neutral selection are retained.
-- Darker, opaque search and word-diff highlights to keep syntax readable without Neovim's foreground inversion.
-- Distinct upstream Vim mode hues: neutral normal, green insert, peach visual, and red replace.
-- Explicit dim ANSI colors, with colored entries blended 20% toward the editor background and black darkened separately.
-- Shared generator defaults for Zed-only captures and UI groups, with palette-local corrections for semantic comments and macros.
-
-To install only Token Dark, copy `themes/token-dark-*.json` into `~/.config/zed/themes/` and select one of its three variants. The previous **Token Dark** entry is replaced; choose **Token Dark (Flat)** for the closest match to its former appearance. Blur readability depends on what is behind the window. To regenerate without publishing the rest of the collection:
-
-```bash
-go run ./scripts/generate --palette palettes/token-dark-hybrid.json --wip=false --out themes/token-dark-hybrid.json
-go run scripts/format/main.go themes/token-dark-*.json
-```
-
-For future upstream reviews, compare the pinned revision's `lua/token/palette.lua`, `groups/treesitter.lua`, `groups/syntax.lua`, `typography.lua`, `terminal.lua`, and `lualine.lua`. Preserve the Zed adaptations above rather than replacing the generated theme wholesale. Retain `licenses/token.txt` when redistributing Token-derived data.
-
-### Rusty
-
-Adapted from [Rusty at f310310](https://github.com/armannikoyan/rusty/tree/f310310991ecd50ca10745f8960cb5b8bd2ef208), checked September 10, 2026. `palettes/rusty-hybrid.json` generates **Rusty (Hybrid)**, **Rusty (Blur)**, and **Rusty (Flat)** using the same shared workflow as the other theme families. Hybrid keeps the editor opaque with translucent chrome; Blur also makes the editor/gutter transparent; Flat uses uniform opaque chrome and editor backgrounds. Syntax and selection colors are shared across all three. The counts above include Rusty. It participates in normal generation, validation, extension discovery, and wildcard installation; upstream licensing remains unresolved.
-
-The port follows the source palette, not the README's optional transparency example. It preserves the charcoal background, cool-gray selection, italic comments, purple statements, orange types/constants, green strings, aqua Tree-sitter/LSP functions, and neutral LSP variables/enum members. Where legacy and LSP mappings differ, the port favors the explicit modern mappings.
-
-Intentional Zed adaptations:
-
-- Selected tabs and menus use the original selection color rather than Neovim's reversed foreground/background.
-- The current-line color uses upstream's `#282a2e`, but visibility follows Zed's `current_line_highlight` setting. Set it to `none` to match Rusty's default, or `line` to enable it.
-- Zed diagnostic warnings use the original yellow, while errors retain the original red. Upstream's red `WarningMsg` is a Vim message mapping, not an explicit LSP diagnostic palette.
-- Search highlights use dark yellow-tinted backgrounds instead of bright yellow with inverted text.
-- Diff hunks use a darker neutral background than upstream's `#494e56`; word additions/deletions use restrained green/red backgrounds because Zed retains syntax foregrounds.
-- Vim mode indicators retain upstream Lualine's blue, green, purple, and red hues.
-- Terminal ANSI colors are mapped from the named palette hues. Upstream claims terminal support but defines no ANSI assignments at this revision. Bright colors retain the original hues (bright black uses the comment color); dim colors are explicitly subdued.
-- Zed-only UI and syntax groups use the existing generator, with explicit overrides where its defaults differ from Rusty. No upstream Lua code is copied.
-
-The original red is retained despite measuring approximately 4.46:1 against the editor background, with lower contrast on selections and highlights. This is a fidelity-first port, not a claim of universal accessibility compliance.
-
-```bash
-go run ./scripts/generate --palette palettes/rusty-hybrid.json --wip=false --out themes/rusty-hybrid.json
-go run scripts/format/main.go palettes/rusty-hybrid.json themes/rusty-*.json
-go run ./scripts/validate
-go run ./scripts/generate --palette palettes/rusty-hybrid.json --compare themes/rusty-hybrid.json
-```
-
-For local preview, copy `themes/rusty-*.json` into `~/.config/zed/themes/` and select **Rusty (Hybrid)**, **Rusty (Blur)**, or **Rusty (Flat)**. The previous **Rusty** entry is replaced by these three names; select **Rusty (Flat)** for the closest match to the former opaque version. Review `lua/rusty/colors.lua`, `lua/rusty/init.lua`, and `lua/rusty/plugins/lualine.lua` at the pinned revision when updating. `task check` now includes Rusty alongside the rest of the collection.
-
-```bash
-mkdir -p ~/.config/zed/themes
-cp themes/rusty-*.json ~/.config/zed/themes/
-```
-
-Validation: theme validation, regeneration comparison, and `task check` pass. Comments measure approximately 4.61:1 against the active-search background; primary text measures 9.80:1 against the editor and 6.68:1 against selection. These are calculated contrasts on the opaque editor background, not a substitute for visual review; Blur contrast depends on the content behind the window. In-editor review is still pending: inspect completion menus, active tabs, search, diffs, diagnostics, terminal output, and current-line highlighting before treating the port as visually verified.
-
-**Publication hold:** no license file or license grant was found in the upstream source or README; GitHub's license endpoint still returned 404 on September 11, 2026. Rusty is not represented as Apache-licensed. Local integration is complete, but clarify upstream licensing before pushing or redistributing this collection with Rusty included. Attribution alone is not a license grant.
-
-### Shared Settings
 
 - Global alpha presets live in `palettes/alpha.json`.
 - Per-theme values live in `palettes/<theme>.json`.
@@ -200,4 +140,4 @@ Licensed under the Apache License, Version 2.0. See `LICENSE`.
 
 Token-derived palette and theme data retain Thorsten Rhau's [BSD 3-Clause license](licenses/token.txt).
 
-Rusty-derived theme data is excluded from the Apache license statement; upstream licensing remains unresolved (see above).
+Rusty-derived theme data is excluded from the Apache license statement; upstream licensing remains unresolved.
