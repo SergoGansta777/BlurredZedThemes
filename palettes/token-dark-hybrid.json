@@ -10,14 +10,13 @@
   "alpha": {
     "dark": {
       "active_line": "FF",
-      "overlay": "FF",
-      "subheader": "FF",
-      "surface": "FF",
       "word_added": "FF",
       "word_deleted": "FF"
     }
   },
   "derived": {
+    "overlay": "#1d1d1c",
+    "surface": "#1d1d1c",
     "vim_insert": "#8fb78c",
     "vim_normal": "#a19c94",
     "vim_visual": "#f7c699",
@@ -65,23 +64,20 @@
 
     "panel.indent_guide": "#323230",
     "panel.indent_guide_active": "#626260",
-    "panel.overlay_background": "#1d1d1c",
 
     "search.active_match_background": "#3d3029",
     "search.match_background": "#363027",
 
     "success.background": "#1e3524",
 
-    "surface.background": "#1d1d1c",
-
     "warning.background": "#444039"
   },
   "meta": {
     "appearance": "dark",
     "author": "Thorsten Rhau (Zed adaptation by SergoGansta777)",
-    "background_appearance": "opaque",
+    "background_appearance": "blurred",
     "name": "Token Dark",
-    "theme_name": "Token Dark"
+    "theme_name": "Token Dark (Hybrid)"
   },
   "roles": {
     "base": "#191918",

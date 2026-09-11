@@ -10,9 +10,6 @@
   ],
   "alpha": {
     "dark": {
-      "overlay": "FF",
-      "subheader": "FF",
-      "surface": "FF",
       "word_added": "FF",
       "word_deleted": "FF"
     }
@@ -59,16 +56,14 @@
     "search.active_match_background": "#352e24",
     "search.match_background": "#302b23",
 
-    "status_bar.foreground": "#f0c674",
-
-    "surface.background": "#373b41"
+    "status_bar.foreground": "#f0c674"
   },
   "meta": {
     "appearance": "dark",
     "author": "Arman Nikoyan (Zed adaptation by SergoGansta777)",
-    "background_appearance": "opaque",
+    "background_appearance": "blurred",
     "name": "Rusty",
-    "theme_name": "Rusty"
+    "theme_name": "Rusty (Hybrid)"
   },
   "roles": {
     "base": "#1d1f21",

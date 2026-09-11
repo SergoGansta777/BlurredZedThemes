@@ -1,11 +1,11 @@
 {
   "$schema": "https://zed.dev/schema/themes/v0.2.0.json",
   "author": "Thorsten Rhau (Zed adaptation by SergoGansta777)",
-  "name": "Token Dark",
+  "name": "Token Dark Blur",
   "themes": [
     {
       "appearance": "dark",
-      "name": "Token Dark",
+      "name": "Token Dark (Blur)",
       "style": {
         "accents": [
           "#f4906f",
@@ -15,7 +15,7 @@
           "#f7c699",
           "#7dbbba"
         ],
-        "background": "#262624",
+        "background": "#262624E0",
         "border": "#00000000",
         "conflict": "#b99d4a",
         "created": "#8fb78c",
@@ -440,7 +440,7 @@
         "unreachable": "#a19c94",
         "warning": "#b99d4a",
 
-        "background.appearance": "opaque",
+        "background.appearance": "blurred",
 
         "border.disabled": "#A19C9466",
         "border.focused": "#F4906F66",
@@ -464,7 +464,7 @@
         "editor.active_line.background": "#2F2F2D",
         "editor.active_line_number": "#a9b76c",
         "editor.active_wrap_guide": "#626260",
-        "editor.background": "#262624",
+        "editor.background": "#00000000",
         "editor.debugger_active_line.background": "#F4906F1A",
         "editor.diff_hunk.added.background": "#1e3524",
         "editor.diff_hunk.added.hollow_background": "#1e3524",
@@ -476,14 +476,14 @@
         "editor.document_highlight.read_background": "#383835",
         "editor.document_highlight.write_background": "#383835",
         "editor.foreground": "#c3c0b8",
-        "editor.gutter.background": "#262624",
+        "editor.gutter.background": "#00000000",
         "editor.highlighted_line.background": "#2F2F2D12",
         "editor.hover_line_number": "#949F66",
         "editor.indent_guide": "#323230",
         "editor.indent_guide_active": "#626260",
         "editor.invisible": "#323230",
         "editor.line_number": "#575755",
-        "editor.subheader.background": "#262624",
+        "editor.subheader.background": "#262624D0",
         "editor.wrap_guide": "#323230",
 
         "element.active": "#383835",
@@ -534,12 +534,12 @@
 
         "pane_group.border": "#A19C9420",
 
-        "panel.background": "#262624",
+        "panel.background": "#00000000",
         "panel.focused_border": "#A19C9430",
         "panel.indent_guide": "#323230",
         "panel.indent_guide_active": "#626260",
         "panel.indent_guide_hover": "#f4906f",
-        "panel.overlay_background": "#1d1d1c",
+        "panel.overlay_background": "#1D1D1CF0",
 
         "predictive.background": "#262624",
         "predictive.border": "#8a8884",
@@ -557,20 +557,20 @@
         "search.active_match_background": "#3d3029",
         "search.match_background": "#363027",
 
-        "status_bar.background": "#262624",
+        "status_bar.background": "#262624E0",
         "status_bar.foreground": "#c3c0b8",
 
         "success.background": "#1e3524",
         "success.border": "#8fb78c",
 
-        "surface.background": "#1d1d1c",
+        "surface.background": "#1D1D1CCC",
 
-        "tab.active_background": "#3A3A37",
+        "tab.active_background": "#262624",
         "tab.active_foreground": "#c3c0b8",
-        "tab.inactive_background": "#262624",
+        "tab.inactive_background": "#00000000",
         "tab.inactive_foreground": "#a19c94",
 
-        "tab_bar.background": "#262624",
+        "tab_bar.background": "#00000000",
 
         "terminal.ansi.background": "#262624",
         "terminal.ansi.black": "#1d1d1c",
@@ -607,11 +607,11 @@
         "text.muted": "#a19c94",
         "text.placeholder": "#a19c94",
 
-        "title_bar.background": "#262624",
+        "title_bar.background": "#262624E0",
         "title_bar.foreground": "#c3c0b8",
-        "title_bar.inactive_background": "#262624",
+        "title_bar.inactive_background": "#262624CC",
 
-        "toolbar.background": "#262624",
+        "toolbar.background": "#00000000",
 
         "unreachable.background": "#262624",
         "unreachable.border": "#a19c94",
