@@ -8,8 +8,8 @@
 </p>
 
 <p align="center">
-  <img alt="Theme families" src="https://img.shields.io/badge/families-25-4C9AFF?style=flat-square" />
-  <img alt="Published variants" src="https://img.shields.io/badge/variants-73-0A84FF?style=flat-square" />
+  <img alt="Theme families" src="https://img.shields.io/badge/families-26-4C9AFF?style=flat-square" />
+  <img alt="Included variants" src="https://img.shields.io/badge/variants-74-0A84FF?style=flat-square" />
   <img alt="Last commit" src="https://img.shields.io/github/last-commit/SergoGansta777/BlurredZedThemes?style=flat-square" />
   <img alt="Status" src="https://img.shields.io/badge/status-maintained-30D158?style=flat-square" />
 </p>
@@ -22,7 +22,7 @@ These themes are built around Zed’s blurred UI, with optional flat variants fo
 - Balanced alpha values for panels, overlays, tabs, and status bars.
 - Flat variants with one consistent opaque surface background across editor, panels, tabs, and toolbars.
 - Consistent syntax mapping across all themes and variants.
-- Three variants per theme: Blur, Hybrid, and Flat, except Token Dark (opaque only).
+- Three variants per theme: Blur, Hybrid, and Flat, except Token Dark and Rusty (opaque only).
 
 ## Install
 
@@ -59,7 +59,7 @@ Grouped by theme family. Previews are added as they become available.
 | Rosé Pine Dawn | <img width="320" alt="Rosé Pine Dawn (Hybrid)" src="https://github.com/user-attachments/assets/1113c3bd-892e-48bf-8200-1ed5105dfbf7" />                                                             | https://github.com/rose-pine/zed                              |
 | Vesper         | TODO                                                                                                                                                                                                | https://github.com/raunofreiberg/vesper                       |
 | Token          | Dark: TODO | https://github.com/ThorstenRhau/token |
-| Rusty          | Dark: local draft, licensing unresolved | https://github.com/armannikoyan/rusty |
+| Rusty          | Dark: licensing unresolved | https://github.com/armannikoyan/rusty |
 
 ## Customization
 
@@ -84,9 +84,9 @@ go run scripts/format/main.go themes/token-dark.json
 
 For future upstream reviews, compare the pinned revision's `lua/token/palette.lua`, `groups/treesitter.lua`, `groups/syntax.lua`, `typography.lua`, `terminal.lua`, and `lualine.lua`. Preserve the Zed adaptations above rather than replacing the generated theme wholesale. Retain `licenses/token.txt` when redistributing Token-derived data.
 
-### Rusty (Local Draft)
+### Rusty
 
-Adapted from [Rusty at f310310](https://github.com/armannikoyan/rusty/tree/f310310991ecd50ca10745f8960cb5b8bd2ef208), checked September 10, 2026. `drafts/rusty/palette.json` generates the single opaque **Rusty** theme in `drafts/rusty/themes/rusty.json`. Published collection counts above exclude this draft. Keeping both files outside `palettes/` and `themes/` excludes them from normal generation, publishing, extension discovery, and wildcard installation.
+Adapted from [Rusty at f310310](https://github.com/armannikoyan/rusty/tree/f310310991ecd50ca10745f8960cb5b8bd2ef208), checked September 10, 2026. `palettes/rusty.json` generates the single opaque **Rusty** theme in `themes/rusty.json`. The counts above include Rusty. It participates in normal generation, validation, extension discovery, and wildcard installation; upstream licensing remains unresolved.
 
 The port follows the source palette, not the README's optional transparency example. It preserves the charcoal background, cool-gray selection, italic comments, purple statements, orange types/constants, green strings, aqua Tree-sitter/LSP functions, and neutral LSP variables/enum members. Where legacy and LSP mappings differ, the port favors the explicit modern mappings.
 
@@ -104,22 +104,22 @@ Intentional Zed adaptations:
 The original red is retained despite measuring approximately 4.46:1 against the editor background, with lower contrast on selections and highlights. This is a fidelity-first port, not a claim of universal accessibility compliance.
 
 ```bash
-go run ./scripts/generate --palette drafts/rusty/palette.json --wip=false --out drafts/rusty/themes/rusty.json
-go run scripts/format/main.go drafts/rusty/palette.json drafts/rusty/themes/rusty.json
-go run ./scripts/validate --palettes-dir drafts/rusty --themes-dir drafts/rusty/themes
-go run ./scripts/generate --palette drafts/rusty/palette.json --compare drafts/rusty/themes/rusty.json
+go run ./scripts/generate --palette palettes/rusty.json --wip=false --out themes/rusty.json
+go run scripts/format/main.go palettes/rusty.json themes/rusty.json
+go run ./scripts/validate
+go run ./scripts/generate --palette palettes/rusty.json --compare themes/rusty.json
 ```
 
-For local preview, copy `drafts/rusty/themes/rusty.json` into `~/.config/zed/themes/` and select **Rusty**. Review `lua/rusty/colors.lua`, `lua/rusty/init.lua`, and `lua/rusty/plugins/lualine.lua` at the pinned revision when updating. Draft checks above are separate from `task check`, which covers the published collection.
+For local preview, copy `themes/rusty.json` into `~/.config/zed/themes/` and select **Rusty**. Review `lua/rusty/colors.lua`, `lua/rusty/init.lua`, and `lua/rusty/plugins/lualine.lua` at the pinned revision when updating. `task check` now includes Rusty alongside the rest of the collection.
 
 ```bash
 mkdir -p ~/.config/zed/themes
-cp drafts/rusty/themes/rusty.json ~/.config/zed/themes/
+cp themes/rusty.json ~/.config/zed/themes/
 ```
 
-Validation at import: draft validation and regeneration comparison pass, as does `task check` for the published collection. Comments measure approximately 4.61:1 against the active-search background; primary text measures 9.80:1 against the editor and 6.68:1 against selection. These are calculated color contrasts, not a substitute for visual review. In-editor review is still pending: inspect completion menus, active tabs, search, diffs, diagnostics, terminal output, and current-line highlighting before treating the port as visually verified.
+Validation: theme validation, regeneration comparison, and `task check` pass. Comments measure approximately 4.61:1 against the active-search background; primary text measures 9.80:1 against the editor and 6.68:1 against selection. These are calculated color contrasts, not a substitute for visual review. In-editor review is still pending: inspect completion menus, active tabs, search, diffs, diagnostics, terminal output, and current-line highlighting before treating the port as visually verified.
 
-**Publication hold:** no license file or license grant was found in the upstream source or README. This draft is not represented as Apache-licensed. It may be kept in local history, but upstream licensing remains unresolved; do not push or redistribute this draft until clarified. Moving it outside the extension directories does not exclude it from a Git push. Attribution alone is not a license grant.
+**Publication hold:** no license file or license grant was found in the upstream source or README; GitHub's license endpoint still returned 404 on September 11, 2026. Rusty is not represented as Apache-licensed. Local integration is complete, but clarify upstream licensing before pushing or redistributing this collection with Rusty included. Attribution alone is not a license grant.
 
 ### Shared Settings
 
@@ -200,4 +200,4 @@ Licensed under the Apache License, Version 2.0. See `LICENSE`.
 
 Token-derived palette and theme data retain Thorsten Rhau's [BSD 3-Clause license](licenses/token.txt).
 
-The local Rusty draft is excluded from the Apache license statement; upstream licensing remains unresolved (see above).
+Rusty-derived theme data is excluded from the Apache license statement; upstream licensing remains unresolved (see above).
