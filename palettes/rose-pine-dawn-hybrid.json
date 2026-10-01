@@ -42,6 +42,7 @@
   },
   "derived": {
     "border.selected": "#56949f33",
+    "border.variant": "#cecacd",
     "element_active": "#56949f",
     "element_selected": "#56949f",
     "scrollbar.thumb.background": "#9893a5",
@@ -54,12 +55,12 @@
     "text.muted": "#797593"
   },
   "accents": [
-    "#56949f",
-    "#907aa9",
-    "#286983",
-    "#d7827e",
+    "#b4637a",
     "#ea9d34",
-    "#b4637a"
+    "#d7827e",
+    "#286983",
+    "#56949f",
+    "#907aa9"
   ],
   "terminal": {
     "terminal.ansi.background": "#fffaf3",
@@ -135,7 +136,7 @@
         "color": "#797593"
       },
       "constant": {
-        "color": "#ea9d34"
+        "color": "#d7827e"
       },
       "constructor": {
         "color": "#56949f"
@@ -152,7 +153,7 @@
         "font_weight": 700
       },
       "enum": {
-        "color": "#286983"
+        "color": "#56949f"
       },
       "function": {
         "color": "#d7827e"
@@ -172,8 +173,14 @@
       "link_uri": {
         "color": "#286983"
       },
+      "module": {
+        "color": "#56949f"
+      },
+      "namespace": {
+        "color": "#56949f"
+      },
       "number": {
-        "color": "#ea9d34"
+        "color": "#d7827e"
       },
       "operator": {
         "color": "#797593"
@@ -182,13 +189,13 @@
         "color": "#797593"
       },
       "preproc": {
-        "color": "#ea9d34"
+        "color": "#286983"
       },
       "primary": {
         "color": "#907aa9"
       },
       "property": {
-        "color": "#56949f"
+        "color": "#907aa9"
       },
       "punctuation": {
         "color": "#797593"
@@ -210,16 +217,16 @@
         "color": "#ea9d34"
       },
       "string.escape": {
-        "color": "#286983"
+        "color": "#907aa9"
       },
       "string.regex": {
         "color": "#907aa9"
       },
       "string.special": {
-        "color": "#286983"
+        "color": "#907aa9"
       },
       "string.special.symbol": {
-        "color": "#286983"
+        "color": "#ea9d34"
       },
       "tag": {
         "color": "#56949f"
@@ -236,6 +243,12 @@
       },
       "variable": {
         "color": "#575279"
+      },
+      "variable.builtin": {
+        "color": "#b4637a"
+      },
+      "variable.parameter": {
+        "color": "#907aa9"
       },
       "variable.special": {
         "color": "#b4637a"

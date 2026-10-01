@@ -8,12 +8,12 @@
       "name": "Rosé Pine Dawn (Flat)",
       "style": {
         "accents": [
-          "#56949f",
-          "#907aa9",
-          "#286983",
-          "#d7827e",
+          "#b4637a",
           "#ea9d34",
-          "#b4637a"
+          "#d7827e",
+          "#286983",
+          "#56949f",
+          "#907aa9"
         ],
         "background": "#fffaf3",
         "border": "#00000000",
@@ -69,7 +69,7 @@
             "font_style": "italic"
           },
           "constant": {
-            "color": "#ea9d34"
+            "color": "#d7827e"
           },
           "constructor": {
             "color": "#56949f"
@@ -82,10 +82,10 @@
             "font_style": "italic"
           },
           "enum": {
-            "color": "#286983"
+            "color": "#56949f"
           },
           "field": {
-            "color": "#56949f"
+            "color": "#907aa9"
           },
           "function": {
             "color": "#d7827e"
@@ -106,15 +106,13 @@
             "color": "#286983"
           },
           "module": {
-            "color": "#907aa9",
-            "font_style": "italic"
+            "color": "#56949f"
           },
           "namespace": {
-            "color": "#907aa9",
-            "font_style": "italic"
+            "color": "#56949f"
           },
           "number": {
-            "color": "#ea9d34"
+            "color": "#d7827e"
           },
           "operator": {
             "color": "#797593"
@@ -126,13 +124,13 @@
             "color": "#797593"
           },
           "preproc": {
-            "color": "#ea9d34"
+            "color": "#286983"
           },
           "primary": {
             "color": "#907aa9"
           },
           "property": {
-            "color": "#56949f"
+            "color": "#907aa9"
           },
           "punctuation": {
             "color": "#797593"
@@ -199,13 +197,13 @@
           },
 
           "constant.builtin": {
-            "color": "#ea9d34"
+            "color": "#d7827e"
           },
           "constant.character": {
-            "color": "#ea9d34"
+            "color": "#d7827e"
           },
           "constant.macro": {
-            "color": "#ea9d34"
+            "color": "#d7827e"
           },
 
           "diff.delta": {
@@ -301,12 +299,11 @@
           },
 
           "namespace.crateRoot": {
-            "color": "#907aa9",
-            "font_style": "italic"
+            "color": "#56949f"
           },
 
           "number.float": {
-            "color": "#ea9d34"
+            "color": "#d7827e"
           },
 
           "operator.controlFlow": {
@@ -345,7 +342,7 @@
             "color": "#ea9d34"
           },
           "string.escape": {
-            "color": "#286983"
+            "color": "#907aa9"
           },
           "string.regex": {
             "color": "#907aa9"
@@ -354,13 +351,13 @@
             "color": "#907aa9"
           },
           "string.special": {
-            "color": "#286983"
+            "color": "#907aa9"
           },
           "string.special.path": {
-            "color": "#286983"
+            "color": "#907aa9"
           },
           "string.special.symbol": {
-            "color": "#286983"
+            "color": "#ea9d34"
           },
           "string.special.url": {
             "color": "#286983"
@@ -406,13 +403,13 @@
           },
 
           "variable.builtin": {
-            "color": "#575279"
+            "color": "#b4637a"
           },
           "variable.member": {
-            "color": "#56949f"
+            "color": "#907aa9"
           },
           "variable.parameter": {
-            "color": "#575279"
+            "color": "#907aa9"
           },
           "variable.special": {
             "color": "#b4637a"
@@ -428,7 +425,7 @@
         "border.focused": "#56949F55",
         "border.selected": "#56949f33",
         "border.transparent": "#00000000",
-        "border.variant": "#56949F99",
+        "border.variant": "#cecacd",
 
         "conflict.background": "#EA9D3426",
         "conflict.border": "#ea9d34",
